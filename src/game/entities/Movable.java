@@ -2,8 +2,6 @@ package game.entities;
 
 public abstract class Movable extends Solid {
 
-
-
 	protected int[] coordonneePrev;
 	protected double[] vitesse, vitessePrev;
 
