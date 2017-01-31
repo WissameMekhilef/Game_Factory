@@ -12,7 +12,7 @@ public class Player extends Movable {
 	}
 
 	public void update() {
-
+		//test
 		Physics.gravite(this);
 		Physics.freinage(this);
 
