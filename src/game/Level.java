@@ -1,5 +1,6 @@
 package game;
 
+import game.engine.Physics;
 import game.entities.Character;
 import game.entities.Obstacle;
 import game.entities.Player;
@@ -50,19 +51,20 @@ public class Level {
 
 	public void update() {
 		//for(Obstacle obstacle : plateau)
-		//	Physics.collision(player, obstacle);
+		//	Physics.isStuck(player, obstacle);
+		Physics.isStuck(player, plateau.get(1));
 		player.update();
 		for(Obstacle obstacle : plateau)
 			obstacle.update();
 	}
 
 	public void render() {
-		/*for(Tile tile : background)
+		for(Tile tile : background)
 			tile.render();
 		for(Obstacle obstacle : plateau) {
 			obstacle.render();
 		}
-		player.render();*/
+		player.render();
 	}
 
 }
