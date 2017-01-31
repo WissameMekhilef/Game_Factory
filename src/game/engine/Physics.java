@@ -98,16 +98,30 @@ public class Physics {
 	}
 
 	public static void isStuck(Player p, Solid s) {
-		if((isAbove(p, s) < 0) && (p.getVitessePrev()[1] != 0))
-			if((isBelow(p, s) <= 0) && (isOnTheLeft(p, s) <= 0) && (isOnTheRight(p, s) <= 0)) {
+		if((isAbove(p, s) < 0) && (p.getVitesse()[1] > 0))
+			if((isBelow(p, s) < 0) && (isOnTheLeft(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
+				p.getVitesse()[1] = 0;
 				p.getVitessePrev()[1] = 0;
-				p.getCoordonnee()[1] = p.getSize() + s.getCoordonnee()[1];
+				p.getCoordonneePrev()[1] = p.getSize() + s.getCoordonnee()[1];
 			}
-		/*if((isBelow(p, s) < 0) && (p.getVitessePrev()[1] != 0))
-			if((isAbove(p, s) <= 0) && (isOnTheLeft(p, s) <= 0) && (isOnTheRight(p, s) <= 0)) {
+		if((isBelow(p, s) < 0) && (p.getVitesse()[1] < 0))
+			if((isAbove(p, s) < 0) && (isOnTheLeft(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
+				p.getVitesse()[1] = 0;
 				p.getVitessePrev()[1] = 0;
-				p.getCoordonnee()[1] = s.getCoordonnee()[1] - s.getSize();
-			}*/
+				p.getCoordonneePrev()[1] = s.getCoordonnee()[1] - s.getSize();
+			}
+		if((isOnTheLeft(p, s) < 0) && (p.getVitesse()[0] > 0))
+			if((isAbove(p, s) < 0) && (isBelow(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
+				p.getVitesse()[0] = 0;
+				p.getVitessePrev()[0] = 0;
+				p.getCoordonneePrev()[0] = s.getCoordonnee()[0] - p.getSize();
+			}
+		if((isOnTheRight(p, s) < 0) && (p.getVitesse()[0] < 0))
+			if((isAbove(p, s) < 0) && (isBelow(p, s) < 0) && (isOnTheLeft(p, s) < 0)) {
+				p.getVitesse()[0] = 0;
+				p.getVitessePrev()[0] = 0;
+				p.getCoordonneePrev()[0] = s.getCoordonnee()[0] + s.getSize();
+			}
 	}
 
 }
