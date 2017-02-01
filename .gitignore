@@ -100,3 +100,6 @@ fabric.properties
 
 
 /lib/
+
+
+.DS*
