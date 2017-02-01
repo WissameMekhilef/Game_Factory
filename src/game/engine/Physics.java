@@ -3,6 +3,8 @@ package game.engine;
 import game.Component;
 import game.Game;
 import game.entities.Movable;
+import game.entities.Player;
+import game.entities.Solid;
 
 /**
  * Created by wissamemekhilef on 27/01/2017.
@@ -78,4 +80,48 @@ public class Physics {
 
 
     }*/
+
+    public static int isAbove(Player p, Solid s) {
+		return p.getCoordonnee()[1] - p.getSize() - s.getCoordonnee()[1];
+	}
+
+	public static int isBelow(Player p, Solid s) {
+		return s.getCoordonnee()[1] - s.getSize() - p.getCoordonnee()[1];
+	}
+
+	public static int isOnTheLeft(Player p, Solid s) {
+		return s.getCoordonnee()[0] - p.getCoordonnee()[0] - p.getSize();
+	}
+
+	public static int isOnTheRight(Player p, Solid s) {
+		return p.getCoordonnee()[0] - s.getCoordonnee()[0] - s.getSize();
+	}
+
+	public static void isStuck(Player p, Solid s) {
+		if((isAbove(p, s) < 0) && (p.getVitesse()[1] > 0))
+			if((isBelow(p, s) < 0) && (isOnTheLeft(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
+				p.getVitesse()[1] = 0;
+				p.getVitessePrev()[1] = 0;
+				p.getCoordonneePrev()[1] = p.getSize() + s.getCoordonnee()[1];
+			}
+		if((isBelow(p, s) < 0) && (p.getVitesse()[1] < 0))
+			if((isAbove(p, s) < 0) && (isOnTheLeft(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
+				p.getVitesse()[1] = 0;
+				p.getVitessePrev()[1] = 0;
+				p.getCoordonneePrev()[1] = s.getCoordonnee()[1] - s.getSize();
+			}
+		if((isOnTheLeft(p, s) < 0) && (p.getVitesse()[0] > 0))
+			if((isAbove(p, s) < 0) && (isBelow(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
+				p.getVitesse()[0] = 0;
+				p.getVitessePrev()[0] = 0;
+				p.getCoordonneePrev()[0] = s.getCoordonnee()[0] - p.getSize();
+			}
+		if((isOnTheRight(p, s) < 0) && (p.getVitesse()[0] < 0))
+			if((isAbove(p, s) < 0) && (isBelow(p, s) < 0) && (isOnTheLeft(p, s) < 0)) {
+				p.getVitesse()[0] = 0;
+				p.getVitessePrev()[0] = 0;
+				p.getCoordonneePrev()[0] = s.getCoordonnee()[0] + s.getSize();
+			}
+	}
+
 }

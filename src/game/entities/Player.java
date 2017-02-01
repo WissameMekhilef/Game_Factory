@@ -10,10 +10,9 @@ public class Player extends Movable {
 	public Player(int size, int v0, int v1, int x0, int y0) {
 		super(size, v0, v1, x0, y0);
 	}
-	//wissame test
+
 	public void update() {
-		//test
-		//test
+
 		Physics.gravite(this);
 		Physics.freinage(this);
 
