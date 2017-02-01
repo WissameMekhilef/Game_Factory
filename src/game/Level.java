@@ -42,7 +42,7 @@ public class Level {
 
 		//Genere les obstacles (plateau de jeu)
 		plateau.add(new Obstacle(30, 10, 2, 1000, 40, true));
-		plateau.add(new Obstacle(70, 10, 2, 500, 150, true));
+		plateau.add(new Obstacle(250, 10, 2, 500, 350, true));
 	}
 
 	public void init() {
@@ -50,9 +50,9 @@ public class Level {
 	}
 
 	public void update() {
-		//for(Obstacle obstacle : plateau)
-		//	Physics.isStuck(player, obstacle);
-		Physics.isStuck(player, plateau.get(1));
+		System.out.println("above : "+player.isBlockedByBottom()+" , below : "+player.isBlockedByTop()+" , right : "+player.isBlockedByLeft()+" , left : "+player.isBlockedByRight());
+		for(Obstacle obstacle : plateau)
+			Physics.isStuck(player, obstacle);
 		player.update();
 		for(Obstacle obstacle : plateau)
 			obstacle.update();
