@@ -4,6 +4,7 @@ import game.Component;
 import game.Game;
 import game.entities.Movable;
 import game.entities.Player;
+import game.entities.PotentialCollision;
 import game.entities.Solid;
 
 /**
@@ -14,72 +15,54 @@ public class Physics {
     private static double G = 2;
     private static double deltaT = 1.0/60.0;
 
-    public static void gravite(Movable toMove){
-        if(!(toMove.getCoordonnee()[1] <= toMove.getSize()) || (toMove.getVitessePrev()[1] < 0))
-            toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + Gamma * deltaT ;
+	/**
+	 * Fonction de simulation de gravite
+	 * @param toMove
+	 * 	L'objet sur lequel on applique la gravité
+	 *
+	 */
+	public static void gravite(Movable toMove){
+		if( !(toMove.getCoordonnee()[1] <= toMove.getSize()) || (toMove.getVitessePrev()[1] < 0) )
+			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + Gamma * deltaT ;
 
-        toMove.getCoordonnee()[1] =  (int) Math.ceil(toMove.getCoordonnee()[1] - toMove.getVitesse()[1]);
-        toMove.getCoordonneePrev()[1] = toMove.getCoordonnee()[1];
+		if(toMove.isBlockedByBottom() && toMove.getVitesse()[1] > 0)
+			toMove.getVitesse()[1] = 0;
+		if(toMove.isBlockedByTop() && toMove.getVitesse()[1] < 0)
+			toMove.getVitesse()[1] = 0;
 
-        toMove.getCoordonnee()[1] = (toMove.getCoordonnee()[1] <= toMove.getSize())?toMove.getSize():toMove.getCoordonnee()[1];
-        toMove.getVitesse()[1] = (toMove.getCoordonnee()[1] <= toMove.getSize())?0:toMove.getVitesse()[1];
-        toMove.getVitessePrev()[1] = toMove.getVitesse()[1];
+		toMove.getCoordonnee()[1] =  (int) Math.ceil(toMove.getCoordonnee()[1] - toMove.getVitesse()[1]);
+		toMove.getCoordonneePrev()[1] = toMove.getCoordonnee()[1];
+
+		toMove.getCoordonnee()[1] = (toMove.getCoordonnee()[1] <= toMove.getSize())?toMove.getSize():toMove.getCoordonnee()[1];
+		toMove.getVitesse()[1] = (toMove.getCoordonnee()[1] <= toMove.getSize())?0:toMove.getVitesse()[1];
+		toMove.getVitessePrev()[1] = toMove.getVitesse()[1];
+
     }
 
     public static void freinage(Movable toMove) {
 
-        if(toMove.getVitessePrev()[0] > 1){
-            toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - G * deltaT ;
-        }else if(toMove.getVitessePrev()[0] < -1)
-            toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + G * deltaT ;
-        else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitesse()[0] > -1))
-            toMove.getVitesse()[0] = 0;
+		if(toMove.getVitessePrev()[0] > 1){
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - G * deltaT ;
+		}else if(toMove.getVitessePrev()[0] < -1)
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + G * deltaT ;
+		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitesse()[0] > -1))
+			toMove.getVitesse()[0] = 0;
 
-        toMove.getCoordonnee()[0] =  (int) Math.ceil(toMove.getCoordonneePrev()[0] + toMove.getVitesse()[0]);
-        toMove.getCoordonneePrev()[0] = toMove.getCoordonnee()[0];
+		if(toMove.isBlockedByLeft() && toMove.getVitesse()[0] < 0)
+			toMove.getVitesse()[0] = 0;
+		if(toMove.isBlockedByRight() && toMove.getVitesse()[0] > 0)
+			toMove.getVitesse()[0] = 0;
+
+		toMove.getCoordonnee()[0] =  (int) Math.ceil(toMove.getCoordonneePrev()[0] + toMove.getVitesse()[0]);
+		toMove.getCoordonneePrev()[0] = toMove.getCoordonnee()[0];
+
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll >= 0)?toMove.getVitesse()[0]:0;
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll - Component.width + toMove.getSize() <= 0)?toMove.getVitesse()[0]:0;
+
+		toMove.getVitessePrev()[0] = toMove.getVitesse()[0];
 
 
-        toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll >= 0)?toMove.getVitesse()[0]:0;
-        toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll - Component.width + toMove.getSize() <= 0)?toMove.getVitesse()[0]:0;
-
-        toMove.getVitessePrev()[0] = toMove.getVitesse()[0];
     }
-
-    /*private boolean colleDroite(Movable object1, Movable object2){
-        return (object1.getCoordonneePrev()[0] + object1.getSize() >= object2.getCoordonneePrev()[0]) && (object1.getCoordonneePrev()[0] + object1.getSize() <= object2.getCoordonneePrev()[0] + object2.getSize());
-    }
-
-    private boolean colleHaut(Movable object1, Movable object2){
-       return object1.getCoordonneePrev()[1] - object1.getSize() <= object2.getCoordonneePrev()[1] ;
-    }
-
-    private boolean colleBas(Movable object1, Movable object2){
-        return object1.getCoordonneePrev()[1] >= object2.getCoordonneePrev()[1] - object2.getSize();
-    }
-
-    public static void collision(Movable object1, Movable object2){
-
-        boolean colleADroite = (object1.getCoordonneePrev()[0] + object1.getSize() >= object2.getCoordonneePrev()[0]) &&
-                (object1.getCoordonneePrev()[0] + object1.getSize() <= object2.getCoordonneePrev()[0] + object2.getSize());
-
-        boolean touchFromRight = (object1.getCoordonneePrev()[0] + object1.getSize() >= object2.getCoordonneePrev()[0]) &&
-                (object1.getCoordonneePrev()[0] + object1.getSize() <= object2.getCoordonneePrev()[0] + object2.getSize()) &&
-
-                ;
-
-        boolean touchFromLeft = (object1.getCoordonneePrev()[0] <= object2.getCoordonneePrev()[0] + object2.getSize()) &&
-                (object1.getCoordonneePrev()[0] >= object2.getCoordonneePrev()[0]) &&
-                ;
-
-        if(touchFromRight || touchFromLeft){
-            if(object1.getVitessePrev()[0] >= 0.0) {
-                object1.getVitessePrev()[0] = 0;
-                //object1.getCoordonneePrev()[0] = object2.getCoordonneePrev()[0] - object1.getSize();
-            }
-        }
-
-
-    }*/
 
     public static int isAbove(Player p, Solid s) {
 		return p.getCoordonnee()[1] - p.getSize() - s.getCoordonnee()[1];
@@ -97,31 +80,68 @@ public class Physics {
 		return p.getCoordonnee()[0] - s.getCoordonnee()[0] - s.getSize();
 	}
 
-	public static void isStuck(Player p, Solid s) {
-		if((isAbove(p, s) < 0) && (p.getVitesse()[1] > 0))
-			if((isBelow(p, s) < 0) && (isOnTheLeft(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
-				p.getVitesse()[1] = 0;
-				p.getVitessePrev()[1] = 0;
-				p.getCoordonneePrev()[1] = p.getSize() + s.getCoordonnee()[1];
-			}
-		if((isBelow(p, s) < 0) && (p.getVitesse()[1] < 0))
-			if((isAbove(p, s) < 0) && (isOnTheLeft(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
-				p.getVitesse()[1] = 0;
-				p.getVitessePrev()[1] = 0;
-				p.getCoordonneePrev()[1] = s.getCoordonnee()[1] - s.getSize();
-			}
-		if((isOnTheLeft(p, s) < 0) && (p.getVitesse()[0] > 0))
-			if((isAbove(p, s) < 0) && (isBelow(p, s) < 0) && (isOnTheRight(p, s) < 0)) {
-				p.getVitesse()[0] = 0;
-				p.getVitessePrev()[0] = 0;
-				p.getCoordonneePrev()[0] = s.getCoordonnee()[0] - p.getSize();
-			}
-		if((isOnTheRight(p, s) < 0) && (p.getVitesse()[0] < 0))
-			if((isAbove(p, s) < 0) && (isBelow(p, s) < 0) && (isOnTheLeft(p, s) < 0)) {
-				p.getVitesse()[0] = 0;
-				p.getVitessePrev()[0] = 0;
-				p.getCoordonneePrev()[0] = s.getCoordonnee()[0] + s.getSize();
-			}
+	public static void isStuck(PotentialCollision pc) {
+		boolean newAbove = isAbove(pc.getPlayer(), pc.getObstacle()) <= 0;
+		boolean newBelow = isBelow(pc.getPlayer(), pc.getObstacle()) <= 0;
+		boolean newRight = isOnTheRight(pc.getPlayer(), pc.getObstacle()) <= 0;
+		boolean newLeft  = isOnTheLeft(pc.getPlayer(), pc.getObstacle()) <= 0;
+
+		String collisionSide = "";
+
+		if(newAbove != pc.isAbove()){
+			collisionSide = "above";
+		}else if(newBelow != pc.isBelow()){
+			collisionSide = "below";
+		}else if(newRight != pc.isRight()){
+			collisionSide = "right";
+		}else if(newLeft != pc.isLeft()){
+			collisionSide = "left";
+		}
+
+
+		pc.setAbove(newAbove);
+		pc.setBelow(newBelow);
+		pc.setRight(newRight);
+		pc.setLeft(newLeft);
+
+		System.out.println("$$$$$$$$$  newAbove = "+ newAbove + ", newRight = "+newRight+" , newLeft = "+newLeft);
+		if(!newAbove || (!newRight || !newLeft)){
+			pc.getPlayer().setBlockedByBottom(false);
+		}
+		if(!newBelow || (!newRight || !newLeft)){
+			pc.getPlayer().setBlockedByTop(false);
+		}
+		if(!newRight || (!newAbove || !newBelow)){
+			pc.getPlayer().setBlockedByLeft(false);
+		}
+		if(!newLeft || (!newAbove || !newBelow)){
+			pc.getPlayer().setBlockedByRight(false);
+		}
+
+
+		/*System.out.println(pc.getPlayer().isBlockedByBottom());
+		System.out.println(pc.getPlayer().isBlockedByTop());
+		System.out.println(pc.getPlayer().isBlockedByLeft());
+		System.out.println(pc.getPlayer().isBlockedByRight());
+		System.out.println("##############################");*/
+		System.out.println("collisionSide = "+ collisionSide + ", newRight = "+newRight+" , newLeft = "+newLeft);
+		if(collisionSide == "above" && newRight && newLeft){
+			pc.getPlayer().setBlockedByBottom(true);
+			pc.getPlayer().getCoordonnee()[1] = pc.getPlayer().getSize() + pc.getObstacle().getCoordonnee()[1];
+
+		}else if(collisionSide == "below" && newRight && newLeft){
+			pc.getPlayer().setBlockedByTop(true);
+			pc.getPlayer().getCoordonnee()[1] = pc.getObstacle().getCoordonnee()[1] - pc.getObstacle().getSize();
+
+		}else if(collisionSide == "right" && newAbove && newBelow){
+			pc.getPlayer().setBlockedByLeft(true);
+			pc.getPlayer().getCoordonnee()[0] = pc.getObstacle().getCoordonnee()[0] + pc.getObstacle().getSize();
+
+		}else if(collisionSide == "left" && newAbove && newBelow){
+			pc.getPlayer().setBlockedByRight(true);
+			pc.getPlayer().getCoordonnee()[0] = pc.getObstacle().getCoordonnee()[0] - pc.getPlayer().getSize();
+
+		}
 	}
 
 }

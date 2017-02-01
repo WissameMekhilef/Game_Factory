@@ -14,9 +14,9 @@ public class Game {
 	public Game() {
 		xScroll = 0;
 		yScroll = 0;
-		level = new Level(2000, Component.height / Tile.SIZE);
+		level = new Level(200, Component.height / Tile.SIZE);
 
-		bound = 15 * Tile.SIZE;
+		bound = level.width * Tile.SIZE;
 	}
 
 	public void init() {
@@ -31,7 +31,7 @@ public class Game {
 	}
 
 	public void update() {
-		//translateView(-1, 0);
+		translateView(-1, 0);
 		level.update();
 	}
 

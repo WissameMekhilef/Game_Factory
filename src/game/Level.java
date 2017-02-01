@@ -2,9 +2,7 @@ package game;
 
 import game.engine.Physics;
 import game.entities.Character;
-import game.entities.Obstacle;
-import game.entities.Player;
-import game.entities.Tile;
+import game.entities.*;
 import game.entities.Tile.Tiles;
 
 import java.util.ArrayList;
@@ -17,6 +15,7 @@ public class Level {
 	public Player player;
 	public List<Tile> background;
 	public List<Obstacle> plateau;
+	private List<PotentialCollision> listPC;
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -25,6 +24,7 @@ public class Level {
 		player = new Player(50, 5, -7, 0, Component.height - 8);
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
+		listPC = new ArrayList<>();
 		generate();
 	}
 
@@ -41,8 +41,12 @@ public class Level {
 		}
 
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(30, 10, 2, 1000, 40, true));
-		plateau.add(new Obstacle(70, 10, 2, 500, 150, true));
+		//plateau.add(new Obstacle(30, 10, 2, 1000, 40, true));
+		plateau.add(new Obstacle(250, 10, 2, 500, 250, true));
+
+		for (Obstacle obstacle : plateau) {
+			listPC.add(new PotentialCollision(player, obstacle));
+		}
 	}
 
 	public void init() {
@@ -50,12 +54,11 @@ public class Level {
 	}
 
 	public void update() {
-		//for(Obstacle obstacle : plateau)
-		//	Physics.isStuck(player, obstacle);
-		Physics.isStuck(player, plateau.get(1));
+		//System.out.println("above : "+player.isBlockedByBottom()+" , below : "+player.isBlockedByTop()+" , right : "+player.isBlockedByLeft()+" , left : "+player.isBlockedByRight());
+		for(PotentialCollision pc : listPC)
+			Physics.isStuck(pc);
 		player.update();
-		for(Obstacle obstacle : plateau)
-			obstacle.update();
+
 	}
 
 	public void render() {
