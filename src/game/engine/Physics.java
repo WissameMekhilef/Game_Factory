@@ -11,7 +11,7 @@ import game.entities.Solid;
  * Created by wissamemekhilef on 27/01/2017.
  */
 public class Physics {
-    private static double Gamma = 30.81;
+    private static double Gamma = 200.81;
     private static double G = 2;
     private static double deltaT = 1.0/60.0;
 
@@ -23,7 +23,7 @@ public class Physics {
 	 */
 	public static void gravite(Movable toMove){
 		if( !(toMove.getCoordonnee()[1] <= toMove.getSize()) || (toMove.getVitessePrev()[1] < 0) )
-			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + Gamma * deltaT ;
+			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + Gamma * deltaT;
 
 		if(toMove.isBlockedByBottom() && toMove.getVitesse()[1] > 0)
 			toMove.getVitesse()[1] = 0;
@@ -36,15 +36,14 @@ public class Physics {
 		toMove.getCoordonnee()[1] = (toMove.getCoordonnee()[1] <= toMove.getSize())?toMove.getSize():toMove.getCoordonnee()[1];
 		toMove.getVitesse()[1] = (toMove.getCoordonnee()[1] <= toMove.getSize())?0:toMove.getVitesse()[1];
 		toMove.getVitessePrev()[1] = toMove.getVitesse()[1];
-
     }
 
     public static void freinage(Movable toMove) {
 
 		if(toMove.getVitessePrev()[0] > 1){
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - G * deltaT ;
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - G * deltaT;
 		}else if(toMove.getVitessePrev()[0] < -1)
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + G * deltaT ;
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + G * deltaT;
 		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitesse()[0] > -1))
 			toMove.getVitesse()[0] = 0;
 
@@ -60,25 +59,15 @@ public class Physics {
 		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll - Component.width + toMove.getSize() <= 0)?toMove.getVitesse()[0]:0;
 
 		toMove.getVitessePrev()[0] = toMove.getVitesse()[0];
-
-
     }
 
-    public static int isAbove(Player p, Solid s) {
-		return p.getCoordonnee()[1] - p.getSize() - s.getCoordonnee()[1];
-	}
+    public static int isAbove(Player p, Solid s) { return p.getCoordonnee()[1] - p.getSize() - s.getCoordonnee()[1]; }
 
-	public static int isBelow(Player p, Solid s) {
-		return s.getCoordonnee()[1] - s.getSize() - p.getCoordonnee()[1];
-	}
+	public static int isBelow(Player p, Solid s) { return s.getCoordonnee()[1] - s.getSize() - p.getCoordonnee()[1]; }
 
-	public static int isOnTheLeft(Player p, Solid s) {
-		return s.getCoordonnee()[0] - p.getCoordonnee()[0] - p.getSize();
-	}
+	public static int isOnTheLeft(Player p, Solid s) { return s.getCoordonnee()[0] - p.getCoordonnee()[0] - p.getSize(); }
 
-	public static int isOnTheRight(Player p, Solid s) {
-		return p.getCoordonnee()[0] - s.getCoordonnee()[0] - s.getSize();
-	}
+	public static int isOnTheRight(Player p, Solid s) { return p.getCoordonnee()[0] - s.getCoordonnee()[0] - s.getSize(); }
 
 	public static void isStuck(PotentialCollision pc) {
 		boolean newAbove = isAbove(pc.getPlayer(), pc.getObstacle()) <= 0;
@@ -88,23 +77,25 @@ public class Physics {
 
 		String collisionSide = "";
 
-		if(newAbove != pc.isAbove()){
+		if(newAbove != pc.isAbove())
 			collisionSide = "above";
-		}else if(newBelow != pc.isBelow()){
+		else if(newBelow != pc.isBelow())
 			collisionSide = "below";
-		}else if(newRight != pc.isRight()){
+		else if(newRight != pc.isRight())
 			collisionSide = "right";
-		}else if(newLeft != pc.isLeft()){
+		else if(newLeft != pc.isLeft())
 			collisionSide = "left";
-		}
-
 
 		pc.setAbove(newAbove);
+		//System.out.println("newAbove = "+newAbove);
 		pc.setBelow(newBelow);
+		//System.out.println("newBelow = "+newBelow);
 		pc.setRight(newRight);
+		//System.out.println("newRight = "+newRight);
 		pc.setLeft(newLeft);
+		//System.out.println("newLeft = "+newLeft);
+		//System.out.println("####################");
 
-		System.out.println("$$$$$$$$$  newAbove = "+ newAbove + ", newRight = "+newRight+" , newLeft = "+newLeft);
 		if(!newAbove || (!newRight || !newLeft)){
 			pc.getPlayer().setBlockedByBottom(false);
 		}
@@ -118,29 +109,22 @@ public class Physics {
 			pc.getPlayer().setBlockedByRight(false);
 		}
 
-
-		/*System.out.println(pc.getPlayer().isBlockedByBottom());
-		System.out.println(pc.getPlayer().isBlockedByTop());
-		System.out.println(pc.getPlayer().isBlockedByLeft());
-		System.out.println(pc.getPlayer().isBlockedByRight());
-		System.out.println("##############################");*/
-		System.out.println("collisionSide = "+ collisionSide + ", newRight = "+newRight+" , newLeft = "+newLeft);
 		if(collisionSide == "above" && newRight && newLeft){
 			pc.getPlayer().setBlockedByBottom(true);
 			pc.getPlayer().getCoordonnee()[1] = pc.getPlayer().getSize() + pc.getObstacle().getCoordonnee()[1];
-
+			pc.setAbove(false);
 		}else if(collisionSide == "below" && newRight && newLeft){
 			pc.getPlayer().setBlockedByTop(true);
 			pc.getPlayer().getCoordonnee()[1] = pc.getObstacle().getCoordonnee()[1] - pc.getObstacle().getSize();
-
+			pc.setBelow(false);
 		}else if(collisionSide == "right" && newAbove && newBelow){
 			pc.getPlayer().setBlockedByLeft(true);
 			pc.getPlayer().getCoordonnee()[0] = pc.getObstacle().getCoordonnee()[0] + pc.getObstacle().getSize();
-
+			pc.setRight(false);
 		}else if(collisionSide == "left" && newAbove && newBelow){
 			pc.getPlayer().setBlockedByRight(true);
 			pc.getPlayer().getCoordonnee()[0] = pc.getObstacle().getCoordonnee()[0] - pc.getPlayer().getSize();
-
+			pc.setLeft(false);
 		}
 	}
 

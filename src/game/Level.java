@@ -21,7 +21,7 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		character = new Character(0, 50);
-		player = new Player(50, 5, -7, 0, Component.height - 8);
+		player = new Player(50, 50, -7, 0, Component.height - 8);
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
@@ -41,8 +41,9 @@ public class Level {
 		}
 
 		//Genere les obstacles (plateau de jeu)
-		//plateau.add(new Obstacle(30, 10, 2, 1000, 40, true));
-		plateau.add(new Obstacle(250, 10, 2, 500, 250, true));
+		plateau.add(new Obstacle(100, 10, 2, 1000, 160, true));
+		plateau.add(new Obstacle(100, 10, 2, 500, 300, true));
+		plateau.add(new Obstacle(100, 10, 2, 500, 160, true));
 
 		for (Obstacle obstacle : plateau) {
 			listPC.add(new PotentialCollision(player, obstacle));

@@ -16,10 +16,6 @@ public class Player extends Movable {
 		Physics.gravite(this);
 		Physics.freinage(this);
 
-		//System.out.println("Prev : [0] = "+vitessePrev[0]+", [1] ="+vitessePrev[1]);
-
-		//System.out.println("[0] = "+vitesse[0]+", [1] ="+vitesse[1]);
-
 		if((coordonnee[0] + Game.xScroll) < 0) {
 			coordonnee[0] = (int) -Game.xScroll;
 			coordonneePrev[0] = coordonnee[0];
@@ -36,12 +32,6 @@ public class Player extends Movable {
 
 		if((Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) && ((coordonnee[0] + size + Game.xScroll) < Component.width))
 			vitessePrev[0] += 2;
-
-
-		/*isBlockedByBottom = false;
-		isBlockedByTop = false;
-		isBlockedByLeft = false;
-		isBlockedByRight = false;*/
 
 	}
 

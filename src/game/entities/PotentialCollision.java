@@ -16,26 +16,18 @@ public class PotentialCollision {
         player = p;
         obstacle = o;
 
-        above = false;
-        below = false;
-        left = false;
-        right = false;
+        above = true;
+        below = true;
+        left = true;
+        right = true;
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public Obstacle getObstacle() {
         return obstacle;
-    }
-
-    public void setObstacle(Obstacle obstacle) {
-        this.obstacle = obstacle;
     }
 
     public boolean isBelow() {
