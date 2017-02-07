@@ -26,8 +26,6 @@ public class Level {
 		plateau = new ArrayList<>();
 		generate();
 	}
-
-
 	public void generate() {
 		//Genere background (damier)
 		for(int x = 0; x < width; x++) {
@@ -36,6 +34,8 @@ public class Level {
 					background.add(new Tile(x, y, Tiles.YELLOW));
 				else
 					background.add(new Tile(x, y, Tiles.WHITE));
+				background.add(new Tile(x, y));
+				
 			}
 		}
 

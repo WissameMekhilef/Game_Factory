@@ -13,8 +13,12 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 
-public class Texture {
 
+
+public class Texture {
+	public static Texture TexObstacles = chargementTexture("/files/textures.png");
+	//public static Texture joueur_texture_proto = chargementTexture("/files/gb_walk.png");
+	
 	int largeur, hauteur, id;
 
 	public Texture(int largeur, int hauteur, int id) {
@@ -23,7 +27,7 @@ public class Texture {
 		this.id = id;
 	}
 
-	public Texture chargementTexture(String s) {
+	public static Texture chargementTexture(String s) {
 		BufferedImage image = null;
 		URL entree;
 		int larg, haut, startX, startY, scanSize, i, j, indice;
@@ -62,7 +66,7 @@ public class Texture {
 			}
 		}
 
-		// buffer.flip();
+		 buffer.flip();
 
 		int id = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, id);
@@ -74,6 +78,59 @@ public class Texture {
 				GL_UNSIGNED_BYTE, buffer);
 
 		return new Texture(larg, haut, id);
+	}
+	public Texture DecTexture(int t, int size , String s){
+			BufferedImage image = null;
+			URL entree;
+			int larg, haut, startX, startY, scanSize, i, j, indice;
+			int[] RGBArray;
+			try {
+				image = null;
+				entree = Texture.class.getResource(s);
+				image = ImageIO.read(entree);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			haut = image.getHeight();
+			larg = image.getWidth();
+			scanSize = larg;
+			startX = 0;
+			startY = 0;
+			RGBArray = new int[larg * haut];
+			image.getRGB(startX, startY, larg, haut, RGBArray, 0, size);
+			ByteBuffer buffer = BufferUtils.createByteBuffer(larg * haut * 4);
+
+			for (j = 0; j < larg; j++) {
+				for (i = 0; i < haut; i++) {
+					indice = RGBArray[i + j * scanSize];
+
+					buffer.put((byte) ((indice) & 0xFF));
+					buffer.put((byte) ((indice >> 8) & 0xFF));
+					buffer.put((byte) ((indice >> 16) & 0xFF));
+					buffer.put((byte) ((indice >> 24) & 0xFF));
+	/*
+					buffer.put((byte) (((RGBArray[i + j * scanSize])) & 0xFF));
+					buffer.put((byte) (((RGBArray[i + j * scanSize]) >> 8) & 0xFF));
+					buffer.put((byte) (((RGBArray[i + j * scanSize]) >> 16) & 0xFF));
+					buffer.put((byte) (((RGBArray[i + j * scanSize]) >> 24) & 0xFF));*/
+
+				}
+			}
+
+			 buffer.flip();
+
+			int id = glGenTextures();
+			glBindTexture(GL_TEXTURE_2D, id);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, larg, haut, 0, GL_RGBA,
+					GL_UNSIGNED_BYTE, buffer);
+
+			return new Texture(larg, haut, id);
+		
 	}
 
 	public void lier() {

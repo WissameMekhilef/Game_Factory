@@ -3,6 +3,7 @@ package game.entities;
 import game.Component;
 import game.Game;
 import game.engine.Graphics;
+import game.engine.Texture;
 
 /**
  * La class Tile permet d'implementer des éléments du background
@@ -13,7 +14,7 @@ import game.engine.Graphics;
 public class Tile {
 
 	public static final int SIZE = 100;
-
+	public Texture text;
 	public float[] color;
 	public int x, y;
 	Tiles tile;
@@ -26,6 +27,11 @@ public class Tile {
 			color = new float[]{1.0f, 1.0f, 1.0f, 1};
 		if(tile == Tiles.YELLOW)
 			color = new float[]{1.0f, 1.0f, 0.5f, 1};
+	}
+	public Tile(int x, int y) {
+		this.x = x;
+		this.y = y;
+		text=Texture.TexObstacles;
 	}
 
 	public void render() {

@@ -1,5 +1,6 @@
 package game;
 
+import game.entities.Solid;
 import game.entities.Tile;
 import org.lwjgl.opengl.GL11;
 
@@ -21,6 +22,8 @@ public class Game {
 
 	public void init() {
 		level.init();
+
+	
 	}
 
 	public void translateView(float x, float y) {

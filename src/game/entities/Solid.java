@@ -11,6 +11,7 @@ public abstract class Solid {
 
     public Solid(int size, int x, int y) {
     	Random random = new Random();
+    	
     	color = new float[]{0.5f, 0.5f, 0.5f, 1};
         //color = new float[]{random.nextFloat(), random.nextFloat(), random.nextFloat(), 1};
         coordonnee = new int[]{x, y};

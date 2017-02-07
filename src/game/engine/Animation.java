@@ -42,6 +42,13 @@ boolean boucle, joue;
 	public void pause(){
 		joue=false;
 	}
+	public void set(int i){
+		this.frame=i%this.longueur;
+	}
+	public void reset(){
+		this.frame=0;
+	}
+	
 	public void stop(){
 		joue=false;
 		frame=0;
