@@ -33,9 +33,8 @@ public class Level {
 				if((x + y) % 2 == 0)
 					background.add(new Tile(x, y, Tiles.YELLOW));
 				else
-					background.add(new Tile(x, y, Tiles.WHITE));
-				background.add(new Tile(x, y));
-				
+					//background.add(new Tile(x, y, Tiles.WHITE));
+					background.add(new Tile(x, y, Tiles.BRIQUE));
 			}
 		}
 
@@ -57,12 +56,12 @@ public class Level {
 	}
 
 	public void render() {
-		/*for(Tile tile : background)
+		for(Tile tile : background)
 			tile.render();
 		for(Obstacle obstacle : plateau) {
 			obstacle.render();
 		}
-		player.render();*/
+		player.render();
 	}
 
 }

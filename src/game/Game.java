@@ -41,6 +41,7 @@ public class Game {
 	public void render() {
 		GL11.glTranslatef(xScroll, yScroll, 0);
 		level.render();
+		
 	}
 
 }

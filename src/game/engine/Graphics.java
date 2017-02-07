@@ -19,5 +19,6 @@ public class Graphics {
 		Graphics.quadData(x, Component.height - y, w, h, color);
 		glEnd();
 	}
+	
 
 }

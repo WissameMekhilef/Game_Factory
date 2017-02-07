@@ -17,6 +17,7 @@ import org.lwjgl.BufferUtils;
 
 public class Texture {
 	public static Texture TexObstacles = chargementTexture("/files/textures.png");
+	public static Texture brique = chargementTexture("/files/brique.png");
 	//public static Texture joueur_texture_proto = chargementTexture("/files/gb_walk.png");
 	
 	int largeur, hauteur, id;
@@ -34,8 +35,10 @@ public class Texture {
 		int[] RGBArray;
 		try {
 			image = null;
-			entree = Texture.class.getResource(s);
-			image = ImageIO.read(entree);
+			/*entree = ;
+			
+			*/
+			image = ImageIO.read(Texture.class.getResource(s));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,7 +137,7 @@ public class Texture {
 	}
 
 	public void lier() {
-		glBindTexture(GL_TEXTURE_2D, this.id);
+		glBindTexture(GL_TEXTURE_2D,id);
 	}
 
 	public void delier() {
