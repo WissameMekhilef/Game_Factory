@@ -35,7 +35,7 @@ public class Texture {
 		int[] RGBArray;
 		try {
 			image = null;
-			/*entree = ;
+			/*entree =Texture.class.getResource(s) ;
 			
 			*/
 			image = ImageIO.read(Texture.class.getResource(s));

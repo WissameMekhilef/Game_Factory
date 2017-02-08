@@ -18,7 +18,7 @@ import game.engine.Texture;
 public class Tile {
 
 	public static final int SIZE = 100;
-	public static final int SIZE_T = 32;
+public static final int SIZE_T = 32;
 	public Texture text;
 	public float[] color;
 	public int x, y;
@@ -36,6 +36,7 @@ public class Tile {
 		if (tile==Tiles.BRIQUE) {
 			color = new float[]{1.0f, 1.0f, 1.0f, 1};
 			text = Texture.brique;
+			
 		}
 	}
 	public Tile(int x, int y) {
@@ -58,11 +59,12 @@ public class Tile {
 	public void render() {
 
 
-		if (x + 1 + Game.xScroll / SIZE_T< 0 ||  y + 1 + Game.yScroll / SIZE_T< 0 || x + Game.xScroll / SIZE_T > Component.width / SIZE_T
-				||  y + Game.yScroll / SIZE_T> Component.height / SIZE_T) {
+		if (x + 1 + Game.xScroll / SIZE< 0 ||  y + 1 + Game.yScroll / SIZE< 0 || x + Game.xScroll / SIZE > Component.width / SIZE
+				||  y + Game.yScroll / SIZE> Component.height / SIZE) {
 			return;
 		}
-		text.lier();
+		if (text != null) {
+			text.lier();	
 		glBegin(GL_QUADS);
 		Graphics.quadData(x * SIZE_T, y * SIZE_T, SIZE_T, SIZE_T, color);
 		Graphics.quadData(x * SIZE_T + SIZE_T/2, y * SIZE_T, SIZE_T, SIZE_T, color);
@@ -70,6 +72,16 @@ public class Tile {
 		Graphics.quadData(x * SIZE_T, y * SIZE_T + SIZE_T/2, SIZE_T, SIZE_T, color);
 		glEnd();
 		text.delier();
+		}else{
+			glBegin(GL_QUADS);
+			Graphics.quadData(x * SIZE, y * SIZE, SIZE, SIZE, color);
+			Graphics.quadData(x * SIZE + SIZE/2, y * SIZE, SIZE, SIZE, color);
+			Graphics.quadData(x * SIZE + SIZE/2, y * SIZE + SIZE/2, SIZE, SIZE, color);
+			Graphics.quadData(x * SIZE, y * SIZE + SIZE/2, SIZE, SIZE, color);
+			glEnd();
+		}
+		
+	
 	}
 
 	public enum Tiles {
