@@ -11,7 +11,7 @@ import game.entities.Solid;
  * Created by wissamemekhilef on 27/01/2017.
  */
 public class Physics {
-    private static double Gamma = 200.81;
+    private static double Gamma = 20.81;
     private static double G = 2;
     private static double deltaT = 1.0/60.0;
 
@@ -77,37 +77,19 @@ public class Physics {
 
 		String collisionSide = "";
 
-		if(newAbove != pc.isAbove())
+		if((newAbove != pc.isAbove()) && !pc.getPlayer().isBlockedByBottom())
 			collisionSide = "above";
-		else if(newBelow != pc.isBelow())
+		else if((newBelow != pc.isBelow()) && !pc.getPlayer().isBlockedByTop())
 			collisionSide = "below";
-		else if(newRight != pc.isRight())
+		else if((newRight != pc.isRight()) && !pc.getPlayer().isBlockedByLeft())
 			collisionSide = "right";
-		else if(newLeft != pc.isLeft())
+		else if((newLeft != pc.isLeft()) && !pc.getPlayer().isBlockedByRight())
 			collisionSide = "left";
 
 		pc.setAbove(newAbove);
-		//System.out.println("newAbove = "+newAbove);
 		pc.setBelow(newBelow);
-		//System.out.println("newBelow = "+newBelow);
 		pc.setRight(newRight);
-		//System.out.println("newRight = "+newRight);
 		pc.setLeft(newLeft);
-		//System.out.println("newLeft = "+newLeft);
-		//System.out.println("####################");
-
-		if(!newAbove || (!newRight || !newLeft)){
-			pc.getPlayer().setBlockedByBottom(false);
-		}
-		if(!newBelow || (!newRight || !newLeft)){
-			pc.getPlayer().setBlockedByTop(false);
-		}
-		if(!newRight || (!newAbove || !newBelow)){
-			pc.getPlayer().setBlockedByLeft(false);
-		}
-		if(!newLeft || (!newAbove || !newBelow)){
-			pc.getPlayer().setBlockedByRight(false);
-		}
 
 		if(collisionSide == "above" && newRight && newLeft){
 			pc.getPlayer().setBlockedByBottom(true);
@@ -119,11 +101,11 @@ public class Physics {
 			pc.setBelow(false);
 		}else if(collisionSide == "right" && newAbove && newBelow){
 			pc.getPlayer().setBlockedByLeft(true);
-			pc.getPlayer().getCoordonnee()[0] = pc.getObstacle().getCoordonnee()[0] + pc.getObstacle().getSize();
+			pc.getPlayer().getCoordonneePrev()[0] = pc.getObstacle().getCoordonnee()[0] + pc.getObstacle().getSize();
 			pc.setRight(false);
 		}else if(collisionSide == "left" && newAbove && newBelow){
 			pc.getPlayer().setBlockedByRight(true);
-			pc.getPlayer().getCoordonnee()[0] = pc.getObstacle().getCoordonnee()[0] - pc.getPlayer().getSize();
+			pc.getPlayer().getCoordonneePrev()[0] = pc.getObstacle().getCoordonnee()[0] - pc.getPlayer().getSize();
 			pc.setLeft(false);
 		}
 	}

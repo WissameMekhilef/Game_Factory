@@ -33,6 +33,11 @@ public class Player extends Movable {
 		if((Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) && ((coordonnee[0] + size + Game.xScroll) < Component.width))
 			vitessePrev[0] += 2;
 
+		setBlockedByBottom(false);
+		setBlockedByLeft(false);
+		setBlockedByRight(false);
+		setBlockedByTop(false);
+
 	}
 
 }
