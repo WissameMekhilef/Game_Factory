@@ -1,8 +1,10 @@
 package game;
 
 import game.engine.Physics;
-import game.entities.Character;
-import game.entities.*;
+import game.entities.Obstacle;
+import game.entities.Player;
+import game.entities.PotentialCollision;
+import game.entities.Tile;
 import game.entities.Tile.Tiles;
 
 import java.util.ArrayList;
@@ -11,7 +13,6 @@ import java.util.List;
 public class Level {
 
 	public int width, height;
-	public Character character;
 	public Player player;
 	public List<Tile> background;
 	public List<Obstacle> plateau;
@@ -20,13 +21,16 @@ public class Level {
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
-		character = new Character(0, 50);
 		player = new Player(50, 5, -7, 0, Component.height - 8);
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
 		generate();
 	}
+
+    public Player getPlayer(){
+	    return player;
+    }
 
 	public void generate() {
 		//Genere background (damier)

@@ -44,7 +44,7 @@ public class Physics {
 			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - G * deltaT;
 		}else if(toMove.getVitessePrev()[0] < -1)
 			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + G * deltaT;
-		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitesse()[0] > -1))
+		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitessePrev()[0] > -1))
 			toMove.getVitesse()[0] = 0;
 
 		if(toMove.isBlockedByLeft() && toMove.getVitesse()[0] < 0)

@@ -20,4 +20,8 @@ public class Graphics {
 		glEnd();
 	}
 
+	public static void scroll(float xScroll, float yScroll){
+        glTranslatef(xScroll, yScroll, 0);
+    }
+
 }
