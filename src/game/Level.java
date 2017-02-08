@@ -1,9 +1,8 @@
 package game;
 
+import game.engine.Physics;
 import game.entities.Character;
-import game.entities.Obstacle;
-import game.entities.Player;
-import game.entities.Tile;
+import game.entities.*;
 import game.entities.Tile.Tiles;
 
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ public class Level {
 	public Player player;
 	public List<Tile> background;
 	public List<Obstacle> plateau;
+	private List<PotentialCollision> listPC;
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -24,8 +24,10 @@ public class Level {
 		player = new Player(50, 5, -7, 0, Component.height - 8);
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
+		listPC = new ArrayList<>();
 		generate();
 	}
+
 	public void generate() {
 		//Genere background (damier)
 		for(int x = 0; x < width; x++) {
@@ -39,8 +41,13 @@ public class Level {
 		}
 
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(30, 10, 2, 1000, 40, true));
-		plateau.add(new Obstacle(70, 10, 2, 500, 150, true));
+		plateau.add(new Obstacle(100, 10, 2, 600, 200, true));
+		plateau.add(new Obstacle(100, 10, 2, 500, 700, true));
+		plateau.add(new Obstacle(100, 10, 2, 500, 160, true));
+
+		for (Obstacle obstacle : plateau) {
+			listPC.add(new PotentialCollision(player, obstacle));
+		}
 	}
 
 	public void init() {
@@ -48,11 +55,16 @@ public class Level {
 	}
 
 	public void update() {
-		//for(Obstacle obstacle : plateau)
-		//	Physics.collision(player, obstacle);
-		player.update();
-		for(Obstacle obstacle : plateau)
-			obstacle.update();
+		if(player.isAlive()){
+			for(PotentialCollision pc : listPC)
+				Physics.isStuck(pc);
+			player.update();
+		}else{
+			System.out.println("DEAD");
+			Component.running = false;
+		}
+
+
 	}
 
 	public void render() {

@@ -7,22 +7,54 @@ import org.lwjgl.input.Keyboard;
 
 public class Player extends Movable {
 
+	private boolean isBlockedByLeftScreen = false;
+	private boolean isBlockedByRightScreen = false;
+
+	private boolean isAlive = true;
+
 	public Player(int size, int v0, int v1, int x0, int y0) {
 		super(size, v0, v1, x0, y0);
 	}
-	//wissame test
-	public void update() {
-		//test
-		Physics.gravite(this);
-		Physics.freinage(this);
 
+	private void scrollReplace(){
+		//Left replace
 		if((coordonnee[0] + Game.xScroll) < 0) {
 			coordonnee[0] = (int) -Game.xScroll;
 			coordonneePrev[0] = coordonnee[0];
+			isBlockedByLeftScreen = true;
+		}else{
+			isBlockedByLeftScreen = false;
 		}
 
-		if((coordonnee[0] + size + Game.xScroll) > Component.width)
+
+		//Right replace
+		if((coordonnee[0] + size + Game.xScroll) > Component.width){
 			coordonnee[0] = Component.width - (size + (int) Game.xScroll);
+			coordonneePrev[0] = coordonnee[0];
+			isBlockedByRightScreen = true;
+		}else{
+			isBlockedByRightScreen = false;
+		}
+	}
+
+	private boolean checkAlive(){
+		if(isBlockedByLeftScreen && isBlockedByRight)
+			return false;
+		return true;
+	}
+
+	public boolean isAlive(){
+		return isAlive;
+	}
+
+	public void update() {
+
+		Physics.gravite(this);
+		Physics.freinage(this);
+
+		scrollReplace();
+
+		isAlive = checkAlive();
 
 		if((Keyboard.isKeyDown(Keyboard.KEY_UP)) && (coordonnee[1] < Component.height))
 			vitessePrev[1] -= 2;
@@ -32,6 +64,11 @@ public class Player extends Movable {
 
 		if((Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) && ((coordonnee[0] + size + Game.xScroll) < Component.width))
 			vitessePrev[0] += 2;
+
+		setBlockedByBottom(false);
+		setBlockedByLeft(false);
+		setBlockedByRight(false);
+		setBlockedByTop(false);
 
 	}
 
