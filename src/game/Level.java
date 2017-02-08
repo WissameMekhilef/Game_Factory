@@ -55,10 +55,15 @@ public class Level {
 	}
 
 	public void update() {
-		//System.out.println("above : "+player.isBlockedByBottom()+" , below : "+player.isBlockedByTop()+" , right : "+player.isBlockedByLeft()+" , left : "+player.isBlockedByRight());
-		for(PotentialCollision pc : listPC)
-			Physics.isStuck(pc);
-		player.update();
+		if(player.isAlive()){
+			for(PotentialCollision pc : listPC)
+				Physics.isStuck(pc);
+			player.update();
+		}else{
+			System.out.println("DEAD");
+			Component.running = false;
+		}
+
 
 	}
 
