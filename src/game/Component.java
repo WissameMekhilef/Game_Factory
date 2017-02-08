@@ -115,6 +115,7 @@ public class Component {
 			Display.setFullscreen(false);
 			Display.setTitle(TITLE);
 			Display.create();
+            //Display.setVSyncEnabled(true);
 			view2D(width, height);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
@@ -122,6 +123,18 @@ public class Component {
 	}
 
 	private void view2D(int width, int height) {
+        glEnable(GL_TEXTURE_2D);
+
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+        // enable alpha blending
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+
+
+
 		glViewport(0, 0, width, height);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
