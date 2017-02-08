@@ -2,8 +2,6 @@ package game.entities;
 
 import game.engine.Graphics;
 
-//import java.util.Random;
-
 public abstract class Solid {
 
     protected float[] color ;

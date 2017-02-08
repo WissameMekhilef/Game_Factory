@@ -28,7 +28,6 @@ public class Level {
 		generate();
 	}
 
-
 	public void generate() {
 		//Genere background (damier)
 		for(int x = 0; x < width; x++) {
@@ -41,7 +40,7 @@ public class Level {
 		}
 
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(100, 10, 2, 1000, 100, true));
+		plateau.add(new Obstacle(100, 10, 2, 600, 200, true));
 		plateau.add(new Obstacle(100, 10, 2, 500, 700, true));
 		plateau.add(new Obstacle(100, 10, 2, 500, 160, true));
 

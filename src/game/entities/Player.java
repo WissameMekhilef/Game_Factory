@@ -30,6 +30,7 @@ public class Player extends Movable {
 		//Right replace
 		if((coordonnee[0] + size + Game.xScroll) > Component.width){
 			coordonnee[0] = Component.width - (size + (int) Game.xScroll);
+			coordonneePrev[0] = coordonnee[0];
 			isBlockedByRightScreen = true;
 		}else{
 			isBlockedByRightScreen = false;

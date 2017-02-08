@@ -28,7 +28,7 @@ public class Component {
 	}
 
 	public static int okcancel(String theMessage) {
-		int result = JOptionPane.showConfirmDialog((java.awt.Component) null, theMessage,
+		int result = JOptionPane.showConfirmDialog(null, theMessage,
 				"alert", JOptionPane.OK_CANCEL_OPTION);
 		return result;
 	}
