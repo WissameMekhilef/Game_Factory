@@ -1,7 +1,7 @@
 package game.entities;
 
-import game.Component;
 import game.Game;
+import game.engine.Component;
 import game.engine.Graphics;
 
 /**

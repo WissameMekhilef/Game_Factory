@@ -12,15 +12,23 @@ import java.io.IOException;
 public class Sound {
     private Audio backgroundSound;
 
-    public Sound(String path){
-        try {
-            backgroundSound = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Sound(){
+
     }
 
     public void play(){
         backgroundSound.playAsMusic(1.0f, 1.0f, false);
+    }
+
+    public Audio getBackgroundSound() {
+        return backgroundSound;
+    }
+
+    public void setBackgroundSound(String pathBackgroundSound) {
+        try {
+            backgroundSound = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream(pathBackgroundSound));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

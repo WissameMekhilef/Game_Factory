@@ -1,6 +1,5 @@
 package game.engine;
 
-import game.Component;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 

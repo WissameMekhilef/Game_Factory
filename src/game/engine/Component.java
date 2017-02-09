@@ -1,5 +1,6 @@
-package game;
+package game.engine;
 
+import game.Game;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
@@ -25,7 +26,7 @@ public class Component {
 
 	public Component() {
 		display();
-		game = new Game(this);
+		game = new Game();
 	}
 
 	public static int okcancel(String theMessage) {
@@ -43,13 +44,13 @@ public class Component {
 			main.exit();
 	}
 
+	public static void stop() {
+		running = false;
+	}
+
 	public void start() {
 		running = true;
 		loop();
-	}
-
-	public void stop() {
-		running = false;
 	}
 
 	public void exit() {

@@ -1,5 +1,6 @@
 package game;
 
+import game.engine.Component;
 import game.engine.Physics;
 import game.entities.Obstacle;
 import game.entities.Player;
@@ -17,11 +18,13 @@ public class Level {
 	public List<Tile> background;
 	public List<Obstacle> plateau;
 	private List<PotentialCollision> listPC;
+	private Game inWhichGameAmI;
 
-	public Level(int width, int height) {
+	public Level(Game gameOwner, int width, int height) {
+	    inWhichGameAmI = gameOwner;
 		this.width = width;
 		this.height = height;
-		player = new Player(50, 5, -7, 0, Component.height - 8);
+		player = new Player(inWhichGameAmI, 50, 5, -7, 0, Component.height - 8);
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
@@ -44,9 +47,9 @@ public class Level {
 		}
 
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(100, 10, 2, 600, 200, true));
-		plateau.add(new Obstacle(100, 10, 2, 500, 700, true));
-		plateau.add(new Obstacle(100, 10, 2, 500, 160, true));
+		plateau.add(new Obstacle(100, 600, 200, inWhichGameAmI.getTextureMap().textureMap.get("brique")));
+		//plateau.add(new Obstacle(100, 500, 700));
+		//plateau.add(new Obstacle(100, 500, 160));
 
 		for (Obstacle obstacle : plateau) {
 			listPC.add(new PotentialCollision(player, obstacle));

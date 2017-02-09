@@ -1,18 +1,15 @@
 package game.entities;
 
-import game.Component;
 import game.Game;
+import game.GameParameters;
+import game.engine.Component;
 import game.engine.Graphics;
 import game.engine.Physics;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
-
-import java.io.IOException;
 
 public class Player extends Movable {
+    private Game inWichGameAmI;
 
-    private Texture texture;
     private Texture forward;
     private Texture backward;
 
@@ -21,31 +18,17 @@ public class Player extends Movable {
 
 	private boolean isAlive = true;
 
-	private int MAXSPEED = 7;
-
 	//GESTION SAUT
     private boolean jumped = false;
     private long before;
     private long timer = System.currentTimeMillis();
-    private double jumpTime = 1000;
 
-	public Player(int size, int v0, int v1, int x0, int y0) {
-		super(size, v0, v1, x0, y0);
-        try {
-            // load texture from PNG file
-            forward = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player.png"));
-            backward = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player_b.png"));
-            texture = forward;
+	public Player(Game gameParent, int size, int v0, int v1, int x0, int y0) {
+		super(size, v0, v1, x0, y0, gameParent.getTextureMap().textureMap.get(GameParameters.getForwardTexture()));
+        inWichGameAmI = gameParent;
+        forward = texture;
+        backward = inWichGameAmI.getTextureMap().textureMap.get(GameParameters.getBackwardTexture());
 
-            System.out.println("Texture loaded: "+texture);
-            System.out.println(">> Image width: "+texture.getImageWidth());
-            System.out.println(">> Image height: "+texture.getImageHeight());
-            System.out.println(">> Texture width: "+texture.getTextureWidth());
-            System.out.println(">> Texture height: "+texture.getTextureHeight());
-            System.out.println(">> Texture ID: "+texture.getTextureID());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 
 	private void scrollReplace(){
@@ -89,7 +72,7 @@ public class Player extends Movable {
 	    //Jump thing
 	    if(jumped){
             timer = System.currentTimeMillis();
-            if(timer - before > jumpTime)
+            if(timer - before > GameParameters.getJumpTime())
                 jumped = false;
         }
 
@@ -110,26 +93,26 @@ public class Player extends Movable {
 
 	public void jumpWanted(){
 	    if(!jumped && coordonnee[1] < Component.height){
-            vitessePrev[1] -= 20;
+            vitessePrev[1] -= GameParameters.getGainVitesseY();
             jumped = true;
             before = System.currentTimeMillis();
         }
     }
 
     public void leftWanted(){
-	    if(coordonnee[0] + Game.xScroll > 0  && vitessePrev[0] + MAXSPEED > 0)
+	    if(coordonnee[0] + Game.xScroll > 0  && vitessePrev[0] + GameParameters.getMAXSPEED() > 0)
 	        if(vitessePrev[0] > 0)
 	            vitessePrev[0] = 0;
             else
-	            vitessePrev[0] -= 2;
+	            vitessePrev[0] -= GameParameters.getGainVitesseX() * (-1);
     }
 
     public void rightWanted(){
-        if((coordonnee[0] + size + Game.xScroll - Component.width <= 0) && vitessePrev[0] < MAXSPEED)
+        if((coordonnee[0] + size + Game.xScroll - Component.width <= 0) && vitessePrev[0] < GameParameters.getMAXSPEED())
             if(vitessePrev[0] < 0)
                 vitessePrev[0] = 0;
             else
-                vitessePrev[0] += 2;
+                vitessePrev[0] += GameParameters.getGainVitesseX();
     }
 
     public void render(){

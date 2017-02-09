@@ -1,7 +1,7 @@
 package game.engine;
 
-import game.Component;
 import game.Game;
+import game.GameParameters;
 import game.entities.Movable;
 import game.entities.Player;
 import game.entities.PotentialCollision;
@@ -11,9 +11,6 @@ import game.entities.Solid;
  * Created by wissamemekhilef on 27/01/2017.
  */
 public class Physics {
-    private static double Gamma = 20.81;
-    private static double G = 4;
-    private static double deltaT = 1.0/60.0;
 
 	/**
 	 * Fonction de simulation de gravite
@@ -23,7 +20,7 @@ public class Physics {
 	 */
 	public static void gravite(Movable toMove){
 		if( !(toMove.getCoordonnee()[1] <= toMove.getSize()) || (toMove.getVitessePrev()[1] < 0) )
-			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + Gamma * deltaT;
+			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + GameParameters.getGamma() * GameParameters.getDeltaT();
 
 		if(toMove.isBlockedByBottom() && toMove.getVitesse()[1] > 0)
 			toMove.getVitesse()[1] = 0;
@@ -41,9 +38,9 @@ public class Physics {
     public static void freinage(Movable toMove) {
 
 		if(toMove.getVitessePrev()[0] > 1){
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - G * deltaT;
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - GameParameters.getG() * GameParameters.getDeltaT();
 		}else if(toMove.getVitessePrev()[0] < -1)
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + G * deltaT;
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + GameParameters.getG() * GameParameters.getDeltaT();
 		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitessePrev()[0] > -1))
 			toMove.getVitesse()[0] = 0;
 

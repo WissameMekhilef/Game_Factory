@@ -1,10 +1,13 @@
 package game;
 
+import game.engine.Component;
 import game.engine.Graphics;
 import game.engine.Sound;
 import game.entities.Tile;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import java.io.IOException;
 
 public class Game{
 
@@ -15,26 +18,31 @@ public class Game{
 	public int bound;
 
 	private boolean paused = false;
-    private Context context;;
+    private Context context;
 
-    private Sound backgroundMusic;
+    private Sound soundContext;
 
-    private Component componentParent;
+    private GameTextureMap textureMap;
 
-	public Game(Component componentParent) {
-        this.componentParent = componentParent;
+	public Game() {
+        try {
+            textureMap = new GameTextureMap();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 		xScroll = 0;
 		yScroll = 0;
-		level = new Level(200, Component.height / Tile.SIZE);
+		level = new Level(this,200, Component.height / Tile.SIZE);
 
 		bound = level.width * Tile.SIZE;
 
         context = Context.INGAME;
 
-        backgroundMusic = new Sound("sounds/CantLetGo.ogg");
-        //backgroundMusic = new Sound("sounds/BaseAfterBase.ogg");
+        soundContext = new Sound();
 
-	}
+        soundContext.setBackgroundSound(GameParameters.getPathToBackgroundMusic());
+    }
 
     public void pollInput() {
 
@@ -70,7 +78,7 @@ public class Game{
                 }
                 if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
                     System.out.println("DEBUG");
-                    componentParent.stop();
+                    Component.stop();
                 }
             }
         }
@@ -78,7 +86,7 @@ public class Game{
 
 	public void init() {
 		level.init();
-        backgroundMusic.play();
+        soundContext.play();
 	}
 
 	public void translateView(float x, float y) {
@@ -103,6 +111,10 @@ public class Game{
 
 	public void drawPause(){
 
+    }
+
+    public GameTextureMap getTextureMap() {
+        return textureMap;
     }
 
     private enum Context {INGAME, INMENU, INPAUSE}

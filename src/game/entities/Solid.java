@@ -1,23 +1,24 @@
 package game.entities;
 
 import game.engine.Graphics;
+import org.newdawn.slick.opengl.Texture;
 
 public abstract class Solid {
 
-    protected float[] color ;
+    protected Texture texture;
     protected int[] coordonnee;
     protected int size;
 
-    public Solid(int size, int x, int y) {
-    	//Random random = new Random();
-    	color = new float[]{0.5f, 0.5f, 0.5f, 1};
-        //color = new float[]{random.nextFloat(), random.nextFloat(), random.nextFloat(), 1};
+    public Solid(int size, int x, int y, Texture texture) {
+
         coordonnee = new int[]{x, y};
         this.size = size;
+
+        this.texture = texture;
     }
 
     public void render(){
-        Graphics.renderQuad(coordonnee[0], coordonnee[1], size, size, color);
+        Graphics.renderQuad(coordonnee[0], coordonnee[1], size, size, texture);
     }
 
     public int[] getCoordonnee() {
