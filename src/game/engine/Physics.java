@@ -12,7 +12,7 @@ import game.entities.Solid;
  */
 public class Physics {
     private static double Gamma = 20.81;
-    private static double G = 2;
+    private static double G = 4;
     private static double deltaT = 1.0/60.0;
 
 	/**

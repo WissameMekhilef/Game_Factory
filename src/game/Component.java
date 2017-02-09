@@ -1,6 +1,7 @@
 package game;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
@@ -53,6 +54,7 @@ public class Component {
 
 	public void exit() {
 		Display.destroy();
+        AL.destroy();
 		System.exit(0);
 	}
 
@@ -130,11 +132,6 @@ public class Component {
         // enable alpha blending
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-
-
-
 		glViewport(0, 0, width, height);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();

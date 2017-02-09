@@ -1,6 +1,7 @@
 package game;
 
 import game.engine.Graphics;
+import game.engine.Sound;
 import game.entities.Tile;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -16,6 +17,8 @@ public class Game{
 	private boolean paused = false;
     private Context context;;
 
+    private Sound backgroundMusic;
+
 	public Game() {
 		xScroll = 0;
 		yScroll = 0;
@@ -24,6 +27,10 @@ public class Game{
 		bound = level.width * Tile.SIZE;
 
         context = Context.INGAME;
+
+        backgroundMusic = new Sound("sounds/CantLetGo.ogg");
+        //backgroundMusic = new Sound("sounds/BaseAfterBase.ogg");
+
 	}
 
     public void pollInput() {
@@ -64,6 +71,7 @@ public class Game{
 
 	public void init() {
 		level.init();
+        backgroundMusic.play();
 	}
 
 	public void translateView(float x, float y) {
@@ -90,5 +98,5 @@ public class Game{
 
     }
 
-private enum Context {INGAME, INMENU, INPAUSE}
+    private enum Context {INGAME, INMENU, INPAUSE}
 }

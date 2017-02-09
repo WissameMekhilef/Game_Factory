@@ -13,6 +13,8 @@ import java.io.IOException;
 public class Player extends Movable {
 
     private Texture texture;
+    private Texture forward;
+    private Texture backward;
 
 	private boolean isBlockedByLeftScreen = false;
 	private boolean isBlockedByRightScreen = false;
@@ -31,7 +33,9 @@ public class Player extends Movable {
 		super(size, v0, v1, x0, y0);
         try {
             // load texture from PNG file
-            texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player.png"));
+            forward = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player.png"));
+            backward = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player_b.png"));
+            texture = forward;
 
             System.out.println("Texture loaded: "+texture);
             System.out.println(">> Image width: "+texture.getImageWidth());
@@ -75,6 +79,14 @@ public class Player extends Movable {
 	}
 
 	public void update() {
+	    //Texture thing normal or reverse
+        if(vitessePrev[0] < 0){
+            texture = backward;
+        }else{
+            texture = forward;
+        }
+
+	    //Jump thing
 	    if(jumped){
             timer = System.currentTimeMillis();
             if(timer - before > jumpTime)
