@@ -19,7 +19,10 @@ public class Game{
 
     private Sound backgroundMusic;
 
-	public Game() {
+    private Component componentParent;
+
+	public Game(Component componentParent) {
+        this.componentParent = componentParent;
 		xScroll = 0;
 		yScroll = 0;
 		level = new Level(200, Component.height / Tile.SIZE);
@@ -64,6 +67,10 @@ public class Game{
                         paused = true;
                         context = Context.INPAUSE;
                     }
+                }
+                if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
+                    System.out.println("DEBUG");
+                    componentParent.stop();
                 }
             }
         }

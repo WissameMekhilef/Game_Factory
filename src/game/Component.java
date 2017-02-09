@@ -25,7 +25,7 @@ public class Component {
 
 	public Component() {
 		display();
-		game = new Game();
+		game = new Game(this);
 	}
 
 	public static int okcancel(String theMessage) {
