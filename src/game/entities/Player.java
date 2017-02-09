@@ -93,7 +93,7 @@ public class Player extends Movable {
 
 	public void jumpWanted(){
 	    if(!jumped && coordonnee[1] < Component.height){
-            vitessePrev[1] -= GameParameters.getGainVitesseY();
+            vitessePrev[1] += GameParameters.getGainVitesseY();
             jumped = true;
             before = System.currentTimeMillis();
         }
