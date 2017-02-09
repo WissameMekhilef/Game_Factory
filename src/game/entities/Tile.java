@@ -35,7 +35,7 @@ public class Tile {
 		float y1 = y + 1 + Game.yScroll / SIZE;
 		if(x1 < 0 || y1 < 0 || x0 > (Component.width / SIZE + 1) || y0 > (Component.height / SIZE + 1))
 			return;
-		Graphics.renderQuad(x * SIZE, y * SIZE, SIZE, SIZE, color);
+		Graphics.renderQuad(x * SIZE, y * SIZE, SIZE, SIZE, null);
 	}
 
 	public enum Tiles {

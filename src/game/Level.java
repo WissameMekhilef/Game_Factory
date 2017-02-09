@@ -6,7 +6,6 @@ import game.entities.Obstacle;
 import game.entities.Player;
 import game.entities.PotentialCollision;
 import game.entities.Tile;
-import game.entities.Tile.Tiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class Level {
 	    inWhichGameAmI = gameOwner;
 		this.width = width;
 		this.height = height;
-		player = new Player(inWhichGameAmI, 50, 5, -7, 0, Component.height - 8);
+		player = new Player(inWhichGameAmI, 50, 70, 5, -7, 0, Component.height - 8);//On pourra lui passer direvtement une texture player il ira chercher sa jumelle tout seul avec une map
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
@@ -36,19 +35,10 @@ public class Level {
     }
 
 	public void generate() {
-		//Genere background (damier)
-		for(int x = 0; x < width; x++) {
-			for(int y = 1; y <= height; y++) {
-				if((x + y) % 2 == 0)
-					background.add(new Tile(x, y, Tiles.YELLOW));
-				else
-					background.add(new Tile(x, y, Tiles.WHITE));
-			}
-		}
-
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(100, 600, 200, inWhichGameAmI.getTextureMap().textureMap.get("brique")));
-		//plateau.add(new Obstacle(100, 500, 700));
+		plateau.add(new Obstacle(100, 100, 600, 200, inWhichGameAmI.getTextureMap().textureMap.get("brique")));
+		//Simulation sol
+		plateau.add(new Obstacle(10000, 20, 10, 20, inWhichGameAmI.getTextureMap().textureMap.get("herbe")));
 		//plateau.add(new Obstacle(100, 500, 160));
 
 		for (Obstacle obstacle : plateau) {
@@ -69,8 +59,6 @@ public class Level {
 			System.out.println("DEAD");
 			Component.running = false;
 		}
-
-
 	}
 
 	public void render() {

@@ -1,6 +1,5 @@
 package game.entities;
 
-import game.engine.Graphics;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -10,18 +9,12 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Obstacle extends Solid {
 
-	public Obstacle(int size, int x0, int y0, Texture texture) {
-		super(size, x0, y0, texture);
+	public Obstacle(int sizeX, int sizeY, int x0, int y0, Texture texture) {
+		super(sizeX, sizeY, x0, y0, texture);
 	}
 
 	public void update() {
 
 	}
-
-    public void render(){
-        Graphics.renderQuad(coordonnee[0], coordonnee[1], size, size, texture);
-    }
-
-
 
 }

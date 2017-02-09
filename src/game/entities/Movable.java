@@ -13,8 +13,8 @@ public abstract class Movable extends Solid {
 	protected boolean isBlockedByLeft;
 	protected boolean isBlockedByRight;
 
-	public Movable(int size, int v0, int v1, int x, int y, Texture pathToTexture) {
-		super(size, x, y, pathToTexture);
+	public Movable(int sizeX, int sizeY, int v0, int v1, int x, int y, Texture pathToTexture) {
+		super(sizeX, sizeY, x, y, pathToTexture);
 		coordonneePrev = new int[]{coordonnee[0], coordonnee[1]};
 		vitesse = new double[]{v0, v1};
 		vitessePrev = new double[]{vitesse[0], vitesse[1]};
