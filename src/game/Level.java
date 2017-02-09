@@ -27,7 +27,7 @@ public class Level {
 	    inWhichGameAmI = gameOwner;
 		this.width = width;
 		this.height = height;
-		player = new Player(inWhichGameAmI, 50, 70, 5, -7, 0,  70, inWhichGameAmI.getTextures().skinMap.get("player1"));
+		player = new Player(inWhichGameAmI, 50, 50, 0, -7, 10,  60, inWhichGameAmI.getTextures().skinMap.get("player1"));
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
@@ -46,10 +46,14 @@ public class Level {
 
 	public void generate() {
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(100, 100, 600, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
-		//Simulation sol
-		plateau.add(new Obstacle(1000, 20, 10, 20, inWhichGameAmI.getTextures().textureMap.get("herbe")));
-		//plateau.add(new Obstacle(100, 500, 160));
+		plateau.add(new Obstacle(100, 200, 600, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
+        plateau.add(new Obstacle(100, 100, 800, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
+        plateau.add(new Obstacle(100, 200, 1000, 800, inWhichGameAmI.getTextures().textureMap.get("brique")));
+        plateau.add(new Obstacle(100, 200, 1200, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
+
+        //Simulation sol
+		plateau.add(new Obstacle(1200, 50, 0, 10, inWhichGameAmI.getTextures().textureMap.get("herbe")));
+
 
 		for (Obstacle obstacle : plateau) {
 			listPC.add(new PotentialCollision(player, obstacle));
