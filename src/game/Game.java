@@ -85,13 +85,10 @@ public class Game{
 	}
 
 	public void translateView() {
-		/*if(level.player.getCoordonnee()[0] > Component.width / 2)
-			return;
-        if(level.player.getCoordonnee()[0] < Component.width / 2)
-            return;
-    */
-		xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
-		yScroll -= level.player.getCoordonnee()[1] - level.player.prevY;
+		if(level.player.getCoordonnee()[0] > Component.width / 2)
+            xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
+        if(level.player.getCoordonnee()[1] > Component.width / 2)
+            yScroll += level.player.getCoordonnee()[1] - level.player.prevY;
 	}
 
 	public void update() {
