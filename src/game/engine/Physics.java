@@ -2,7 +2,6 @@ package game.engine;
 
 import game.Game;
 import game.GameParameters;
-import game.entities.Movable;
 import game.entities.Player;
 import game.entities.PotentialCollision;
 import game.entities.Solid;
@@ -18,7 +17,7 @@ public class Physics {
 	 * 	L'objet sur lequel on applique la gravité
 	 *
 	 */
-	public static void gravite(Movable toMove){
+	public static void gravite(Player toMove){
 		if( !(toMove.getCoordonnee()[1] <= toMove.getSizeY()) || (toMove.getVitessePrev()[1] < 0) )
 			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + GameParameters.getGamma() * GameParameters.getDeltaT();
 
@@ -30,12 +29,15 @@ public class Physics {
 		toMove.getCoordonnee()[1] =  (int) Math.ceil(toMove.getCoordonnee()[1] - toMove.getVitesse()[1]);
 		toMove.getCoordonneePrev()[1] = toMove.getCoordonnee()[1];
 
-		toMove.getCoordonnee()[1] = (toMove.getCoordonnee()[1] <= toMove.getSizeY())?toMove.getSizeY():toMove.getCoordonnee()[1];
-		toMove.getVitesse()[1] = (toMove.getCoordonnee()[1] <= toMove.getSizeY())?0:toMove.getVitesse()[1];
+		boolean isBelowTheSurface = toMove.getCoordonnee()[1] <= 0;
+		toMove.getCoordonnee()[1] = (isBelowTheSurface)? toMove.getSizeY() : toMove.getCoordonnee()[1];
+		toMove.getVitesse()[1] = (isBelowTheSurface)? 0 : toMove.getVitesse()[1];
+        toMove.setBelowTheSurface(isBelowTheSurface);
+
 		toMove.getVitessePrev()[1] = toMove.getVitesse()[1];
     }
 
-    public static void freinage(Movable toMove) {
+    public static void freinage(Player toMove) {
 
 		if(toMove.getVitessePrev()[0] > 1){
 			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - GameParameters.getG() * GameParameters.getDeltaT();

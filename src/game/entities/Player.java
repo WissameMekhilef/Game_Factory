@@ -7,27 +7,29 @@ import game.engine.Physics;
 import org.newdawn.slick.opengl.Texture;
 
 public class Player extends Movable {
+    //BEGIN Scroll
+    public int prevX;
+    public int prevY;
     private Game inWichGameAmI;
-
     private Texture forward;
     private Texture backward;
-
+    //BEGIN Alive variables
 	private boolean isBlockedByLeftScreen = false;
 	private boolean isBlockedByRightScreen = false;
-
+    //END Alive variables
+	private boolean isBelowTheSurface = false;
 	private boolean isAlive = true;
-
+    //END Scroll
 	//GESTION SAUT
     private boolean jumped = false;
     private long before;
     private long timer = System.currentTimeMillis();
 
-	public Player(Game gameParent, int sizeX, int sizeY, int v0, int v1, int x0, int y0) {
-		super(sizeX, sizeY, v0, v1, x0, y0, gameParent.getTextureMap().textureMap.get(GameParameters.getForwardTexture()));
+	public Player(Game gameParent, int sizeX, int sizeY, int v0, int v1, int x0, int y0, Texture[] skin) {
+		super(sizeX, sizeY, v0, v1, x0, y0, skin[0]);
         inWichGameAmI = gameParent;
-        forward = texture;
-        backward = inWichGameAmI.getTextureMap().textureMap.get(GameParameters.getBackwardTexture());
-
+        forward = skin[0];
+        backward = skin[1];
 	}
 
 	private void scrollReplace(){
@@ -53,6 +55,8 @@ public class Player extends Movable {
 	private boolean checkAlive(){
 		if(isBlockedByLeftScreen && isBlockedByRight)
 			return false;
+		if(isBelowTheSurface)
+		    return false;
 		return true;
 	}
 
@@ -75,6 +79,8 @@ public class Player extends Movable {
                 jumped = false;
         }
 
+        prevX = coordonneePrev[0];
+	    prevY = coordonneePrev[1];
 		Physics.gravite(this);
 		Physics.freinage(this);
 
@@ -112,6 +118,10 @@ public class Player extends Movable {
                 vitessePrev[0] = 0;
             else
                 vitessePrev[0] += GameParameters.getGainVitesseX();
+    }
+
+    public void setBelowTheSurface(boolean situation){
+        isBelowTheSurface = situation;
     }
 
 }

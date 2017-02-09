@@ -16,6 +16,10 @@ public class Level {
 	public Player player;
 	public List<Tile> background;
 	public List<Obstacle> plateau;
+    public int bordBas = 0;
+    public int bordHaut = height;
+    public int bordGauche = 0;
+    public int bordDroit = width;
 	private List<PotentialCollision> listPC;
 	private Game inWhichGameAmI;
 
@@ -23,10 +27,16 @@ public class Level {
 	    inWhichGameAmI = gameOwner;
 		this.width = width;
 		this.height = height;
-		player = new Player(inWhichGameAmI, 50, 70, 5, -7, 0, Component.height - 8);//On pourra lui passer direvtement une texture player il ira chercher sa jumelle tout seul avec une map
+		player = new Player(inWhichGameAmI, 50, 70, 5, -7, 0,  70, inWhichGameAmI.getTextures().skinMap.get("player1"));
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
+
+        bordBas = 0;
+        bordHaut = height;
+        bordGauche = 0;
+        bordDroit = width;
+
 		generate();
 	}
 
@@ -36,9 +46,9 @@ public class Level {
 
 	public void generate() {
 		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(100, 100, 600, 200, inWhichGameAmI.getTextureMap().textureMap.get("brique")));
+		plateau.add(new Obstacle(100, 100, 600, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
 		//Simulation sol
-		plateau.add(new Obstacle(10000, 20, 10, 20, inWhichGameAmI.getTextureMap().textureMap.get("herbe")));
+		plateau.add(new Obstacle(1000, 20, 10, 20, inWhichGameAmI.getTextures().textureMap.get("herbe")));
 		//plateau.add(new Obstacle(100, 500, 160));
 
 		for (Obstacle obstacle : plateau) {

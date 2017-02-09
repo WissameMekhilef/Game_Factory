@@ -3,7 +3,6 @@ package game;
 import game.engine.Component;
 import game.engine.Graphics;
 import game.engine.Sound;
-import game.entities.Tile;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -15,27 +14,23 @@ public class Game{
 
 	public Level level;
 
-	public int bound;
-
 	private boolean paused = false;
     private Context context;
 
     private Sound soundContext;
 
-    private GameTextureMap textureMap;
+    private GameTextureMap textures;
 
 	public Game() {
         try {
-            textureMap = new GameTextureMap();
+            textures = new GameTextureMap();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 		xScroll = 0;
 		yScroll = 0;
-		level = new Level(this,200, Component.height / Tile.SIZE);
-
-		bound = level.width * Tile.SIZE;
+		level = new Level(this,5000, 5000);
 
         context = Context.INGAME;
 
@@ -89,17 +84,20 @@ public class Game{
         soundContext.play();
 	}
 
-	public void translateView(float x, float y) {
-		if(-xScroll >= bound - Component.width)
+	public void translateView() {
+		/*if(level.player.getCoordonnee()[0] > Component.width / 2)
 			return;
-		xScroll += x;
-		yScroll += y;
+        if(level.player.getCoordonnee()[0] < Component.width / 2)
+            return;
+    */
+		xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
+		yScroll -= level.player.getCoordonnee()[1] - level.player.prevY;
 	}
 
 	public void update() {
         pollInput();
 		if(!paused){
-			translateView(-1, 0);
+			translateView();
 			level.update();
 		}
 	}
@@ -113,8 +111,8 @@ public class Game{
 
     }
 
-    public GameTextureMap getTextureMap() {
-        return textureMap;
+    public GameTextureMap getTextures() {
+        return textures;
     }
 
     private enum Context {INGAME, INMENU, INPAUSE}
