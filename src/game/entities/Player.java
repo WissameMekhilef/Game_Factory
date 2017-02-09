@@ -104,7 +104,7 @@ public class Player extends Movable {
 	        if(vitessePrev[0] > 0)
 	            vitessePrev[0] = 0;
             else
-	            vitessePrev[0] -= GameParameters.getGainVitesseX() * (-1);
+	            vitessePrev[0] -= GameParameters.getGainVitesseX();
     }
 
     public void rightWanted(){
