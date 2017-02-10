@@ -78,56 +78,6 @@ public class Game{
         soundContext.play();
 	}
 
-    /**
-     * Be aware that xScroll is a gap between the displayed screen and the level origin : Counted with a -
-     * yScroll is positive WHAT A MESS !!!
-     */
-	/*public void translateViewX() {
-	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll > Component.width / 2;
-        boolean aGauche = ! aDroite;
-
-	    boolean bordDroitAfficher = 0 >= level.bordDroit - Component.width + xScroll ;
-        boolean bordGaucheAfficher = xScroll >= level.bordGauche;
-
-        if(aDroite){
-            if(bordDroitAfficher) {
-                return;
-            }
-        }else if(aGauche){
-            if(bordGaucheAfficher){
-                xScroll = 0;
-                return;
-            }
-        }
-
-        xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
-	}
-
-	public void translateViewY(){
-        boolean moitieHaute = level.player.getCoordonnee()[1] - yScroll > Component.height / 2;
-        boolean moitieBasse = !moitieHaute;
-
-        boolean bordHautAfficher = yScroll >= level.bordHaut - Component.height ;
-        boolean bordBasAfficher = yScroll <= level.bordBas;
-
-        if(moitieBasse){
-            if(bordBasAfficher) {
-                yScroll = 0;
-                return;
-            }
-        }else if(moitieHaute){
-            if(bordHautAfficher){
-                return;
-            }
-        }
-
-        yScroll += level.player.getCoordonnee()[1] - level.player.prevY;
-    }
-    public void translateView(){
-	    translateViewX();
-	    translateViewY();
-    }*/
-
 	public void update() {
         pollInput();
 		if(!paused){
