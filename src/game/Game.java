@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Game{
 
-	public static float xScroll, yScroll; //dÃ©calage par rapport au 0,0 bas,gauche
+	public static float xScroll, yScroll; //décalage par rapport au 0,0 bas,gauche
 
 	public Level level;
 
@@ -88,12 +88,6 @@ public class Game{
      * Be aware that xScroll is a gap between the displayed screen and the level origin : Counted with a -
      */
 	public void translateView() {
-<<<<<<< HEAD
-		if(level.player.getCoordonnee()[0] > Component.width / 2)
-            xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
-        if(level.player.getCoordonnee()[1] > Component.height / 2)
-            yScroll += level.player.getCoordonnee()[1] - level.player.prevY;
-=======
 
 	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll >= Component.width / 2;
 	    boolean aGauche = level.player.getCoordonnee()[0] + xScroll <= Component.width / 2;
@@ -122,7 +116,6 @@ public class Game{
 		xScroll += -1;
 		yScroll += 0;*/
 
->>>>>>> refs/remotes/origin/Wissame
 	}
 
 	public void update() {
