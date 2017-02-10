@@ -30,6 +30,9 @@ public class Player extends Movable {
         inWichGameAmI = gameParent;
         forward = skin[0];
         backward = skin[1];
+
+        prevX = x0;
+        prevY = y0;
 	}
 
 	private void scrollReplace(){

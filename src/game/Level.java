@@ -27,7 +27,7 @@ public class Level {
 	    inWhichGameAmI = gameOwner;
 		this.width = width;
 		this.height = height;
-		player = new Player(inWhichGameAmI, 50, 50, 0, -7, 10,  60, inWhichGameAmI.getTextures().skinMap.get("player1"));
+		player = new Player(inWhichGameAmI, 50, 50, 3, 3, 10,  500, inWhichGameAmI.getTextures().skinMap.get("player1"));
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
