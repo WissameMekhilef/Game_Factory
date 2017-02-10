@@ -87,7 +87,7 @@ public class Game{
 	public void translateView() {
 		if(level.player.getCoordonnee()[0] > Component.width / 2)
             xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
-        if(level.player.getCoordonnee()[1] > Component.width / 2)
+        if(level.player.getCoordonnee()[1] > Component.height / 2)
             yScroll += level.player.getCoordonnee()[1] - level.player.prevY;
 	}
 
