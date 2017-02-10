@@ -88,7 +88,6 @@ public class Player extends Movable {
 
 		isAlive = checkAlive();
 
-
 		//On repasse tout a false pour recommencer au tour d'après avec les conditions initiale
 		setBlockedByBottom(false);
 		setBlockedByLeft(false);

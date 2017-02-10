@@ -19,7 +19,7 @@ public class Component {
 	public static final double UPDATE_RATE = NANOSECONDS / 60.0;
 
 	public static boolean running = false;
-	public static int width = 1024;
+	public static int width = 824;
 	public static int height = 900;
 
 	public Game game;

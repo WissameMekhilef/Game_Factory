@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Game{
 
-	public static float xScroll, yScroll;
+	public static float xScroll, yScroll; //décalage par rapport au 0,0 bas,gauche
 
 	public Level level;
 
@@ -30,7 +30,7 @@ public class Game{
 
 		xScroll = 0;
 		yScroll = 0;
-		level = new Level(this,5000, 5000);
+		level = new Level(this,1500, 5000);
 
         context = Context.INGAME;
 
@@ -84,11 +84,45 @@ public class Game{
         soundContext.play();
 	}
 
+    /**
+     * Be aware that xScroll is a gap between the displayed screen and the level origin : Counted with a -
+     */
 	public void translateView() {
+<<<<<<< HEAD
 		if(level.player.getCoordonnee()[0] > Component.width / 2)
             xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
         if(level.player.getCoordonnee()[1] > Component.height / 2)
             yScroll += level.player.getCoordonnee()[1] - level.player.prevY;
+=======
+
+	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll >= Component.width / 2;
+	    boolean aGauche = level.player.getCoordonnee()[0] + xScroll <= Component.width / 2;
+
+	    boolean bordDroitAfficher = 0 >= level.bordDroit - Component.width + xScroll ;
+        boolean bordGaucheAfficher = xScroll >= level.bordGauche;
+
+        if(aDroite){
+            if(bordDroitAfficher) {
+                return;
+            }
+        }else if(aGauche){
+            if(bordGaucheAfficher){
+                return;
+            }
+        }
+
+        xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
+
+
+
+
+
+        /*if(-xScroll >= level.bordDroit - Component.width)
+			return;
+		xScroll += -1;
+		yScroll += 0;*/
+
+>>>>>>> refs/remotes/origin/Wissame
 	}
 
 	public void update() {
