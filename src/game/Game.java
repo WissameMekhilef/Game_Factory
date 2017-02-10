@@ -30,7 +30,7 @@ public class Game{
 
 		xScroll = 0;
 		yScroll = 0;
-		level = new Level(this,1500, 5000);
+		level = new Level(this,1500, 1000);
 
         context = Context.INGAME;
 
@@ -86,30 +86,32 @@ public class Game{
 
     /**
      * Be aware that xScroll is a gap between the displayed screen and the level origin : Counted with a -
+     * yScroll is positive WHAT A MESS !!!
      */
-	public void translateView() {
-
-	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll >= Component.width / 2;
-	    boolean aGauche = level.player.getCoordonnee()[0] + xScroll <= Component.width / 2;
+	public void translateViewX() {
+	    //Scrolling on Xaxis
+	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll > Component.width / 2;
+	    //boolean aGauche = level.player.getCoordonnee()[0] + xScroll <= Component.width / 2;
+        boolean aGauche = ! aDroite;
+        //System.out.println("aGauche = "+aGauche);
 
 	    boolean bordDroitAfficher = 0 >= level.bordDroit - Component.width + xScroll ;
         boolean bordGaucheAfficher = xScroll >= level.bordGauche;
+        //System.out.println("bordGaucheAfficher = "+bordGaucheAfficher);
 
         if(aDroite){
             if(bordDroitAfficher) {
+                //xScroll = -level.bordDroit + Component.width;
                 return;
             }
         }else if(aGauche){
             if(bordGaucheAfficher){
+                xScroll = 0;
                 return;
             }
         }
 
         xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
-
-
-
-
 
         /*if(-xScroll >= level.bordDroit - Component.width)
 			return;
@@ -117,6 +119,39 @@ public class Game{
 		yScroll += 0;*/
 
 	}
+
+	public void translateViewY(){
+        //Scrolling on Yaxis
+        //System.out.println("yScroll = "+yScroll);
+
+        boolean moitieHaute = level.player.getCoordonnee()[1] - yScroll > Component.height / 2;
+        //System.out.println("moitieHaut = "+moitieHaute);
+        boolean moitieBasse = !moitieHaute;
+        //System.out.println("moitieBasse = "+moitieBasse);
+
+        boolean bordHautAfficher = yScroll >= level.bordHaut - Component.height ;
+        //System.out.println("bordHautAfficher = "+bordHautAfficher);
+        boolean bordBasAfficher = yScroll <= level.bordBas;
+        //System.out.println("bordBasAfficher = "+bordBasAfficher);
+
+        if(moitieBasse){
+            if(bordBasAfficher) {
+                //System.out.println("yScroll = "+yScroll);
+                yScroll = 0;
+                return;
+            }
+        }else if(moitieHaute){
+            if(bordHautAfficher){
+                return;
+            }
+        }
+
+        yScroll += level.player.getCoordonnee()[1] - level.player.prevY;
+    }
+    public void translateView(){
+	    translateViewX();
+	    translateViewY();
+    }
 
 	public void update() {
         pollInput();

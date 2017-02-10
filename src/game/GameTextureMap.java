@@ -21,7 +21,6 @@ public class GameTextureMap {
         textureMap.put("brique", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/brique.png")));
         textureMap.put("herbe", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/herbe.png")));
 
-
         skinMap = new HashMap<>();
         skinMap.put("player1", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player_b.png"))});
         skinMap.put("flappy", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/flappy.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/flappy_b.png"))});
