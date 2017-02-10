@@ -93,11 +93,11 @@ public class Game{
 	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll > Component.width / 2;
 	    //boolean aGauche = level.player.getCoordonnee()[0] + xScroll <= Component.width / 2;
         boolean aGauche = ! aDroite;
-        System.out.println("aGauche = "+aGauche);
+        //System.out.println("aGauche = "+aGauche);
 
 	    boolean bordDroitAfficher = 0 >= level.bordDroit - Component.width + xScroll ;
         boolean bordGaucheAfficher = xScroll >= level.bordGauche;
-        System.out.println("bordGaucheAfficher = "+bordGaucheAfficher);
+        //System.out.println("bordGaucheAfficher = "+bordGaucheAfficher);
 
         if(aDroite){
             if(bordDroitAfficher) {
@@ -136,7 +136,7 @@ public class Game{
 
         if(moitieBasse){
             if(bordBasAfficher) {
-                System.out.println("yScroll = "+yScroll);
+                //System.out.println("yScroll = "+yScroll);
                 yScroll = 0;
                 return;
             }
