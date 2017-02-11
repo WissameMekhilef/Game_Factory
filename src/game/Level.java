@@ -35,15 +35,17 @@ public class Level {
 				if((x + y) % 2 == 0)
 					background.add(new Tile(x, y, Tiles.YELLOW));
 				else
-					//background.add(new Tile(x, y, Tiles.WHITE));
-					background.add(new Tile(x, y, Tiles.BRIQUE));
+					background.add(new Tile(x, y, Tiles.WHITE));
+					//background.add(new Tile(x, y, Tiles.BRIQUE));
 			}
 		}
-
+		
+		//background.add(new Tile(width/2, height/2, Tiles.BRIQUE));
 		//Genere les obstacles (plateau de jeu)
 		plateau.add(new Obstacle(100, 10, 2, 600, 200, true));
 		plateau.add(new Obstacle(100, 10, 2, 500, 700, true));
 		plateau.add(new Obstacle(100, 10, 2, 500, 160, true));
+		//plateau.add(new Obstacle(32, 10, 2, 800, 700, true, Obstacle.type.BRIQUE));
 
 		for (Obstacle obstacle : plateau) {
 			listPC.add(new PotentialCollision(player, obstacle));

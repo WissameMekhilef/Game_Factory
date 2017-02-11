@@ -1,6 +1,7 @@
 package game.entities;
 
 import game.engine.Physics;
+import game.engine.Texture;
 
 /**
  * Obstacle permet de décrire tout les éléments du décors à prendre en compte lors de la gestion de la physics
@@ -9,7 +10,8 @@ import game.engine.Physics;
  */
 public class Obstacle extends Movable {
 	private boolean fixe;
-	private enum type {
+	private Texture texture;
+	public enum type {
 		EAU,BETON,BOIS,BRIQUE;
 	}
 
@@ -29,6 +31,7 @@ public class Obstacle extends Movable {
 		}
 		if (t==type.BRIQUE) {
 			//x=0 y=0
+			this.texture=Texture.brique;
 		}
 	
 	}
