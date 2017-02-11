@@ -99,6 +99,7 @@ fabric.properties
 
 /lib/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 .DS*
@@ -106,3 +107,10 @@ fabric.properties
 /src/META-INF
 Mario.iml
 >>>>>>> refs/heads/master
+=======
+/src/META-INF
+Mario.iml
+
+
+textures/fichiers_vectoriels
+>>>>>>> refs/remotes/origin/master

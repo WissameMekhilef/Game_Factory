@@ -1,84 +1,64 @@
 package game.engine;
 
-import game.Component;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class Graphics {
 
-	public static void quadData_S(int x, int y, int w, int h, float[] color) {
-		glColor4f(color[0], color[1], color[2], color[3]);
-		glVertex2f(x, y);
-		glVertex2f(x + w, y);
-		glVertex2f(x + w, y + h);
-		glVertex2f(x, y + h);
-	}
-	
+    public static void renderTexture(int x, int y, int w, int h, Texture texture){
 
-	public static void renderQuad_S(int x, int y, int w, int h, float[] color) {
-		glBegin(GL_QUADS);
-		Graphics.quadData_S(x, Component.height - y, w, h, color);
-		glEnd();
-	}
-	
-	
-	
-	public static void quadData(int x, int y, int w, int h, float[] color,int xO, int yO) {
-	 //1
-		float tailleGrille =32.0f;
-		glColor4f(color[0], color[1], color[2], color[3]);
-		glTexCoord2f(((0 + xO) / tailleGrille), (0 + yO) / tailleGrille);
-		glVertex2f(x, y);
-		glTexCoord2f(((1 + xO) / tailleGrille), (0 + yO) / tailleGrille);
-		glVertex2f(x + w, y);
-		glTexCoord2f(((1 + xO) / tailleGrille), (1 + yO) / tailleGrille);
-		glVertex2f(x + w, y + h);
-		glTexCoord2f(((0 + xO) / tailleGrille), (1 + yO) / tailleGrille);
-		glVertex2f(x, y + h);
-	}
+        boolean textureMoinsLarge = texture.getImageWidth() < w;
+        boolean textureMoinsHaute = texture.getImageHeight() < h;
+        float coeffX = 1;
+        if(textureMoinsLarge){
+            /*System.out.println("################");
+            System.out.println("textureMoinsLarge = "+textureMoinsLarge);
+            System.out.println("textureMoinsHaute = "+textureMoinsHaute);
+            System.out.println("texture.getImageWidth() = "+texture.getImageWidth());
+            System.out.println("w = "+w);*/
 
-	public static void renderQuad(int x, int y, int w, int h, float[] color,int xO, int yO) {
-		//1
-		glBegin(GL_QUADS);
-		quadData(x, y, w, h, color, xO, yO);
-		glEnd();
-	}
+            coeffX = (float) w / (float) texture.getImageWidth();
+            //System.out.println("coeffX = "+coeffX);
 
-	public static void quadData(int x, int y, int w, int h, float[] color) {
-		//2
-		glColor4f(color[0], color[1], color[2], color[3]);
-		glTexCoord2f(0, 0);
-		glVertex2f(x, y);
-		glTexCoord2f(1, 0);
-		glVertex2f(x + w, y);
-		glTexCoord2f(1, 1);
-		glVertex2f(x + w, y + h);
-		glTexCoord2f(1, 1);
-		glVertex2f(x, y + h);
-	}
-	
-	public static void renderQuad(int x, int y, int w, int h, float[] color) {
-		//2
-		glBegin(GL_QUADS);
-		quadData(x, y, w, h, color);
-		glEnd();
-	}
-	
-	public static void render_entite(float x, float y, int w, int h, float[] color,float taille,int xO, int yO){
-		glBegin(GL_QUADS);
-		
-		glColor4f(color[0], color[1], color[2], color[3]);
-		glTexCoord2f(((0 + xO) / taille), (0 + yO) / taille);
-		glVertex2f(x, y);
-		glTexCoord2f(((1 + xO) / taille), (0 + yO) / taille);
-		glVertex2f(x + w, y);
-		glTexCoord2f(((1 + xO) / taille), (1 + yO) / taille);
-		glVertex2f(x + w, y + h);
-		glTexCoord2f(((0 + xO) / taille), (1 + yO) / taille);
-		glVertex2f(x, y + h);
-		
-		
-		glEnd();
-	}
+           // System.out.println("################");
+        }
+
+
+        //Point en haut a gauche
+        glTexCoord2f(0,0);
+        glVertex2f(x, y);
+
+        //Point en haut a droite
+        glTexCoord2f(1,0);
+        glVertex2f(x + w, y);
+
+        //Point en bas a droite
+        glTexCoord2f(1,1);
+        glVertex2f(x + w, y + h);
+
+        //Point en bas a gauche
+        glTexCoord2f(0,1);
+        glVertex2f(x, y + h);
+
+
+
+    }
+
+    public static void renderQuad(int x, int y, int w, int h, Texture texture) {
+	    y = Component.height - y;
+
+        Color.white.bind();
+        texture.bind();
+
+        glBegin(GL_QUADS);
+            renderTexture( x, y, w, h, texture);
+        glEnd();
+    }
+
+	public static void scroll(float xScroll, float yScroll){
+        glTranslatef(xScroll, yScroll, 0);
+    }
 
 }

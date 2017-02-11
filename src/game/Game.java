@@ -1,56 +1,101 @@
 package game;
 
-import game.entities.Solid;
-import game.entities.Tile;
+import game.engine.Component;
+import game.engine.Sound;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.input.Mouse;
+
+import java.io.IOException;
 
 public class Game{
-
-	public static float xScroll, yScroll;
-
 	public Level level;
 
-	public int bound;
-
 	private boolean paused = false;
+    private Context context;
+
+    private Sound soundContext;
+
+    private GameTextureMap textures;
 
 	public Game() {
-		xScroll = 0;
-		yScroll = 0;
-		level = new Level(200, Component.height / Tile.SIZE);
+        try {
+            textures = new GameTextureMap();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		bound = level.width * Tile.SIZE;
-	}
+		level = new Level(this,1500, 1000);
+
+        context = Context.INGAME;
+
+        soundContext = new Sound();
+
+        soundContext.setBackgroundSound(LevelParameters.getPathToBackgroundMusic());
+    }
+
+    public void pollInput() {
+
+        if (Mouse.isButtonDown(0)) {
+            int x = Mouse.getX();
+            int y = Mouse.getY();
+
+            //System.out.println("MOUSE DOWN @ X: " + x + " Y: " + y);
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            level.getPlayer().jumpWanted();
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            level.getPlayer().leftWanted();
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            level.getPlayer().rightWanted();
+        }
+
+        while (Keyboard.next()) {
+            if (Keyboard.getEventKeyState()) {
+
+            } else {
+                if (Keyboard.getEventKey() == Keyboard.KEY_P) {
+                    if(paused){
+                        paused = false;
+                        context = Context.INGAME;
+                    }else{
+                        paused = true;
+                        context = Context.INPAUSE;
+                    }
+                }
+                if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
+                    System.out.println("DEBUG");
+                    Component.stop();
+                }
+            }
+        }
+    }
 
 	public void init() {
-
 		level.init();
-
-	
-	}
-
-	public void translateView(float x, float y) {
-		if(-xScroll >= bound - Component.width)
-			return;
-		xScroll += x;
-		yScroll += y;
+        soundContext.play();
 	}
 
 	public void update() {
-		if (Keyboard.isKeyDown(Keyboard.KEY_P)){
-			System.out.println("PAUSE WANTED");
-			paused = (paused)?false:true;
-		}
+        pollInput();
 		if(!paused){
-			translateView(-1, 0);
 			level.update();
 		}
 	}
 
 	public void render() {
-		GL11.glTranslatef(xScroll, yScroll, 0);
 		level.render();
-		
 	}
+
+	public void drawPause(){
+
+    }
+
+    public GameTextureMap getTextures() {
+        return textures;
+    }
+
+    private enum Context {INGAME, INMENU, INPAUSE}
 }
