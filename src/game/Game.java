@@ -1,7 +1,6 @@
 package game;
 
 import game.engine.Component;
-import game.engine.Graphics;
 import game.engine.Sound;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -9,9 +8,12 @@ import org.lwjgl.input.Mouse;
 import java.io.IOException;
 
 public class Game{
+<<<<<<< HEAD
 
 	public static float xScroll, yScroll; //décalage par rapport au 0,0 bas,gauche
 
+=======
+>>>>>>> refs/remotes/origin/Wissame
 	public Level level;
 
 	private boolean paused = false;
@@ -28,15 +30,13 @@ public class Game{
             e.printStackTrace();
         }
 
-		xScroll = 0;
-		yScroll = 0;
 		level = new Level(this,1500, 1000);
 
         context = Context.INGAME;
 
         soundContext = new Sound();
 
-        soundContext.setBackgroundSound(GameParameters.getPathToBackgroundMusic());
+        soundContext.setBackgroundSound(LevelParameters.getPathToBackgroundMusic());
     }
 
     public void pollInput() {
@@ -88,20 +88,15 @@ public class Game{
      * Be aware that xScroll is a gap between the displayed screen and the level origin : Counted with a -
      * yScroll is positive WHAT A MESS !!!
      */
-	public void translateViewX() {
-	    //Scrolling on Xaxis
+	/*public void translateViewX() {
 	    boolean aDroite = level.player.getCoordonnee()[0] + xScroll > Component.width / 2;
-	    //boolean aGauche = level.player.getCoordonnee()[0] + xScroll <= Component.width / 2;
         boolean aGauche = ! aDroite;
-        //System.out.println("aGauche = "+aGauche);
 
 	    boolean bordDroitAfficher = 0 >= level.bordDroit - Component.width + xScroll ;
         boolean bordGaucheAfficher = xScroll >= level.bordGauche;
-        //System.out.println("bordGaucheAfficher = "+bordGaucheAfficher);
 
         if(aDroite){
             if(bordDroitAfficher) {
-                //xScroll = -level.bordDroit + Component.width;
                 return;
             }
         }else if(aGauche){
@@ -112,31 +107,17 @@ public class Game{
         }
 
         xScroll -= level.player.getCoordonnee()[0] - level.player.prevX;
-
-        /*if(-xScroll >= level.bordDroit - Component.width)
-			return;
-		xScroll += -1;
-		yScroll += 0;*/
-
 	}
 
 	public void translateViewY(){
-        //Scrolling on Yaxis
-        //System.out.println("yScroll = "+yScroll);
-
         boolean moitieHaute = level.player.getCoordonnee()[1] - yScroll > Component.height / 2;
-        //System.out.println("moitieHaut = "+moitieHaute);
         boolean moitieBasse = !moitieHaute;
-        //System.out.println("moitieBasse = "+moitieBasse);
 
         boolean bordHautAfficher = yScroll >= level.bordHaut - Component.height ;
-        //System.out.println("bordHautAfficher = "+bordHautAfficher);
         boolean bordBasAfficher = yScroll <= level.bordBas;
-        //System.out.println("bordBasAfficher = "+bordBasAfficher);
 
         if(moitieBasse){
             if(bordBasAfficher) {
-                //System.out.println("yScroll = "+yScroll);
                 yScroll = 0;
                 return;
             }
@@ -151,18 +132,16 @@ public class Game{
     public void translateView(){
 	    translateViewX();
 	    translateViewY();
-    }
+    }*/
 
 	public void update() {
         pollInput();
 		if(!paused){
-			translateView();
 			level.update();
 		}
 	}
 
 	public void render() {
-        Graphics.scroll(xScroll, yScroll);
 		level.render();
 	}
 

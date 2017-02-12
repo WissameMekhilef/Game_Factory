@@ -1,9 +1,5 @@
 package game.entities;
 
-import game.Game;
-import game.engine.Component;
-import game.engine.Graphics;
-
 /**
  * La class Tile permet d'implementer des éléments du background
  *
@@ -29,13 +25,13 @@ public class Tile {
 	}
 
 	public void render() {
-		float x0 = x + Game.xScroll / SIZE;
+	/*	float x0 = x + LevelParameters.xScroll / SIZE;
 		float y0 = y + Game.yScroll / SIZE;
 		float x1 = x + 1 + Game.xScroll / SIZE;
 		float y1 = y + 1 + Game.yScroll / SIZE;
 		if(x1 < 0 || y1 < 0 || x0 > (Component.width / SIZE + 1) || y0 > (Component.height / SIZE + 1))
 			return;
-		Graphics.renderQuad(x * SIZE, y * SIZE, SIZE, SIZE, null);
+		Graphics.renderQuad(x * SIZE, y * SIZE, SIZE, SIZE, null);*/
 	}
 
 	public enum Tiles {

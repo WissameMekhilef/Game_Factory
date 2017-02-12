@@ -3,7 +3,7 @@ package game;
 /**
  * Created by wissamemekhilef on 09/02/2017.
  */
-public class GameParameters {
+public class LevelParameters {
     //BEGIN PHYSICS
     private static double Gamma = 20.81;
     private static double G = 4;
@@ -22,6 +22,18 @@ public class GameParameters {
     private static int gainVitesseX = 2;
     private static int gainVitesseY = -20;
     //END PLAYER
+
+    //BEGIN SCROLL
+    private static int xScroll = 0;
+    private static int yScroll = 0;
+    //END SCROLL
+
+    //BEGIN LEVEL BOUND$
+    private static int bordBas = 0;
+    private static int bordHaut = 0;
+    private static int bordGauche = 0;
+    private static int bordDroit = 0;
+    //END LEVEL BOUNDS
 
     public static double getGamma() {
         return Gamma;
@@ -44,7 +56,7 @@ public class GameParameters {
     }
 
     public static void setDeltaT(double deltaT) {
-        GameParameters.deltaT = deltaT;
+        LevelParameters.deltaT = deltaT;
     }
 
     public static String getPathToBackgroundMusic() {
@@ -52,7 +64,7 @@ public class GameParameters {
     }
 
     public static void setPathToBackgroundMusic(String pathToBackgroundMusic) {
-        GameParameters.pathToBackgroundMusic = pathToBackgroundMusic;
+        LevelParameters.pathToBackgroundMusic = pathToBackgroundMusic;
     }
 
     public static int getMAXSPEED() {
@@ -60,7 +72,7 @@ public class GameParameters {
     }
 
     public static void setMAXSPEED(int MAXSPEED) {
-        GameParameters.MAXSPEED = MAXSPEED;
+        LevelParameters.MAXSPEED = MAXSPEED;
     }
 
     public static double getJumpTime() {
@@ -75,16 +87,24 @@ public class GameParameters {
         return forwardTexture;
     }
 
+    public static void setForwardTexture(String forwardTexture) {
+        LevelParameters.forwardTexture = forwardTexture;
+    }
+
     public static void setForwardPathToTexture(String forwardPathToTexture) {
-        GameParameters.forwardTexture = forwardPathToTexture;
+        LevelParameters.forwardTexture = forwardPathToTexture;
     }
 
     public static String getBackwardTexture() {
         return backwardTexture;
     }
 
+    public static void setBackwardTexture(String backwardTexture) {
+        LevelParameters.backwardTexture = backwardTexture;
+    }
+
     public static void setBackwardPathToTexture(String backwardPathToTexture) {
-        GameParameters.backwardTexture = backwardPathToTexture;
+        LevelParameters.backwardTexture = backwardPathToTexture;
     }
 
     public static int getGainVitesseX() {
@@ -92,7 +112,7 @@ public class GameParameters {
     }
 
     public static void setGainVitesseX(int gainVitesseX) {
-        GameParameters.gainVitesseX = gainVitesseX;
+        LevelParameters.gainVitesseX = gainVitesseX;
     }
 
     public static int getGainVitesseY() {
@@ -100,6 +120,54 @@ public class GameParameters {
     }
 
     public static void setGainVitesseY(int gainVitesseY) {
-        GameParameters.gainVitesseY = gainVitesseY;
+        LevelParameters.gainVitesseY = gainVitesseY;
+    }
+
+    public static int getxScroll() {
+        return xScroll;
+    }
+
+    public static void setxScroll(int xScroll) {
+        LevelParameters.xScroll = xScroll;
+    }
+
+    public static int getyScroll() {
+        return yScroll;
+    }
+
+    public static void setyScroll(int yScroll) {
+        LevelParameters.yScroll = yScroll;
+    }
+
+    public static int getBordBas() {
+        return bordBas;
+    }
+
+    public static void setBordBas(int bordBas) {
+        LevelParameters.bordBas = bordBas;
+    }
+
+    public static int getBordHaut() {
+        return bordHaut;
+    }
+
+    public static void setBordHaut(int bordHaut) {
+        LevelParameters.bordHaut = bordHaut;
+    }
+
+    public static int getBordGauche() {
+        return bordGauche;
+    }
+
+    public static void setBordGauche(int bordGauche) {
+        LevelParameters.bordGauche = bordGauche;
+    }
+
+    public static int getBordDroit() {
+        return bordDroit;
+    }
+
+    public static void setBordDroit(int bordDroit) {
+        LevelParameters.bordDroit = bordDroit;
     }
 }

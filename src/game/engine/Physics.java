@@ -1,7 +1,6 @@
 package game.engine;
 
-import game.Game;
-import game.GameParameters;
+import game.LevelParameters;
 import game.entities.Player;
 import game.entities.PotentialCollision;
 import game.entities.Solid;
@@ -19,7 +18,7 @@ public class Physics {
 	 */
 	public static void gravite(Player toMove){
 		if( !(toMove.getCoordonnee()[1] <= toMove.getSizeY()) || (toMove.getVitessePrev()[1] < 0) )
-			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + GameParameters.getGamma() * GameParameters.getDeltaT();
+			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + LevelParameters.getGamma() * LevelParameters.getDeltaT();
 
 		if(toMove.isBlockedByBottom() && toMove.getVitesse()[1] > 0)
 			toMove.getVitesse()[1] = 0;
@@ -40,9 +39,9 @@ public class Physics {
     public static void freinage(Player toMove) {
 
 		if(toMove.getVitessePrev()[0] > 1){
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - GameParameters.getG() * GameParameters.getDeltaT();
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - LevelParameters.getG() * LevelParameters.getDeltaT();
 		}else if(toMove.getVitessePrev()[0] < -1)
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + GameParameters.getG() * GameParameters.getDeltaT();
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + LevelParameters.getG() * LevelParameters.getDeltaT();
 		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitessePrev()[0] > -1))
 			toMove.getVitesse()[0] = 0;
 
@@ -54,8 +53,8 @@ public class Physics {
 		toMove.getCoordonnee()[0] =  (int) Math.ceil(toMove.getCoordonneePrev()[0] + toMove.getVitesse()[0]);
 		toMove.getCoordonneePrev()[0] = toMove.getCoordonnee()[0];
 
-		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll >= 0)?toMove.getVitesse()[0]:0;
-		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + Game.xScroll - Component.width + toMove.getSizeX() <= 0)?toMove.getVitesse()[0]:0;
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + LevelParameters.getxScroll() >= 0)?toMove.getVitesse()[0]:0;
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + LevelParameters.getxScroll() - Component.width + toMove.getSizeX() <= 0)?toMove.getVitesse()[0]:0;
 
 		toMove.getVitessePrev()[0] = toMove.getVitesse()[0];
     }

@@ -1,6 +1,7 @@
 package game;
 
 import game.engine.Component;
+import game.engine.Graphics;
 import game.engine.Physics;
 import game.entities.Obstacle;
 import game.entities.Player;
@@ -16,26 +17,27 @@ public class Level {
 	public Player player;
 	public List<Tile> background;
 	public List<Obstacle> plateau;
-    public int bordBas = 0;
-    public int bordHaut = height;
-    public int bordGauche = 0;
-    public int bordDroit = width;
+
 	private List<PotentialCollision> listPC;
 	private Game inWhichGameAmI;
+
+	private Scroller scroller;
 
 	public Level(Game gameOwner, int width, int height) {
 	    inWhichGameAmI = gameOwner;
 		this.width = width;
 		this.height = height;
-		player = new Player(inWhichGameAmI, 50, 50, 3, 3, 10,  500, inWhichGameAmI.getTextures().skinMap.get("player1"));
+		player = new Player(this, 50, 50, 3, 3, 10,  500, inWhichGameAmI.getTextures().skinMap.get("player1"));
 		background = new ArrayList<>();
 		plateau = new ArrayList<>();
 		listPC = new ArrayList<>();
 
-        bordBas = 0;
-        bordHaut = height;
-        bordGauche = 0;
-        bordDroit = width;
+        LevelParameters.setBordBas(0);
+        LevelParameters.setBordHaut(height);
+        LevelParameters.setBordGauche(0);
+        LevelParameters.setBordDroit(width);
+
+        scroller = new ForceScroller(2, 0);
 
 		generate();
 	}
@@ -66,6 +68,7 @@ public class Level {
 	}
 
 	public void update() {
+        scroller.translateView();
 		if(player.isAlive()){
 			for(PotentialCollision pc : listPC)
 				Physics.isStuck(pc);
@@ -77,6 +80,7 @@ public class Level {
 	}
 
 	public void render() {
+        Graphics.scroll(LevelParameters.getxScroll(), LevelParameters.getyScroll());
 		for(Tile tile : background)
 			tile.render();
 		for(Obstacle obstacle : plateau) {
@@ -84,5 +88,4 @@ public class Level {
 		}
 		player.render();
 	}
-
 }
