@@ -12,10 +12,9 @@ public class ForceScroller implements Scroller {
     }
 
     public void translateView(){
-        //System.out.println("-LevelParameters.getxScroll() >= LevelParameters.getBordDroit() - Component.width = "+(-LevelParameters.getxScroll() >= LevelParameters.getBordDroit() - Component.width));
         if(-LevelParameters.getxScroll() >= LevelParameters.getBordDroit() - Component.width)
             return;
-        LevelParameters.setxScroll(-vX);
-        LevelParameters.setyScroll(vY);
+        LevelParameters.setxScroll(LevelParameters.getxScroll() - vX);
+        LevelParameters.setyScroll(LevelParameters.getyScroll() + vY);
     }
 }

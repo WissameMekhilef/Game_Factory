@@ -28,7 +28,7 @@ public class Physics {
 		toMove.getCoordonnee()[1] =  (int) Math.ceil(toMove.getCoordonnee()[1] - toMove.getVitesse()[1]);
 		toMove.getCoordonneePrev()[1] = toMove.getCoordonnee()[1];
 
-		boolean isBelowTheSurface = toMove.getCoordonnee()[1] <= 0;
+		boolean isBelowTheSurface = toMove.getCoordonnee()[1] <= LevelParameters.getyScroll();
 		toMove.getCoordonnee()[1] = (isBelowTheSurface)? toMove.getSizeY() : toMove.getCoordonnee()[1];
 		toMove.getVitesse()[1] = (isBelowTheSurface)? 0 : toMove.getVitesse()[1];
         toMove.setBelowTheSurface(isBelowTheSurface);

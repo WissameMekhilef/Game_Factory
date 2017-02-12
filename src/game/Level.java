@@ -37,7 +37,8 @@ public class Level {
         LevelParameters.setBordGauche(0);
         LevelParameters.setBordDroit(width);
 
-        scroller = new ForceScroller(2, 0);
+        //scroller = new ForceScroller(2, 0);
+        scroller = new AttachedScroller(true, true, player);
 
 		generate();
 	}
