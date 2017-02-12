@@ -8,12 +8,6 @@ import org.lwjgl.input.Mouse;
 import java.io.IOException;
 
 public class Game{
-<<<<<<< HEAD
-
-	public static float xScroll, yScroll; //décalage par rapport au 0,0 bas,gauche
-
-=======
->>>>>>> refs/remotes/origin/Wissame
 	public Level level;
 
 	private boolean paused = false;
