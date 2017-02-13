@@ -16,8 +16,19 @@ public class Sound {
 
     }
 
-    public void play(){
-        backgroundSound.playAsMusic(1.0f, 1.0f, false);
+    public void play(float f){
+    	backgroundSound.playAsMusic(1.0f, 1.0f, false);
+    	backgroundSound.setPosition(f);
+    }
+
+    public float stop() {
+    	float f = backgroundSound.getPosition();
+    	backgroundSound.stop();
+    	return f;
+    }
+
+    public boolean isPlaying() {
+    	return backgroundSound.isPlaying();
     }
 
     public Audio getBackgroundSound() {
