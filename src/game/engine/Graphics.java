@@ -14,6 +14,7 @@ public class Graphics {
         float coeffX = 1;
         if(textureMoinsLarge){
             /*System.out.println("################");
+
             System.out.println("textureMoinsLarge = "+textureMoinsLarge);
             System.out.println("textureMoinsHaute = "+textureMoinsHaute);
             System.out.println("texture.getImageWidth() = "+texture.getImageWidth());

@@ -10,9 +10,9 @@ public class PotentialCollision {
     private boolean right;
 
     private Player player;
-    private Obstacle obstacle;
+    private Solid obstacle;
 
-    public PotentialCollision(Player p, Obstacle o){
+    public PotentialCollision(Player p, Solid o){
         player = p;
         obstacle = o;
 
@@ -26,7 +26,7 @@ public class PotentialCollision {
         return player;
     }
 
-    public Obstacle getObstacle() {
+    public Solid getSolid() {
         return obstacle;
     }
 

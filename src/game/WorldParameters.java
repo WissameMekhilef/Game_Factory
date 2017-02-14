@@ -3,7 +3,7 @@ package game;
 /**
  * Created by wissamemekhilef on 09/02/2017.
  */
-public class LevelParameters {
+public class WorldParameters {
     //BEGIN PHYSICS
     private static double Gamma = 20.81;
     private static double G = 4;
@@ -56,7 +56,7 @@ public class LevelParameters {
     }
 
     public static void setDeltaT(double deltaT) {
-        LevelParameters.deltaT = deltaT;
+        WorldParameters.deltaT = deltaT;
     }
 
     public static String getPathToBackgroundMusic() {
@@ -64,7 +64,7 @@ public class LevelParameters {
     }
 
     public static void setPathToBackgroundMusic(String pathToBackgroundMusic) {
-        LevelParameters.pathToBackgroundMusic = pathToBackgroundMusic;
+        WorldParameters.pathToBackgroundMusic = pathToBackgroundMusic;
     }
 
     public static int getMAXSPEED() {
@@ -72,7 +72,7 @@ public class LevelParameters {
     }
 
     public static void setMAXSPEED(int MAXSPEED) {
-        LevelParameters.MAXSPEED = MAXSPEED;
+        WorldParameters.MAXSPEED = MAXSPEED;
     }
 
     public static double getJumpTime() {
@@ -88,11 +88,11 @@ public class LevelParameters {
     }
 
     public static void setForwardTexture(String forwardTexture) {
-        LevelParameters.forwardTexture = forwardTexture;
+        WorldParameters.forwardTexture = forwardTexture;
     }
 
     public static void setForwardPathToTexture(String forwardPathToTexture) {
-        LevelParameters.forwardTexture = forwardPathToTexture;
+        WorldParameters.forwardTexture = forwardPathToTexture;
     }
 
     public static String getBackwardTexture() {
@@ -100,11 +100,11 @@ public class LevelParameters {
     }
 
     public static void setBackwardTexture(String backwardTexture) {
-        LevelParameters.backwardTexture = backwardTexture;
+        WorldParameters.backwardTexture = backwardTexture;
     }
 
     public static void setBackwardPathToTexture(String backwardPathToTexture) {
-        LevelParameters.backwardTexture = backwardPathToTexture;
+        WorldParameters.backwardTexture = backwardPathToTexture;
     }
 
     public static int getGainVitesseX() {
@@ -112,7 +112,7 @@ public class LevelParameters {
     }
 
     public static void setGainVitesseX(int gainVitesseX) {
-        LevelParameters.gainVitesseX = gainVitesseX;
+        WorldParameters.gainVitesseX = gainVitesseX;
     }
 
     public static int getGainVitesseY() {
@@ -120,7 +120,7 @@ public class LevelParameters {
     }
 
     public static void setGainVitesseY(int gainVitesseY) {
-        LevelParameters.gainVitesseY = gainVitesseY;
+        WorldParameters.gainVitesseY = gainVitesseY;
     }
 
     public static int getxScroll() {
@@ -128,7 +128,7 @@ public class LevelParameters {
     }
 
     public static void setxScroll(int xScroll) {
-        LevelParameters.xScroll = xScroll;
+        WorldParameters.xScroll = xScroll;
     }
 
     public static int getyScroll() {
@@ -136,7 +136,7 @@ public class LevelParameters {
     }
 
     public static void setyScroll(int yScroll) {
-        LevelParameters.yScroll = yScroll;
+        WorldParameters.yScroll = yScroll;
     }
 
     public static int getBordBas() {
@@ -144,7 +144,7 @@ public class LevelParameters {
     }
 
     public static void setBordBas(int bordBas) {
-        LevelParameters.bordBas = bordBas;
+        WorldParameters.bordBas = bordBas;
     }
 
     public static int getBordHaut() {
@@ -152,7 +152,7 @@ public class LevelParameters {
     }
 
     public static void setBordHaut(int bordHaut) {
-        LevelParameters.bordHaut = bordHaut;
+        WorldParameters.bordHaut = bordHaut;
     }
 
     public static int getBordGauche() {
@@ -160,7 +160,7 @@ public class LevelParameters {
     }
 
     public static void setBordGauche(int bordGauche) {
-        LevelParameters.bordGauche = bordGauche;
+        WorldParameters.bordGauche = bordGauche;
     }
 
     public static int getBordDroit() {
@@ -168,6 +168,6 @@ public class LevelParameters {
     }
 
     public static void setBordDroit(int bordDroit) {
-        LevelParameters.bordDroit = bordDroit;
+        WorldParameters.bordDroit = bordDroit;
     }
 }
