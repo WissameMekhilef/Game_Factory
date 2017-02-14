@@ -1,6 +1,7 @@
 package game;
 
 import game.engine.Component;
+import game.engine.Graphics;
 import game.engine.Sound;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -14,6 +15,7 @@ public class Game{
     private Context context;
 
     private Sound soundContext;
+    private float soundPosition;
 
     private GameTextureMap textures;
 
@@ -31,6 +33,7 @@ public class Game{
         soundContext = new Sound();
 
         soundContext.setBackgroundSound(LevelParameters.getPathToBackgroundMusic());
+        soundPosition = 0;
     }
 
     public void pollInput() {
@@ -75,18 +78,29 @@ public class Game{
 
 	public void init() {
 		level.init();
-        soundContext.play();
+        soundContext.play(soundPosition);
 	}
 
 	public void update() {
         pollInput();
 		if(!paused){
 			level.update();
+			if(!soundContext.isPlaying())
+				soundContext.play(soundPosition);
+		} else {
+			if(soundContext.isPlaying())
+				soundPosition = soundContext.stop();
 		}
 	}
 
 	public void render() {
 		level.render();
+		if(paused) {
+			int size = 200;
+			int x = (Component.width - size) / 2 - LevelParameters.getxScroll();
+			int y = (Component.height + size) / 2 + LevelParameters.getyScroll();
+			Graphics.renderQuad(x, y, size, size, textures.textureMap.get("pause"));
+		}
 	}
 
 	public void drawPause(){
