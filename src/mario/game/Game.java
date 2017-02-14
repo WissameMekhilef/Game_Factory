@@ -1,8 +1,11 @@
-package game;
+package mario.game;
 
-import game.engine.Component;
-import game.engine.Graphics;
-import game.engine.Sound;
+import mario.engine.Launcher;
+import mario.engine.Graphics;
+import mario.engine.Sound;
+import mario.game.world.World;
+import mario.game.world.WorldParameters;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -30,6 +33,7 @@ public class Game{
         menu = new Menu(this);
 
 		level = new World(this,1500, 1000);
+        //level = WordReader.worldFromJson("/world/mario_map.json");
 
         context = Context.INGAME;
 
@@ -106,8 +110,8 @@ public class Game{
             level.render();
         }else if(context == Context.INPAUSE) {
 			int size = 200;
-			int x = (Component.width - size) / 2 - WorldParameters.getxScroll();
-			int y = (Component.height + size) / 2 + WorldParameters.getyScroll();
+			int x = (Launcher.width - size) / 2 - WorldParameters.getxScroll();
+			int y = (Launcher.height + size) / 2 + WorldParameters.getyScroll();
 			Graphics.renderQuad(x, y, size, size, textures.textureMap.get("pause"));
 			//Il faut creer un objet pause
 		}else if(context == Context.INMENU){

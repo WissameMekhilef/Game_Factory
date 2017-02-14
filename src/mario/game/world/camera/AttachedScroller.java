@@ -1,8 +1,8 @@
-package game.camera;
+package mario.game.world.camera;
 
-import game.WorldParameters;
-import game.engine.Component;
-import game.entities.Player;
+import mario.engine.Launcher;
+import mario.game.world.WorldParameters;
+import mario.game.world.entities.Player;
 
 /**
  * Created by wissamemekhilef on 10/02/2017.
@@ -19,10 +19,10 @@ public class AttachedScroller implements Camera {
         this.player = player;
     }
     public void translateViewX() {
-	    boolean aDroite = player.getCoordonnee()[0] + WorldParameters.getxScroll() > Component.width / 2;
+	    boolean aDroite = player.getCoordonnee()[0] + WorldParameters.getxScroll() > Launcher.width / 2;
         boolean aGauche = ! aDroite;
 
-	    boolean bordDroitAfficher = 0 >= WorldParameters.getBordDroit() - Component.width + WorldParameters.getxScroll() ;
+	    boolean bordDroitAfficher = 0 >= WorldParameters.getBordDroit() - Launcher.width + WorldParameters.getxScroll() ;
         boolean bordGaucheAfficher = WorldParameters.getxScroll() >= WorldParameters.getBordGauche();
 
         if(aDroite){
@@ -40,10 +40,10 @@ public class AttachedScroller implements Camera {
 	}
 
 	public void translateViewY(){
-        boolean moitieHaute = player.getCoordonnee()[1] - WorldParameters.getyScroll() > Component.height / 2;
+        boolean moitieHaute = player.getCoordonnee()[1] - WorldParameters.getyScroll() > Launcher.height / 2;
         boolean moitieBasse = !moitieHaute;
 
-        boolean bordHautAfficher = WorldParameters.getyScroll() >= WorldParameters.getBordHaut() - Component.height ;
+        boolean bordHautAfficher = WorldParameters.getyScroll() >= WorldParameters.getBordHaut() - Launcher.height ;
         boolean bordBasAfficher = WorldParameters.getyScroll() <= WorldParameters.getBordBas();
 
         if(moitieBasse){

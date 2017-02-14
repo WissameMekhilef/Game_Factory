@@ -1,4 +1,4 @@
-package game.camera;
+package mario.game.world.camera;
 
 /**
  * Created by wissamemekhilef on 10/02/2017.

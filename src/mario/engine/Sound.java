@@ -1,4 +1,4 @@
-package game.engine;
+package mario.engine;
 
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;

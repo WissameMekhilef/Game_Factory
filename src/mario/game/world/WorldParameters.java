@@ -1,4 +1,4 @@
-package game;
+package mario.game.world;
 
 /**
  * Created by wissamemekhilef on 09/02/2017.

@@ -1,6 +1,6 @@
-package game.entities;
+package mario.game.world.entities;
 
-import game.engine.Graphics;
+import mario.engine.Graphics;
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class Solid {

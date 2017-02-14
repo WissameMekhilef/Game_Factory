@@ -1,4 +1,4 @@
-package game.entities;
+package mario.game.world.entities;
 
 /**
  * Created by wissamemekhilef on 02/02/2017.

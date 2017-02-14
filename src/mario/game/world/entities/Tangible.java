@@ -1,4 +1,4 @@
-package game.entities;
+package mario.game.world.entities;
 
 import org.newdawn.slick.opengl.Texture;
 

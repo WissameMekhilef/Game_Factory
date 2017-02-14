@@ -1,4 +1,4 @@
-package game.engine;
+package mario.engine;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -48,7 +48,7 @@ public class Graphics {
     }
 
     public static void renderQuad(int x, int y, int w, int h, Texture texture) {
-	    y = Component.height - y;
+	    y = Launcher.height - y;
 
         Color.white.bind();
         texture.bind();

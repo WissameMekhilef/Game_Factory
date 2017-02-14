@@ -1,10 +1,15 @@
-package game;
+package mario.game.world;
 
-import game.camera.AttachedScroller;
-import game.camera.Camera;
-import game.engine.Graphics;
-import game.engine.Physics;
-import game.entities.*;
+import mario.engine.Graphics;
+import mario.engine.Physics;
+import mario.game.Game;
+import mario.game.world.camera.AttachedScroller;
+import mario.game.world.camera.Camera;
+import mario.game.world.entities.Coin;
+import mario.game.world.entities.Door;
+import mario.game.world.entities.Obstacle;
+import mario.game.world.entities.Player;
+import mario.game.world.entities.PotentialCollision;
 
 import java.util.ArrayList;
 import java.util.List;

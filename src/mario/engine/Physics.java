@@ -1,9 +1,9 @@
-package game.engine;
+package mario.engine;
 
-import game.WorldParameters;
-import game.entities.Player;
-import game.entities.PotentialCollision;
-import game.entities.Solid;
+import mario.game.world.WorldParameters;
+import mario.game.world.entities.Player;
+import mario.game.world.entities.PotentialCollision;
+import mario.game.world.entities.Solid;
 
 /**
  * Created by wissamemekhilef on 27/01/2017.
@@ -70,7 +70,7 @@ public class Physics {
 		toMove.getCoordonneePrev()[0] = toMove.getCoordonnee()[0];
 
 		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + WorldParameters.getxScroll() >= 0)?toMove.getVitesse()[0]:0;
-		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + WorldParameters.getxScroll() - Component.width + toMove.getSizeX() <= 0)?toMove.getVitesse()[0]:0;
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + WorldParameters.getxScroll() - Launcher.width + toMove.getSizeX() <= 0)?toMove.getVitesse()[0]:0;
 
 		toMove.getVitessePrev()[0] = toMove.getVitesse()[0];
     }

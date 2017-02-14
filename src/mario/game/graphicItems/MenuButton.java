@@ -1,7 +1,8 @@
-package game;
+package mario.game.graphicItems;
 
-import game.entities.Solid;
 import org.newdawn.slick.opengl.Texture;
+
+import mario.game.world.entities.Solid;
 
 /**
  * Created by wissamemekhilef on 14/02/2017.

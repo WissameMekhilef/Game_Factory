@@ -1,9 +1,10 @@
-package game.entities;
+package mario.game.world.entities;
 
-import game.World;
-import game.WorldParameters;
-import game.engine.Component;
-import game.engine.Physics;
+import mario.engine.Launcher;
+import mario.engine.Physics;
+import mario.game.world.World;
+import mario.game.world.WorldParameters;
+
 import org.newdawn.slick.opengl.Texture;
 
 public class Player extends Movable {
@@ -48,8 +49,8 @@ public class Player extends Movable {
 		}
 
 		//Right replace
-		if((coordonnee[0] + sizeX + WorldParameters.getxScroll()) > Component.width){
-			coordonnee[0] = Component.width - (sizeX + WorldParameters.getxScroll());
+		if((coordonnee[0] + sizeX + WorldParameters.getxScroll()) > Launcher.width){
+			coordonnee[0] = Launcher.width - (sizeX + WorldParameters.getxScroll());
 			coordonneePrev[0] = coordonnee[0];
 			isBlockedByRightScreen = true;
 		}else{
@@ -101,7 +102,7 @@ public class Player extends Movable {
 	}
 
 	public void jumpWanted(){
-	    if(!jumped && coordonnee[1] < Component.height){
+	    if(!jumped && coordonnee[1] < Launcher.height){
             vitessePrev[1] += WorldParameters.getGainVitesseY();
             jumped = true;
             before = System.currentTimeMillis();
@@ -117,7 +118,7 @@ public class Player extends Movable {
     }
 
     public void rightWanted(){
-        if((coordonnee[0] + sizeX + WorldParameters.getxScroll() - Component.width <= 0) && vitessePrev[0] < WorldParameters.getMAXSPEED())
+        if((coordonnee[0] + sizeX + WorldParameters.getxScroll() - Launcher.width <= 0) && vitessePrev[0] < WorldParameters.getMAXSPEED())
             if(vitessePrev[0] < 0)
                 vitessePrev[0] = 0;
             else

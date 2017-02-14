@@ -1,4 +1,6 @@
-package game;
+package mario.game;
+
+import mario.game.graphicItems.MenuButton;
 
 /**
  * Created by wissamemekhilef on 14/02/2017.
