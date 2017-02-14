@@ -41,11 +41,11 @@ public class Game{
 
     public void pollInput() {
 
-	    if(context == context.INMENU){
+	    if(context == Context.INMENU){
             if (Mouse.isButtonDown(0)) {
                 menu.receiveClick(Mouse.getX(), Mouse.getY());
             }
-        }else if(context == context.INGAME){
+        }else if(context == Context.INGAME){
             if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
                 level.getPlayer().jumpWanted();
             }
