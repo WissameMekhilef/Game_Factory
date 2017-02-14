@@ -14,7 +14,9 @@ public class Menu {
     }
 
     public void receiveClick(int x0, int y0){
-
+        //System.out.println("x0 = "+x0+", y0 = "+y0);
+        if(startButton.isClicked(x0, y0))
+            System.out.println("Menu clicked");
     }
 
     public void render(){
