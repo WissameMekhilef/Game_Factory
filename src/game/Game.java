@@ -41,11 +41,11 @@ public class Game{
 
     public void pollInput() {
 
-	    if(context == context.INMENU){
+	    if(context == Context.INMENU){
             if (Mouse.isButtonDown(0)) {
                 menu.receiveClick(Mouse.getX(), Mouse.getY());
             }
-        }else if(context == context.INGAME){
+        }else if(context == Context.INGAME){
             if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
                 level.getPlayer().jumpWanted();
             }
@@ -61,15 +61,17 @@ public class Game{
 
                 } else {
                     if (Keyboard.getEventKey() == Keyboard.KEY_P) {
-                        if(context == context.INPAUSE){
-                            context = Context.INGAME;
-                        }else{
-                            context = Context.INPAUSE;
-                        }
+                        context = Context.INPAUSE;
                     }
-                    if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
-                        System.out.println("DEBUG");
-                        Component.stop();
+                }
+            }
+        } else if(context == Context.INPAUSE) {
+        	while (Keyboard.next()) {
+                if (Keyboard.getEventKeyState()) {
+
+                } else {
+                    if (Keyboard.getEventKey() == Keyboard.KEY_P) {
+                        context = Context.INGAME;
                     }
                 }
             }
@@ -84,12 +86,12 @@ public class Game{
 
 	public void update() {
         pollInput();
-		if(context == context.INGAME && level.isInProgress()){
+		if(context == Context.INGAME && level.isInProgress()){
             level.update();
             if(!soundContext.isPlaying())
                 soundContext.play(soundPosition);
 		}else if(!level.isInProgress()){
-		    context = context.INMENU;
+		    context = Context.INMENU;
         }
 
 
