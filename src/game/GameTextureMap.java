@@ -20,7 +20,13 @@ public class GameTextureMap {
         textureMap = new HashMap<>();
         textureMap.put("brique", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/brique.png")));
         textureMap.put("herbe", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/herbe.png")));
+
+        //A changer
         textureMap.put("pause", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/pause.png")));
+        //Doors
+        textureMap.put("door_1", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/door.png")));
+        //Coins
+        textureMap.put("coin_1", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/pause.png")));
 
         skinMap = new HashMap<>();
         skinMap.put("player1", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player_b.png"))});

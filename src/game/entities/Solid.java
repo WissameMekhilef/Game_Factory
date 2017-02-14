@@ -10,10 +10,6 @@ public abstract class Solid {
     protected int sizeX;
     protected int sizeY;
 
-    public Solid(){
-
-    }
-
     public Solid(int sizeX, int sizeY, int x, int y, Texture texture) {
 
         coordonnee = new int[]{x, y};

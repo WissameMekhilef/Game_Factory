@@ -1,6 +1,6 @@
 package game.engine;
 
-import game.LevelParameters;
+import game.WorldParameters;
 import game.entities.Player;
 import game.entities.PotentialCollision;
 import game.entities.Solid;
@@ -15,13 +15,13 @@ public class Physics {
 	 * @param toMove
 	 * 	L'objet sur lequel on applique la gravité
      *
-     * 	    Les paramètres de la gravité sont issues de LevelParameters
+     * 	    Les paramètres de la gravité sont issues de WorldParameters
 	 *
 	 */
 	public static void gravite(Player toMove){
 		if( !(toMove.getCoordonnee()[1] <= toMove.getSizeY()) || (toMove.getVitessePrev()[1] < 0) )
 		    //On calcule la nouvelle vitesse uniquement si necessaire
-			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + LevelParameters.getGamma() * LevelParameters.getDeltaT();
+			toMove.getVitesse()[1] = toMove.getVitessePrev()[1] + WorldParameters.getGamma() * WorldParameters.getDeltaT();
 
 
 		if(toMove.isBlockedByBottom() && toMove.getVitesse()[1] > 0)
@@ -37,7 +37,7 @@ public class Physics {
 		toMove.getCoordonneePrev()[1] = toMove.getCoordonnee()[1];
 
         //La fonction detecte si l'objet est passé sous la surface affiché ou pas
-		boolean isBelowTheSurface = toMove.getCoordonnee()[1] <= LevelParameters.getyScroll();
+		boolean isBelowTheSurface = toMove.getCoordonnee()[1] <= WorldParameters.getyScroll();
 		toMove.getCoordonnee()[1] = (isBelowTheSurface)? toMove.getSizeY() : toMove.getCoordonnee()[1];
 		toMove.getVitesse()[1] = (isBelowTheSurface)? 0 : toMove.getVitesse()[1];
         toMove.setBelowTheSurface(isBelowTheSurface);
@@ -50,14 +50,14 @@ public class Physics {
      * @param toMove
      *  L'objet sur lequel on applique le freinage
      *
-     *      Les paramètres du freinage sont issues de LevelParameters
+     *      Les paramètres du freinage sont issues de WorldParameters
      */
     public static void freinage(Player toMove) {
 
 		if(toMove.getVitessePrev()[0] > 1){
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - LevelParameters.getG() * LevelParameters.getDeltaT();
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] - WorldParameters.getG() * WorldParameters.getDeltaT();
 		}else if(toMove.getVitessePrev()[0] < -1)
-			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + LevelParameters.getG() * LevelParameters.getDeltaT();
+			toMove.getVitesse()[0] = toMove.getVitessePrev()[0] + WorldParameters.getG() * WorldParameters.getDeltaT();
 		else if((toMove.getVitessePrev()[0] < 1) && (toMove.getVitessePrev()[0] > -1))
 			toMove.getVitesse()[0] = 0;
 
@@ -69,8 +69,8 @@ public class Physics {
 		toMove.getCoordonnee()[0] =  (int) Math.ceil(toMove.getCoordonneePrev()[0] + toMove.getVitesse()[0]);
 		toMove.getCoordonneePrev()[0] = toMove.getCoordonnee()[0];
 
-		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + LevelParameters.getxScroll() >= 0)?toMove.getVitesse()[0]:0;
-		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + LevelParameters.getxScroll() - Component.width + toMove.getSizeX() <= 0)?toMove.getVitesse()[0]:0;
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + WorldParameters.getxScroll() >= 0)?toMove.getVitesse()[0]:0;
+		toMove.getVitesse()[0] = (toMove.getCoordonnee()[0] + WorldParameters.getxScroll() - Component.width + toMove.getSizeX() <= 0)?toMove.getVitesse()[0]:0;
 
 		toMove.getVitessePrev()[0] = toMove.getVitesse()[0];
     }
@@ -149,23 +149,33 @@ public class Physics {
 		pc.setRight(newRight);
 		pc.setLeft(newLeft);
 
-		return collisionSide;
-	}
+        if(collisionSide == "above" && pc.isRight() && pc.isLeft())
+		    return "above";
+        else if(collisionSide == "below" && pc.isRight() && pc.isLeft())
+            return "below";
+        else if(collisionSide == "right" && pc.isAbove() && pc.isBelow())
+            return "right";
+        else if(collisionSide == "left" && pc.isAbove() && pc.isBelow())
+            return "left";
+
+        return "";
+
+    }
 
 	public static void replaceAfterCollision(PotentialCollision pc, String collisionSide){
-        if(collisionSide == "above" && pc.isRight() && pc.isLeft()){
+        if(collisionSide == "above"){
             pc.getPlayer().setBlockedByBottom(true);
             pc.getPlayer().getCoordonnee()[1] = pc.getPlayer().getSizeY() + pc.getSolid().getCoordonnee()[1];
             pc.setAbove(false);
-        }else if(collisionSide == "below" && pc.isRight() && pc.isLeft()){
+        }else if(collisionSide == "below"){
             pc.getPlayer().setBlockedByTop(true);
             pc.getPlayer().getCoordonnee()[1] = pc.getSolid().getCoordonnee()[1] - pc.getSolid().getSizeY();
             pc.setBelow(false);
-        }else if(collisionSide == "right" && pc.isAbove() && pc.isBelow()){
+        }else if(collisionSide == "right"){
             pc.getPlayer().setBlockedByLeft(true);
             pc.getPlayer().getCoordonneePrev()[0] = pc.getSolid().getCoordonnee()[0] + pc.getSolid().getSizeX();
             pc.setRight(false);
-        }else if(collisionSide == "left" && pc.isAbove() && pc.isBelow()){
+        }else if(collisionSide == "left"){
             pc.getPlayer().setBlockedByRight(true);
             pc.getPlayer().getCoordonneePrev()[0] = pc.getSolid().getCoordonnee()[0] - pc.getPlayer().getSizeX();
             pc.setLeft(false);

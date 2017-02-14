@@ -1,7 +1,7 @@
 package game.entities;
 
-import game.Level;
-import game.LevelParameters;
+import game.World;
+import game.WorldParameters;
 import game.engine.Component;
 import game.engine.Physics;
 import org.newdawn.slick.opengl.Texture;
@@ -11,7 +11,7 @@ public class Player extends Movable {
     public int prevX;
     public int prevY;
 
-    private Level levelParent;
+    private World levelParent;
     private Texture forward;
     private Texture backward;
     //BEGIN Alive variables
@@ -26,7 +26,7 @@ public class Player extends Movable {
     private long before;
     private long timer = System.currentTimeMillis();
 
-	public Player(Level level, int sizeX, int sizeY, int v0, int v1, int x0, int y0, Texture[] skin) {
+	public Player(World level, int sizeX, int sizeY, int v0, int v1, int x0, int y0, Texture[] skin) {
 		super(sizeX, sizeY, v0, v1, x0, y0, skin[0]);
 
         levelParent = level;
@@ -39,8 +39,8 @@ public class Player extends Movable {
 
 	private void scrollReplace(){
 		//Left replace
-		if((coordonnee[0] + LevelParameters.getxScroll()) < 0) {
-			coordonnee[0] = -LevelParameters.getxScroll();
+		if((coordonnee[0] + WorldParameters.getxScroll()) < 0) {
+			coordonnee[0] = -WorldParameters.getxScroll();
 			coordonneePrev[0] = coordonnee[0];
 			isBlockedByLeftScreen = true;
 		}else{
@@ -48,8 +48,8 @@ public class Player extends Movable {
 		}
 
 		//Right replace
-		if((coordonnee[0] + sizeX + LevelParameters.getxScroll()) > Component.width){
-			coordonnee[0] = Component.width - (sizeX + LevelParameters.getxScroll());
+		if((coordonnee[0] + sizeX + WorldParameters.getxScroll()) > Component.width){
+			coordonnee[0] = Component.width - (sizeX + WorldParameters.getxScroll());
 			coordonneePrev[0] = coordonnee[0];
 			isBlockedByRightScreen = true;
 		}else{
@@ -80,7 +80,7 @@ public class Player extends Movable {
 	    //Jump thing
 	    if(jumped){
             timer = System.currentTimeMillis();
-            if(timer - before > LevelParameters.getJumpTime())
+            if(timer - before > WorldParameters.getJumpTime())
                 jumped = false;
         }
 
@@ -102,26 +102,26 @@ public class Player extends Movable {
 
 	public void jumpWanted(){
 	    if(!jumped && coordonnee[1] < Component.height){
-            vitessePrev[1] += LevelParameters.getGainVitesseY();
+            vitessePrev[1] += WorldParameters.getGainVitesseY();
             jumped = true;
             before = System.currentTimeMillis();
         }
     }
 
     public void leftWanted(){
-	    if(coordonnee[0] + LevelParameters.getxScroll() > 0  && vitessePrev[0] + LevelParameters.getMAXSPEED() > 0)
+	    if(coordonnee[0] + WorldParameters.getxScroll() > 0  && vitessePrev[0] + WorldParameters.getMAXSPEED() > 0)
 	        if(vitessePrev[0] > 0)
 	            vitessePrev[0] = 0;
             else
-	            vitessePrev[0] -= LevelParameters.getGainVitesseX();
+	            vitessePrev[0] -= WorldParameters.getGainVitesseX();
     }
 
     public void rightWanted(){
-        if((coordonnee[0] + sizeX + LevelParameters.getxScroll() - Component.width <= 0) && vitessePrev[0] < LevelParameters.getMAXSPEED())
+        if((coordonnee[0] + sizeX + WorldParameters.getxScroll() - Component.width <= 0) && vitessePrev[0] < WorldParameters.getMAXSPEED())
             if(vitessePrev[0] < 0)
                 vitessePrev[0] = 0;
             else
-                vitessePrev[0] += LevelParameters.getGainVitesseX();
+                vitessePrev[0] += WorldParameters.getGainVitesseX();
     }
 
     public void setBelowTheSurface(boolean situation){
