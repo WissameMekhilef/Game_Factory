@@ -5,11 +5,7 @@ import mario.engine.Physics;
 import mario.game.Game;
 import mario.game.world.camera.AttachedScroller;
 import mario.game.world.camera.Camera;
-import mario.game.world.entities.Coin;
-import mario.game.world.entities.Door;
-import mario.game.world.entities.Obstacle;
-import mario.game.world.entities.Player;
-import mario.game.world.entities.PotentialCollision;
+import mario.game.world.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +37,9 @@ public class World {
         WorldParameters.setBordHaut(height);
         WorldParameters.setBordGauche(0);
         WorldParameters.setBordDroit(width);
+
+        WorldParameters.setxScroll(-WorldParameters.getxScroll());
+        WorldParameters.setyScroll(-WorldParameters.getyScroll());
 
         //scroller = new ForceScroller(2, 2);
         scroller = new AttachedScroller(true, true, player);
