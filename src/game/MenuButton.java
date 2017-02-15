@@ -8,11 +8,17 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class MenuButton extends Solid {
 
-    private String content;
+
+	private String content;
 
     public MenuButton(int sizeX, int sizeY, int x, int y, Texture texture){
         super(sizeX, sizeY, x, y, texture);
-
-
+        
     }
+    
+    public MenuButton(int sizeX, int sizeY, int x, int y, Texture texture,
+			String content) {
+		super(sizeX, sizeY, x, y, texture);
+		this.content = content;
+	}
 }

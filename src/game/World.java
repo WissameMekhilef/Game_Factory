@@ -27,11 +27,9 @@ public class World {
 	    inWhichGameAmI = gameOwner;
 
 		player = new Player(this, 50, 50, 3, 3, 10,  500, inWhichGameAmI.getTextures().skinMap.get("player1"));
-
 		plateau = new ArrayList<>();
         coinsList = new ArrayList<>();
 		listPC = new ArrayList<>();
-
         WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
         WorldParameters.setBordGauche(0);
@@ -128,9 +126,7 @@ public class World {
                 setInProgress(false);
                 break;
         }
-
     }
-
     public boolean isInProgress() {
         return inProgress;
     }
