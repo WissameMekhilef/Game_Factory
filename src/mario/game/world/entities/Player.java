@@ -2,7 +2,6 @@ package mario.game.world.entities;
 
 import mario.engine.Launcher;
 import mario.engine.Physics;
-import mario.game.world.World;
 import mario.game.world.WorldParameters;
 
 import org.newdawn.slick.opengl.Texture;
@@ -12,7 +11,6 @@ public class Player extends Movable {
     public int prevX;
     public int prevY;
 
-    private World levelParent;
     private Texture forward;
     private Texture backward;
     //BEGIN Alive variables
@@ -27,15 +25,14 @@ public class Player extends Movable {
     private long before;
     private long timer = System.currentTimeMillis();
 
-	public Player(World level, int sizeX, int sizeY, int v0, int v1, int x0, int y0, Texture[] skin) {
-		super(sizeX, sizeY, v0, v1, x0, y0, skin[0]);
+	public Player(int sizeX, int sizeY, int v0, int v1, int x, int y, Texture[] skin) {
+		super(sizeX, sizeY, v0, v1, x, y, skin[0]);
 
-        levelParent = level;
         forward = skin[0];
         backward = skin[1];
 
-        prevX = x0;
-        prevY = y0;
+        prevX = x;
+        prevY = y;
 	}
 
 	private void scrollReplace(){

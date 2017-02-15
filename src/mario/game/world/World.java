@@ -2,7 +2,6 @@ package mario.game.world;
 
 import mario.engine.Graphics;
 import mario.engine.Physics;
-import mario.game.Game;
 import mario.game.world.camera.AttachedScroller;
 import mario.game.world.camera.Camera;
 import mario.game.world.entities.Coin;
@@ -22,25 +21,24 @@ public class World {
     private Door doorOut;
 
 	private List<PotentialCollision> listPC;
-	private Game inWhichGameAmI;
 
 	private Camera scroller;
 
 	private boolean inProgress;
 
-	public World(Game gameOwner, int width, int height) {
-	    inWhichGameAmI = gameOwner;
+	public World(int width, int height, Player player, Door door, List<Obstacle> plateau) {
 
-		player = new Player(this, 50, 50, 3, 3, 10,  500, inWhichGameAmI.getTextures().skinMap.get("player1"));
-
-		plateau = new ArrayList<>();
-        coinsList = new ArrayList<>();
-		listPC = new ArrayList<>();
-
-        WorldParameters.setBordBas(0);
+		WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
         WorldParameters.setBordGauche(0);
         WorldParameters.setBordDroit(width);
+
+		this.player = player;
+		this.doorOut = door;
+		this.plateau = plateau;
+
+        coinsList = new ArrayList<>();
+		listPC = new ArrayList<>();
 
         //scroller = new ForceScroller(2, 2);
         scroller = new AttachedScroller(true, true, player);
@@ -55,22 +53,6 @@ public class World {
     }
 
 	public void generate() {
-		//Genere les obstacles (plateau de jeu)
-		plateau.add(new Obstacle(100, 200, 600, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
-        plateau.add(new Obstacle(100, 100, 800, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
-        plateau.add(new Obstacle(100, 200, 1000, 800, inWhichGameAmI.getTextures().textureMap.get("brique")));
-        plateau.add(new Obstacle(100, 200, 1200, 1000, inWhichGameAmI.getTextures().textureMap.get("brique")));
-        plateau.add(new Obstacle(100, 200, 1200, 200, inWhichGameAmI.getTextures().textureMap.get("brique")));
-
-        //Simulation sol
-		plateau.add(new Obstacle(1200, 50, 0, 10, inWhichGameAmI.getTextures().textureMap.get("herbe")));
-
-		//Genere coins
-        //coinsList.add(new Coin(100,100, 100, 100, inWhichGameAmI.getTextures().textureMap.get("coin_1")));
-
-        //Place porte de sortie
-        doorOut = new Door(200, 200, 600, 400, inWhichGameAmI.getTextures().textureMap.get("door_1"));
-
 
 		for (Obstacle obstacle : plateau) {
 			listPC.add(new PotentialCollision(player, obstacle));

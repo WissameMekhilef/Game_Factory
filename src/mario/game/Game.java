@@ -6,34 +6,32 @@ import mario.engine.Sound;
 import mario.game.world.World;
 import mario.game.world.WorldParameters;
 
+import java.io.IOException;
+
+import org.json.JSONException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import java.io.IOException;
-
 public class Game{
     private Menu menu;
-	private World level;
+	private World world;
 
     private Context context;
 
     private Sound soundContext;
     private float soundPosition;
 
-    private GameTextureMap textures;
-
 	public Game() {
-	    //Creation de toute les textures une seule fois
-        try {
-            textures = new GameTextureMap();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        menu = new Menu(this);
+        menu = new Menu();
 
-		level = new World(this,1500, 1000);
-        //level = WordReader.worldFromJson("/world/mario_map.json");
+		try {
+			world = WorldReader.worldFromJson("world_test.json");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
         context = Context.INGAME;
 
@@ -51,13 +49,13 @@ public class Game{
             }
         }else if(context == Context.INGAME){
             if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-                level.getPlayer().jumpWanted();
+            	world.getPlayer().jumpWanted();
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-                level.getPlayer().leftWanted();
+            	world.getPlayer().leftWanted();
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-                level.getPlayer().rightWanted();
+            	world.getPlayer().rightWanted();
             }
 
             while (Keyboard.next()) {
@@ -84,17 +82,17 @@ public class Game{
     }
 
 	public void init() {
-		level.init();
+		world.init();
         soundContext.play(soundPosition);
 	}
 
 	public void update() {
         pollInput();
-		if(context == Context.INGAME && level.isInProgress()){
-            level.update();
+		if(context == Context.INGAME && world.isInProgress()){
+			world.update();
             if(!soundContext.isPlaying())
                 soundContext.play(soundPosition);
-		}else if(!level.isInProgress()){
+		}else if(!world.isInProgress()){
 		    context = Context.INMENU;
         }
 
@@ -107,21 +105,17 @@ public class Game{
 
 	public void render() {
 	    if(context == Context.INGAME){
-            level.render();
+	    	world.render();
         }else if(context == Context.INPAUSE) {
 			int size = 200;
 			int x = (Launcher.width - size) / 2 - WorldParameters.getxScroll();
 			int y = (Launcher.height + size) / 2 + WorldParameters.getyScroll();
-			Graphics.renderQuad(x, y, size, size, textures.textureMap.get("pause"));
+			Graphics.renderQuad(x, y, size, size, GameTextureMap.textureMap.get("pause"));
 			//Il faut creer un objet pause
 		}else if(context == Context.INMENU){
             menu.render();
         }
 	}
-
-    public GameTextureMap getTextures() {
-        return textures;
-    }
 
     private enum Context {INGAME, INMENU, INPAUSE}
 }

@@ -7,12 +7,9 @@ import mario.game.graphicItems.MenuButton;
  */
 public class Menu {
     private MenuButton startButton;
-    private Game inWichGameAmI;
 
-    public Menu(Game gameParent){
-        inWichGameAmI = gameParent;
-
-        startButton = new MenuButton(300, 100, 200, 500, inWichGameAmI.getTextures().textureMap.get("brique"));
+    public Menu(){
+    	startButton = new MenuButton(300, 100, 200, 500, GameTextureMap.textureMap.get("brique"));
     }
 
     public void receiveClick(int x0, int y0){
