@@ -22,7 +22,7 @@ public class World {
 
 	private boolean inProgress;
 
-	public World(int width, int height, Player player, Door door, List<Obstacle> plateau) {
+	public World(int width, int height, Player player, Door door, List<Obstacle> plateau, Camera camera) {
 
 		WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
@@ -36,11 +36,11 @@ public class World {
         coinsList = new ArrayList<>();
 		listPC = new ArrayList<>();
 
-        WorldParameters.setxScroll(-WorldParameters.getxScroll());
-        WorldParameters.setyScroll(-WorldParameters.getyScroll());
+        WorldParameters.setxScroll(0);
+        WorldParameters.setyScroll(0);
 
         //scroller = new ForceScroller(2, 2);
-        scroller = new AttachedScroller(true, true, player);
+        scroller = camera;
 
 		generate();
 

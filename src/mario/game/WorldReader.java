@@ -1,6 +1,5 @@
 package mario.game;
 
-<<<<<<< HEAD
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,16 +11,15 @@ import org.json.JSONObject;
 import org.newdawn.slick.opengl.Texture;
 
 import mario.game.world.World;
+import mario.game.world.camera.AttachedScroller;
+import mario.game.world.camera.Camera;
+import mario.game.world.camera.ForceScroller;
 import mario.game.world.entities.Door;
 import mario.game.world.entities.Obstacle;
 import mario.game.world.entities.Player;
-=======
-import mario.game.world.World;
->>>>>>> refs/remotes/origin/Wissame
 
 public class WorldReader {
 
-<<<<<<< HEAD
 	public static Player playerFromJson(String path) throws JSONException, IOException {
 
 		JSONObject obj = new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
@@ -72,12 +70,22 @@ public class WorldReader {
 
 		}
 
-		return new World(width, height, player, door, plateau);
+		JSONObject obj3 = obj.getJSONObject("camera");
 
-=======
-	public static World worldFromJson(String path) {
-        return null;
->>>>>>> refs/remotes/origin/Wissame
+		Camera camera;
+
+		if(obj3.getString("type").equals("attached")) {
+			boolean xAttached = obj3.getBoolean("xAttached");
+			boolean yAttached = obj3.getBoolean("yAttached");
+			camera = new AttachedScroller(xAttached, yAttached, player);
+		} else {
+			int v0 = obj3.getInt("v0");
+			int v1 = obj3.getInt("v1");
+			camera = new ForceScroller(v0, v1);
+		}
+
+		return new World(width, height, player, door, plateau, camera);
+
 	}
 
 }

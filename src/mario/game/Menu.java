@@ -6,19 +6,10 @@ import mario.game.graphicItems.MenuButton;
  * Created by wissamemekhilef on 14/02/2017.
  */
 public class Menu {
-    private MenuButton startButton;
+    private MenuButton startButton, lastButtonClicked;
 
-<<<<<<< HEAD
     public Menu(){
-    	startButton = new MenuButton(300, 100, 200, 500, GameTextureMap.textureMap.get("brique"));
-=======
-    private MenuButton lastButtonClicked;
-
-    public Menu(Game gameParent){
-        inWichGameAmI = gameParent;
-
-        startButton = new MenuButton(300, 100, 200, 500, inWichGameAmI.getTextures().textureMap.get("brique"), "start");
->>>>>>> refs/remotes/origin/Wissame
+    	startButton = new MenuButton(300, 100, 200, 500, GameTextureMap.textureMap.get("brique"), "start");
     }
 
     public void receiveClick(int x0, int y0){

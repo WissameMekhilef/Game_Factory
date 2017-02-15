@@ -11,5 +11,7 @@
         {"sizeX": 100, "sizeY": 200, "x": 1200, "y": 1000, "texture": "brique"},
         {"sizeX": 100, "sizeY": 200, "x": 1200, "y": 200, "texture": "brique"},
         {"sizeX": 1200, "sizeY": 50, "x": 0, "y": 10, "texture": "herbe"}
-    ]
+    ],
+    "camera":
+    	{"type": "attached", "xAttached": true, "yAttached": true}
 }

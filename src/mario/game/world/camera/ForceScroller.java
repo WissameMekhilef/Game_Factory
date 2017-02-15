@@ -4,18 +4,18 @@ import mario.engine.Launcher;
 import mario.game.world.WorldParameters;
 
 public class ForceScroller implements Camera {
-    private int vX;
-    private int vY;
+    private int v0;
+    private int v1;
 
-    public ForceScroller(int vX, int vY){
-        this.vX = vX;
-        this.vY = vY;
+    public ForceScroller(int v0, int v1){
+        this.v0 = v0;
+        this.v1 = v1;
     }
 
     public void translateView(){
         if(-WorldParameters.getxScroll() >= WorldParameters.getBordDroit() - Launcher.width)
             return;
-        WorldParameters.setxScroll(WorldParameters.getxScroll() - vX);
-        WorldParameters.setyScroll(WorldParameters.getyScroll() + vY);
+        WorldParameters.setxScroll(WorldParameters.getxScroll() - v0);
+        WorldParameters.setyScroll(WorldParameters.getyScroll() + v1);
     }
 }
