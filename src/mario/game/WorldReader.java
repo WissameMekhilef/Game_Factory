@@ -72,18 +72,3 @@ public class WorldReader {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
