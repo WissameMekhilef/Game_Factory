@@ -2,13 +2,8 @@
 	"width": 1500,
 	"height": 1000,
 	"player": "player_test.json",
-	"door": {
-    	"sizeX": 200,
-    	"sizeY": 200,
-    	"x": 600,
-    	"y": 400,
-    	"texture": "door_1"
-    },
+	"door":
+		{"sizeX": 200, "sizeY": 200, "x": 600, "y": 400, "texture": "door_1"},
 	"plateau": [
         {"sizeX": 100, "sizeY": 200, "x": 600, "y": 200, "texture": "brique"},
         {"sizeX": 100, "sizeY": 100, "x": 800, "y": 200, "texture": "brique"},

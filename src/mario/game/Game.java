@@ -1,14 +1,17 @@
 package mario.game;
 
-import mario.engine.Launcher;
 import mario.engine.Graphics;
+import mario.engine.Launcher;
 import mario.engine.Sound;
 import mario.game.world.World;
 import mario.game.world.WorldParameters;
+<<<<<<< HEAD
 
 import java.io.IOException;
 
 import org.json.JSONException;
+=======
+>>>>>>> refs/remotes/origin/Wissame
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -25,6 +28,7 @@ public class Game{
 
         menu = new Menu();
 
+<<<<<<< HEAD
 		try {
 			world = WorldReader.worldFromJson("world_test.json");
 		} catch (JSONException e) {
@@ -32,8 +36,12 @@ public class Game{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+=======
+		//level = new World(this,1500, 1000);
+        //level = WordReader.worldFromJson("/world/mario_map.json");
+>>>>>>> refs/remotes/origin/Wissame
 
-        context = Context.INGAME;
+        context = Context.INMENU;
 
         soundContext = new Sound();
 
@@ -82,18 +90,45 @@ public class Game{
     }
 
 	public void init() {
+<<<<<<< HEAD
 		world.init();
+=======
+		//level.init();
+>>>>>>> refs/remotes/origin/Wissame
         soundContext.play(soundPosition);
 	}
 
 	public void update() {
         pollInput();
+<<<<<<< HEAD
 		if(context == Context.INGAME && world.isInProgress()){
 			world.update();
             if(!soundContext.isPlaying())
                 soundContext.play(soundPosition);
 		}else if(!world.isInProgress()){
 		    context = Context.INMENU;
+=======
+		if(context == Context.INGAME){
+		    if(level.isInProgress()){
+                level.update();
+                if(!soundContext.isPlaying())
+                    soundContext.play(soundPosition);
+            }else if(!level.isInProgress()){
+                context = Context.INMENU;
+            }
+
+		}else if(context == Context.INMENU){
+            if(menu.getLastButtonClicked() != null){
+                String actionWanted = menu.getLastButtonClicked().getAction();
+                switch (actionWanted){
+                    case "start":
+                        level = new World(this,1500, 1000);
+                        menu.setLastButtonClicked(null);
+                        context = Context.INGAME;
+                        break;
+                }
+            }
+>>>>>>> refs/remotes/origin/Wissame
         }
 
 

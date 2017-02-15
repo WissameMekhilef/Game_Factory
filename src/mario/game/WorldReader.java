@@ -1,5 +1,6 @@
 package mario.game;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,9 +15,13 @@ import mario.game.world.World;
 import mario.game.world.entities.Door;
 import mario.game.world.entities.Obstacle;
 import mario.game.world.entities.Player;
+=======
+import mario.game.world.World;
+>>>>>>> refs/remotes/origin/Wissame
 
 public class WorldReader {
 
+<<<<<<< HEAD
 	public static Player playerFromJson(String path) throws JSONException, IOException {
 
 		JSONObject obj = new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
@@ -69,6 +74,10 @@ public class WorldReader {
 
 		return new World(width, height, player, door, plateau);
 
+=======
+	public static World worldFromJson(String path) {
+        return null;
+>>>>>>> refs/remotes/origin/Wissame
 	}
 
 }
