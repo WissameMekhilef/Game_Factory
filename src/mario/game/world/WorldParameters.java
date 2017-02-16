@@ -5,34 +5,32 @@ package mario.game.world;
  */
 public class WorldParameters {
     //BEGIN PHYSICS
-    private static double Gamma = 20.81;
-    private static double G = 4;
-    private static double deltaT = 1.0 / 60.0;
+    private static double Gamma;
+    private static double G;
+    private static double deltaT;
     //END PHYSICS
 
     //BEGIN SOUNDS
-    private static String pathToBackgroundMusic = "sounds/CantLetGo.ogg";
+    private static String pathToBackgroundMusic;
     //END SOUNDS
 
     //BEGIN PLAYER
-    private static int MAXSPEED = 7;
-    private static double jumpTime = 1000;
-    private static String forwardTexture = "player_1_f";
-    private static String backwardTexture = "player_1_b";
-    private static int gainVitesseX = 2;
-    private static int gainVitesseY = -20;
+    private static int MAXSPEED;
+    private static double jumpTime;
+    private static int gainVitesseX;
+    private static int gainVitesseY;
     //END PLAYER
 
     //BEGIN SCROLL
-    private static int xScroll = 0;
-    private static int yScroll = 0;
+    private static int xScroll;
+    private static int yScroll;
     //END SCROLL
 
     //BEGIN LEVEL BOUND$
-    private static int bordBas = 0;
-    private static int bordHaut = 0;
-    private static int bordGauche = 0;
-    private static int bordDroit = 0;
+    private static int bordBas;
+    private static int bordHaut;
+    private static int bordGauche;
+    private static int bordDroit;
     //END LEVEL BOUNDS
 
     public static double getGamma() {
@@ -79,32 +77,8 @@ public class WorldParameters {
         return jumpTime;
     }
 
-    public static void setJumpTime(double jumpTime) {
-        jumpTime = jumpTime;
-    }
-
-    public static String getForwardTexture() {
-        return forwardTexture;
-    }
-
-    public static void setForwardTexture(String forwardTexture) {
-        WorldParameters.forwardTexture = forwardTexture;
-    }
-
-    public static void setForwardPathToTexture(String forwardPathToTexture) {
-        WorldParameters.forwardTexture = forwardPathToTexture;
-    }
-
-    public static String getBackwardTexture() {
-        return backwardTexture;
-    }
-
-    public static void setBackwardTexture(String backwardTexture) {
-        WorldParameters.backwardTexture = backwardTexture;
-    }
-
-    public static void setBackwardPathToTexture(String backwardPathToTexture) {
-        WorldParameters.backwardTexture = backwardPathToTexture;
+    public static void setJumpTime(double jt) {
+        jumpTime = jt;
     }
 
     public static int getGainVitesseX() {

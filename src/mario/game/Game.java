@@ -3,6 +3,7 @@ package mario.game;
 import mario.engine.Graphics;
 import mario.engine.Launcher;
 import mario.engine.Sound;
+import mario.exceptions.CameraTypeException;
 import mario.game.world.World;
 import mario.game.world.WorldParameters;
 
@@ -27,9 +28,6 @@ public class Game{
 
         context = Context.INMENU;
 
-        soundContext = new Sound();
-
-        soundContext.setBackgroundSound(WorldParameters.getPathToBackgroundMusic());
         soundPosition = 0;
     }
 
@@ -73,10 +71,6 @@ public class Game{
 
     }
 
-	public void init() {
-		soundContext.play(soundPosition);
-	}
-
 	public void update() {
         pollInput();
         if(context == Context.INGAME){
@@ -94,12 +88,16 @@ public class Game{
                 switch (actionWanted){
                     case "start":
                     	try {
-                			world = WorldReader.worldFromJson("world_test.json");
+                			world = WorldReader.worldFromJSON("worlds/world_test.json");
+                    	} catch (CameraTypeException e) {
+                			e.printStackTrace();
+                    	} catch (IOException e) {
+                			e.printStackTrace();
                 		} catch (JSONException e) {
                 			e.printStackTrace();
-                		} catch (IOException e) {
-                			e.printStackTrace();
                 		}
+                    	soundContext = new Sound();
+                        soundContext.setBackgroundSound(WorldParameters.getPathToBackgroundMusic());
                         menu.setLastButtonClicked(null);
                         context = Context.INGAME;
                         break;

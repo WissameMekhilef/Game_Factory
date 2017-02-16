@@ -62,8 +62,6 @@ public class Launcher {
 
 	public void loop() {
 
-		game.init();
-
 		double elapsed;
         int frames = 0;
 		int ticks = 0;

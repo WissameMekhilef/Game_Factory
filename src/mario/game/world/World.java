@@ -2,7 +2,6 @@ package mario.game.world;
 
 import mario.engine.Graphics;
 import mario.engine.Physics;
-import mario.game.world.camera.AttachedScroller;
 import mario.game.world.camera.Camera;
 import mario.game.world.entities.*;
 
@@ -22,7 +21,7 @@ public class World {
 
 	private boolean inProgress;
 
-	public World(int width, int height, Player player, Door door, List<Obstacle> plateau, Camera camera) {
+	public World(int width, int height, Player player, Camera camera, Door door, List<Obstacle> plateau) {
 
 		WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
