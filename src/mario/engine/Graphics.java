@@ -1,5 +1,6 @@
 package mario.engine;
 
+import mario.game.graphicItems.Text;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -46,8 +47,8 @@ public class Graphics {
         glVertex2f(x, y + h);
     }
 
-    public static void renderText(){
-
+    public static void renderText(Text textToDisplay){
+        textToDisplay.getFont().drawString(textToDisplay.getX(), textToDisplay.getY(), textToDisplay.getTextToDisplay(), textToDisplay.getColor());
     }
 
     /**

@@ -18,7 +18,9 @@ public class FontMap {
 
     static {
         try {
-            map.put("Mario", new TrueTypeFont(createFont(TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/chlorinap/CHLORINP.TTF")).deriveFont(24f), false));
+            map.put("Mario", new TrueTypeFont(createFont(TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/chlorinap/CHLORINP.TTF")).deriveFont(46f), false));
+            map.put("Flappy", new TrueTypeFont(createFont(TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/flappybirdy/FlappyBirdy.ttf")).deriveFont(46f), false));
+            map.put("Sonic", new TrueTypeFont(createFont(TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/sonic_mega_font/SONIC.TTF")).deriveFont(46f), false));
         }catch (Exception e){
             e.printStackTrace();
         }

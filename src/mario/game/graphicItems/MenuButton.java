@@ -3,7 +3,7 @@ package mario.game.graphicItems;
 import mario.engine.Graphics;
 import mario.game.FontMap;
 import mario.game.world.entities.Solid;
-import org.newdawn.slick.Font;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -11,15 +11,13 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class MenuButton extends Solid {
 
-    private String content;
-    private Font font;
+    private Text content;
 
     private String action;
 
-    public MenuButton(int sizeX, int sizeY, int x, int y, Texture texture, String action, String font){
+    public MenuButton(int sizeX, int sizeY, int x, int y, Texture texture, Text text, String action){
         super(sizeX, sizeY, x, y, texture);
-        this.action = action;
-        this.font = FontMap.map.get(font);
+        this.content = text;
     }
 
     public String getAction() {
@@ -36,6 +34,6 @@ public class MenuButton extends Solid {
 
     public void render(){
         super.render();
-        Graphics.renderText();
+        Graphics.renderText(content);
     }
 }
