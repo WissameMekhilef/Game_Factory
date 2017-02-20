@@ -7,46 +7,57 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Graphics {
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     * @param texture
+     */
     public static void renderTexture(int x, int y, int w, int h, Texture texture){
-
         boolean textureMoinsLarge = texture.getImageWidth() < w;
         boolean textureMoinsHaute = texture.getImageHeight() < h;
-        float coeffX = 1;
+        float m = 1;
+        float n = 1;
         if(textureMoinsLarge){
-            /*System.out.println("################");
-
-            System.out.println("textureMoinsLarge = "+textureMoinsLarge);
-            System.out.println("textureMoinsHaute = "+textureMoinsHaute);
-            System.out.println("texture.getImageWidth() = "+texture.getImageWidth());
-            System.out.println("w = "+w);*/
-
-            coeffX = (float) w / (float) texture.getImageWidth();
-            //System.out.println("coeffX = "+coeffX);
-
-           // System.out.println("################");
+            m = ((float) w % (float) texture.getImageWidth());
+            //m = m / 10;
+        }
+        if(textureMoinsHaute){
+            n = ((float) h % (float) texture.getImageHeight());
+            //n = n / 10;
         }
 
-
-        //Point en haut a gauche
+        //Point en bas a gauche
         glTexCoord2f(0,0);
         glVertex2f(x, y);
 
-        //Point en haut a droite
+        //Point en bas a droite
         glTexCoord2f(1,0);
         glVertex2f(x + w, y);
 
-        //Point en bas a droite
+        //Point en haut a droite
         glTexCoord2f(1,1);
         glVertex2f(x + w, y + h);
 
-        //Point en bas a gauche
+        //Point en haut a gauche
         glTexCoord2f(0,1);
         glVertex2f(x, y + h);
+    }
 
-
+    public static void renderText(){
 
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     * @param texture
+     */
     public static void renderQuad(int x, int y, int w, int h, Texture texture) {
 	    y = Launcher.height - y;
 
@@ -58,6 +69,11 @@ public class Graphics {
         glEnd();
     }
 
+    /**
+     * Fonction appeller par les camera pour bouger la vue
+     * @param xScroll
+     * @param yScroll
+     */
 	public static void scroll(float xScroll, float yScroll){
         glTranslatef(xScroll, yScroll, 0);
     }
