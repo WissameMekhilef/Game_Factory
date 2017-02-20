@@ -1,4 +1,4 @@
-\usepackage[english]{babel}
+
 %\usepackage{amsmath,amsthm}
 %\usepackage{amsfonts}
 %\usepackage[utf8x]{inputenc}
@@ -93,12 +93,11 @@
 \fancyhead{}
 \fancyfoot{}
 %setting the headers & footers
-\fancyhead[RO,RE]{\includegraphics[width=0.5in]{Logo_UO-CoST.jpg}}
-\fancyhead[CO,CE]{---PUDF---}
-\fancyhead[LO,LE]{EVOLUTION}
-\fancyfoot[C]{Confidential}
+\fancyhead[CO,CE]{---GAME FACTORY---}
+\fancyhead[LO,LE]{Universite d'Orleans}
+%\fancyfoot[C]{ }
 \fancyfoot[RO, LE] {\thepage}
-\fancyfoot[LO, RE] {M. MEKHILEF}
+%\fancyfoot[LO, RE] {W. MEKHILEF, S. ARNOULT, V. RENARD}
 % nice rulers
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
@@ -115,92 +114,7 @@
     \end{center}
     \end{figure}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\routine#1#2#3{
-      \ifthenelse
-	    { 
-		\equal{\Z}{9} \OR \equal{\Z}{210}
 
-	    }
-	    {
-		\begin{figure}[H]
-		\begin{center}
-		\includegraphics[width=#3\textwidth]{../Shared/MISSING.png}
-		\end{center}
-		\end{figure}  
-	    }
-	    {
-		\ifthenelse{
-		    \equal{\Z}{5} \OR \equal{\Z}{10}
-		    }
-		{
-		    \begin{figure}[H]
-		    \begin{center}
-		    \includegraphics[width=#3\textwidth]{../Shared/DROPPED.png}
-		    \end{center}
-		    \end{figure}  	  
-		}
-		{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\equal{\Z}{200}
-}
-{
-		    \begin{figure}[H]
-		    \begin{center}
-		    \includegraphics[width=#3\textwidth]{../Shared/IPR.png}
-		    \end{center}
-		    \end{figure}  
-}
-{
-		    \begin{figure}[H]
-		    \begin{center}
-		    \includegraphics[width=#3\pdfpagewidth]{../Graphics/EVOLUTION-\numV-#2}
-		    \caption{#1 $\rightarrow$ ``\csuse{\numV}''.}
-		    \end{center}
-		    \end{figure}  
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ù
-		}
-	    }
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \def\routine2#1#2#3{
-%       \ifthenelse{\equal{#2}{DETAILS.pdf}}{\def\cadre{height=#3\pdfpageheight}}{\def\cadre{width=#3\textwidth}}
-%       \ifthenelse
-% 	    { 
-% 		\equal{\Z}{23} 
-% 
-% 	    }
-% 	    {
-% 		\begin{figure}[H]
-% 		\begin{center}
-% 		\includegraphics[width=#3\textwidth]{../Graphics/MARS-EV_MISSING.png}
-% 		\end{center}
-% 		\end{figure}  
-% 	    }
-% 	    {
-% 		\ifthenelse{
-% 		    \equal{\Z}{16} \OR \equal{\Z}{18}
-% 		    }
-% 		{
-% 		    \begin{figure}[H]
-% 		    \begin{center}
-% 		    \includegraphics[width=#3\textwidth]{../Graphics/DROPPED.png}
-% 		    \end{center}
-% 		    \end{figure}  	  
-% 		}
-% 		{
-% 		    \begin{figure}[H]
-% 		    \begin{center}
-% 		    \includegraphics[\cadre]{../Graphics/MARS-EV_\numV_#2}
-% 		    \caption{#1 $\rightarrow$ ``\csuse{\numV}''.}
-% 		    \end{center}
-% 		    \end{figure}  
-% 		}
-% 	    }
-% }
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Table of Content Depth
 \setcounter{tocdepth}{2}
 %
