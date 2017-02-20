@@ -13,79 +13,73 @@ import org.json.JSONException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-public class Game{
+public class Game {
+
+	private float soundPosition;
+	private Context context;
     private Menu menu;
+    private Sound soundContext;
 	private World world;
 
-    private Context context;
-
-    private Sound soundContext;
-    private float soundPosition;
+	private enum Context {INGAME, INMENU, INPAUSE}
 
 	public Game() {
-
+		context = Context.INMENU;
         menu = new Menu();
-
-        context = Context.INMENU;
-
+        soundContext = new Sound();
         soundPosition = 0;
     }
 
     public void pollInput() {
 
-	    if(context == Context.INMENU){
-            if (Mouse.isButtonDown(0)) {
-                menu.receiveClick(Mouse.getX(), Mouse.getY());
-            }
-        }else if(context == Context.INGAME){
-            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+    	switch (context) {
+
+    	case INGAME:
+    		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
             	world.getPlayer().jumpWanted();
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))
             	world.getPlayer().leftWanted();
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
             	world.getPlayer().rightWanted();
-            }
+    		while (Keyboard.next())
+    			if ((!Keyboard.getEventKeyState()) && (Keyboard.getEventKey() == Keyboard.KEY_P))
+    				context = Context.INPAUSE;
+    		break;
 
-            while (Keyboard.next()) {
-                if (Keyboard.getEventKeyState()) {
+    	case INMENU:
+    		if(Mouse.isButtonDown(0))
+                menu.receiveClick(Mouse.getX(), Mouse.getY());
+    		break;
 
-                } else {
-                    if (Keyboard.getEventKey() == Keyboard.KEY_P) {
-                        context = Context.INPAUSE;
-                    }
-                }
-            }
-        } else if(context == Context.INPAUSE) {
-        	while (Keyboard.next()) {
-                if (Keyboard.getEventKeyState()) {
+    	case INPAUSE:
+    		while (Keyboard.next())
+    			if ((!Keyboard.getEventKeyState()) && (Keyboard.getEventKey() == Keyboard.KEY_P))
+    				context = Context.INGAME;
+    		break;
 
-                } else {
-                    if (Keyboard.getEventKey() == Keyboard.KEY_P) {
-                        context = Context.INGAME;
-                    }
-                }
-            }
-        }
+    	}
 
     }
 
 	public void update() {
         pollInput();
-        if(context == Context.INGAME){
-		    if(world.isInProgress()){
+
+		switch (context) {
+
+		case INGAME:
+			if(world.isInProgress()) {
 		    	world.update();
                 if(!soundContext.isPlaying())
                     soundContext.play(soundPosition);
-            }else if(!world.isInProgress()){
+            } else {
                 context = Context.INMENU;
             }
+			break;
 
-		}else if(context == Context.INMENU){
-            if(menu.getLastButtonClicked() != null){
+		case INMENU:
+			if(menu.getLastButtonClicked() != null) {
                 String actionWanted = menu.getLastButtonClicked().getAction();
-                switch (actionWanted){
+                switch (actionWanted) {
                     case "start":
                     	try {
                 			world = WorldReader.worldFromJSON("worlds/world_test.json");
@@ -96,35 +90,44 @@ public class Game{
                 		} catch (JSONException e) {
                 			e.printStackTrace();
                 		}
-                    	soundContext = new Sound();
                         soundContext.setBackgroundSound(WorldParameters.getPathToBackgroundMusic());
                         menu.setLastButtonClicked(null);
                         context = Context.INGAME;
                         break;
                 }
             }
-        }
+			break;
 
-
-		else {
+		case INPAUSE:
 			if(soundContext.isPlaying())
 				soundPosition = soundContext.stop();
+			break;
+
 		}
+
 	}
 
 	public void render() {
-	    if(context == Context.INGAME){
-	    	world.render();
-        }else if(context == Context.INPAUSE) {
+
+		switch (context) {
+
+		case INGAME:
+			world.render();
+			break;
+
+		case INMENU:
+			menu.render();
+			break;
+
+		case INPAUSE:
+			//Il faut créer un objet pause.
 			int size = 200;
 			int x = (Launcher.width - size) / 2 - WorldParameters.getxScroll();
 			int y = (Launcher.height + size) / 2 + WorldParameters.getyScroll();
 			Graphics.renderQuad(x, y, size, size, GameTextureMap.textureMap.get("pause"));
-			//Il faut creer un objet pause
-		}else if(context == Context.INMENU){
-            menu.render();
-        }
+
+		}
+
 	}
 
-    private enum Context {INGAME, INMENU, INPAUSE}
 }
