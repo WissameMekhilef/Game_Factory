@@ -10,14 +10,12 @@ public class Text {
     private String textToDisplay;
     private Font font;
     private Color color;
-    private int x, y;
 
-    public Text(String textToDisplay, Font font, Color color, int x, int y){
+    public Text(String textToDisplay, Font font, Color color){
         this.textToDisplay = textToDisplay;
         this.font = font;
         this.color = color;
-        this.x = x;
-        this.y = y;
+
     }
 
     public String getTextToDisplay() {
@@ -30,13 +28,5 @@ public class Text {
 
     public Color getColor() {
         return color;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 }

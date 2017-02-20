@@ -47,8 +47,9 @@ public class Graphics {
         glVertex2f(x, y + h);
     }
 
-    public static void renderText(Text textToDisplay){
-        textToDisplay.getFont().drawString(textToDisplay.getX(), textToDisplay.getY(), textToDisplay.getTextToDisplay(), textToDisplay.getColor());
+    public static void renderText(Text textToDisplay, int x, int y){
+        y = Launcher.height - y;
+        textToDisplay.getFont().drawString(x, y, textToDisplay.getTextToDisplay(), textToDisplay.getColor());
     }
 
     /**

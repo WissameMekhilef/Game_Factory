@@ -77,23 +77,18 @@ public class Game {
 			break;
 
 		case INMENU:
+		    menu.update();
 			if(menu.getLastButtonClicked() != null) {
                 String actionWanted = menu.getLastButtonClicked().getAction();
-                switch (actionWanted) {
-                    case "start":
-                    	try {
-                			world = WorldReader.worldFromJSON("worlds/world_test.json");
-                    	} catch (CameraTypeException e) {
-                			e.printStackTrace();
-                    	} catch (IOException e) {
-                			e.printStackTrace();
-                		} catch (JSONException e) {
-                			e.printStackTrace();
-                		}
-                        soundContext.setBackgroundSound(WorldParameters.getPathToBackgroundMusic());
-                        menu.setLastButtonClicked(null);
-                        context = Context.INGAME;
-                        break;
+                try {
+                    world = WorldReader.worldFromJSON("worlds/"+actionWanted+".json");
+                    soundContext.setBackgroundSound(WorldParameters.getPathToBackgroundMusic());
+                    menu.setLastButtonClicked(null);
+                    context = Context.INGAME;
+                } catch (CameraTypeException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 			break;
