@@ -38,12 +38,20 @@ public class Menu {
             Stream<Path> paths = Files.walk(Paths.get("worlds"));
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                    System.out.println(filePath);
-                    String mondeName = filePath.toString().split("/")[1].split("\\.")[0];
-                    System.out.println(mondeName);
-                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, GameTextureMap.textureMap.get("brique"), new Text(mondeName,FontMap.map.get("Mario"), Color.green), mondeName));
+                	String worldName = filePath.toString().split("\\.")[0];
+                	String[] array = worldName.split("/");
+                	if(array.length > 1) {
+                		//Cas où le chemin est de la forme : "dossier1/dossier2/.../fichier.extension" (Unix)
+                		worldName = array[array.length - 1];
+                	} else {
+                		//Cas où le chemin est de la forme : "dossier1\\dossier2\\...\\fichier.extension" (Windows)
+                		array = worldName.split("\\\\");
+                		worldName = array[array.length - 1];
+                	}
+                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, GameTextureMap.textureMap.get("brique"), new Text(worldName,FontMap.map.get("Mario"), Color.green), worldName));
                 }
             });
+            paths.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
