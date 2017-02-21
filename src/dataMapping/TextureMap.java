@@ -1,4 +1,4 @@
-package game;
+package dataMapping;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by wissamemekhilef on 09/02/2017.
  */
-public class GameTextureMap {
+public class TextureMap {
 
     public static Map<String , Texture> textureMap = new HashMap<>();
     public static Map<String, Texture[]> skinMap = new HashMap<>();

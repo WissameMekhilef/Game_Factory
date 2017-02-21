@@ -1,5 +1,6 @@
 package game;
 
+import dataMapping.TextureMap;
 import engine.Graphics;
 import engine.Launcher;
 import engine.Sound;
@@ -139,7 +140,7 @@ public class Game {
                 int size = 200;
                 int x = (Launcher.width - size) / 2 - WorldParameters.getxScroll();
                 int y = (Launcher.height + size) / 2 + WorldParameters.getyScroll();
-                Graphics.renderQuad(x, y, size, size, GameTextureMap.textureMap.get("pause"));
+                Graphics.renderQuad(x, y, size, size, TextureMap.textureMap.get("pause"));
 
             }
 

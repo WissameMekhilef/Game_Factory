@@ -1,4 +1,4 @@
-package game;
+package dataMapping;
 
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;

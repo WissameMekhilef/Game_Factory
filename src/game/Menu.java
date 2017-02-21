@@ -1,5 +1,8 @@
 package game;
 
+import dataMapping.FontMap;
+import dataMapping.SoundMap;
+import dataMapping.TextureMap;
 import engine.Launcher;
 import engine.Sound;
 import game.graphicItems.MenuButton;
@@ -55,7 +58,7 @@ public class Menu {
                 		array = worldName.split("\\\\");
                 		worldName = array[array.length - 1];
                 	}
-                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, GameTextureMap.textureMap.get("brique"), new Text(worldName,FontMap.map.get("Mario"), Color.green), worldName));
+                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, TextureMap.textureMap.get("brique"), new Text(worldName, FontMap.map.get("Mario_1"), Color.green), worldName));
                 }
             });
             paths.close();

@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import dataMapping.SoundMap;
+import dataMapping.TextureMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +48,7 @@ public class WorldReader {
 		int v1 = obj2.getInt("v1");
 		int x = obj2.getInt("x");
 		int y = obj2.getInt("y");
-		Texture[] skin = GameTextureMap.skinMap.get(obj2.getString("skin"));
+		Texture[] skin = TextureMap.skinMap.get(obj2.getString("skin"));
 
 		Player player = new Player(sizeX, sizeY, v0, v1, x, y, skin);
 
@@ -72,7 +74,7 @@ public class WorldReader {
 		sizeY = obj4.getInt("sizeY");
 		x = obj4.getInt("x");
 		y = obj4.getInt("y");
-		Texture texture = GameTextureMap.textureMap.get(obj4.getString("texture"));
+		Texture texture = TextureMap.textureMap.get(obj4.getString("texture"));
 
 		Door door = new Door(sizeX, sizeY, x, y, texture);
 
@@ -86,7 +88,7 @@ public class WorldReader {
 			sizeY = arr.getJSONObject(i).getInt("sizeY");
 			x = arr.getJSONObject(i).getInt("x");
 			y = arr.getJSONObject(i).getInt("y");
-			texture = GameTextureMap.textureMap.get(arr.getJSONObject(i).getString("texture"));
+			texture = TextureMap.textureMap.get(arr.getJSONObject(i).getString("texture"));
 
 			plateau.add(new Obstacle(sizeX, sizeY, x, y, texture));
 
