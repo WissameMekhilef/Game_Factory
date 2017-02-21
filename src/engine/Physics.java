@@ -1,4 +1,4 @@
-package mario.engine;
+package engine;
 
 import game.world.WorldParameters;
 import game.world.entities.Player;

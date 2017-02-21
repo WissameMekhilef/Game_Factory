@@ -1,4 +1,4 @@
-package mario.engine;
+package engine;
 
 import game.graphicItems.Text;
 import org.newdawn.slick.Color;

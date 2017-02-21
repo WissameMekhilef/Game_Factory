@@ -1,6 +1,6 @@
 package game.world.camera;
 
-import mario.engine.Launcher;
+import engine.Launcher;
 import game.world.WorldParameters;
 import game.world.entities.Player;
 

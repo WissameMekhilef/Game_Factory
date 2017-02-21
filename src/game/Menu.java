@@ -1,7 +1,7 @@
 package game;
 
-import mario.engine.Launcher;
-import mario.engine.Sound;
+import engine.Launcher;
+import engine.Sound;
 import game.graphicItems.MenuButton;
 import game.graphicItems.Text;
 import org.newdawn.slick.Color;

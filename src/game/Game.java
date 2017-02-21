@@ -1,8 +1,8 @@
 package game;
 
-import mario.engine.Graphics;
-import mario.engine.Launcher;
-import mario.engine.Sound;
+import engine.Graphics;
+import engine.Launcher;
+import engine.Sound;
 import exceptions.CameraTypeException;
 import game.world.World;
 import game.world.WorldParameters;

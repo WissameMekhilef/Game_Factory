@@ -1,8 +1,8 @@
 package game.world;
 
-import mario.engine.Graphics;
-import mario.engine.Physics;
-import mario.engine.Sound;
+import engine.Graphics;
+import engine.Physics;
+import engine.Sound;
 import game.world.camera.Camera;
 import game.world.entities.*;
 

@@ -1,7 +1,7 @@
 package game.world.entities;
 
-import mario.engine.Launcher;
-import mario.engine.Physics;
+import engine.Launcher;
+import engine.Physics;
 import game.world.WorldParameters;
 
 import org.newdawn.slick.opengl.Texture;

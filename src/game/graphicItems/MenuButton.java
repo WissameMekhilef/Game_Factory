@@ -1,6 +1,6 @@
 package game.graphicItems;
 
-import mario.engine.Graphics;
+import engine.Graphics;
 import org.newdawn.slick.opengl.Texture;
 
 /**

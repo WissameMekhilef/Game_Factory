@@ -1,4 +1,4 @@
-package mario.engine;
+package engine;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
