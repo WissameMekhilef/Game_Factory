@@ -1,0 +1,131 @@
+
+%\usepackage{amsmath,amsthm}
+%\usepackage{amsfonts}
+%\usepackage[utf8x]{inputenc}
+%\usepackage{eurosym}
+%
+%\usepackage{vrsion}
+%\usepackage{bookman}
+\usepackage{calc}                                             %%
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{endnotes}
+\usepackage{eso-pic} 
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{graphics}
+\usepackage{hhline}                                           %%
+\usepackage{ifpdf}
+\usepackage{ifthen} 
+\usepackage{etoolbox}
+\usepackage{lmodern,multido}
+%\usepackage{perltex}
+%\RequirePackage{lineno}   
+%\usepackage{lineno}
+\usepackage{enumerate}
+\usepackage{lscape}
+\usepackage{multirow}                                        %%
+\usepackage{rotating}
+\usepackage[cc]{titlepic}
+\usepackage{hyperref}
+\usepackage{datetime}
+
+%\usepackage{multibib}
+
+%\def\inputGnumericTable{} 
+%
+\oddsidemargin=-0.1in
+\evensidemargin=-0.1in
+\textwidth=6.1in
+\topmargin=-0.5in
+\textheight=8.7in
+\parskip=0.15in
+% THEOREMS -------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+%\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+%\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+%\numberwithin{equation}{section}
+%
+\def\ml{\par\noindent}
+\setcounter{tocdepth}{2}
+
+\makeatletter
+\def\captionof#1#2{{\def\@captype{#1}#2}}
+\makeatother
+%%%% fin macro %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\myfig#1{
+    \begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{#1}
+    \end{center}
+    \end{figure}
+} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\myscaledfig#1#2{
+    \begin{minipage}{8cm}
+    \includegraphics[width=\textwidth]{#1}
+    \end{minipage}
+    \begin{minipage}{8cm}
+    \includegraphics[width=\textwidth]{#2}
+    \end{minipage}
+} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% E: Even page
+% O: Odd page
+% L: Left field
+% C: Center field
+% R: Right field
+% H: Header
+% F: Footer
+\pagestyle{fancy}
+%clear default formating
+\fancyhead{}
+\fancyfoot{}
+%setting the headers & footers
+\fancyhead[CO,CE]{---GAME FACTORY---}
+\fancyhead[LO,LE]{Universite d'Orleans}
+%\fancyfoot[C]{ }
+\fancyfoot[RO, LE] {\thepage}
+%\fancyfoot[LO, RE] {W. MEKHILEF, S. ARNOULT, V. RENARD}
+% nice rulers
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\ml{\par\noindent}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\NBres{16}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\myfigure#1#2{
+    \begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\textwidth]{#1}
+    \caption{#2.}
+    \end{center}
+    \end{figure}
+}
+
+% Table of Content Depth
+\setcounter{tocdepth}{2}
+%
+% \makeatletter
+% \def\captionof#1#2{{\def\@captype{#1}#2}}
+% \makeatother
+% %%%% fin macro %%%%
+% %la ligne ci-dessous est deja mise plus haut
+% \usepackage{draftwatermark}
+% \SetWatermarkLightness{0.5}
+% \SetWatermarkAngle{25}
+% \SetWatermarkScale{1}
+% \SetWatermarkFontSize{1cm}
+% \SetWatermarkText{\textcolor{red}{DRAFT}}

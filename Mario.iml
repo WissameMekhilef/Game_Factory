@@ -6,23 +6,26 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/textures" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/sounds" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/worlds" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/fonts" type="java-resource" />
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="lwjgl_util" level="project" />
-    <orderEntry type="library" exported="" name="lwjgl" level="project" />
+    <orderEntry type="library" exported="" name="jogg-0.0.7" level="project" />
+    <orderEntry type="library" exported="" name="jorbis-0.0.15" level="project" />
+    <orderEntry type="library" exported="" name="json-20160810" level="project" />
+    <orderEntry type="library" exported="" name="slick-util" level="project" />
+    <orderEntry type="library" exported="" name="lwjgl_util" level="application" />
+    <orderEntry type="library" exported="" name="lwjgl" level="application" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES />
         <JAVADOC />
         <NATIVE>
-          <root url="file://$MODULE_DIR$/lib/natives" />
+          <root url="file://$USER_HOME$/LIB/LWJGL/lwjgl-2.9.3/native/macosx" />
         </NATIVE>
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="slick-util" level="project" />
-    <orderEntry type="library" exported="" name="jogg-0.0.7" level="project" />
-    <orderEntry type="library" exported="" name="jorbis-0.0.15" level="project" />
   </component>
 </module>
