@@ -21,7 +21,7 @@ public class GameTextureMap {
     	try {
     		//////BACKGROUND
     		backgroundMap.put("bg_bleu_blanc_lum",  TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/background/background_blue_black_light.png")));
-    		backgroundMap.put("bg_arc_ciel_lum",  TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/background/background_rainbow_light.png")));
+    		//backgroundMap.put("bg_arc_ciel_lum",  TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/background/background_rainbow_light.png")));
     		backgroundMap.put("bg_arc_ciel_fum",  TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/background/background_rainbow_smoke.png")));
 
     		//////TEXTURES
