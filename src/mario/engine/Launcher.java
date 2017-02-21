@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Launcher {
 
-	public static final String TITLE = "PROTOTYPE";
+	public static final String TITLE = "GAME FACTORY";
 	public static final int MILLISECONDS = (int) Math.pow(10, 3);
 	public static final int NANOSECONDS = (int) Math.pow(10, 9);
 	public static final double UPDATE_RATE = NANOSECONDS / 60.0;
@@ -30,19 +30,9 @@ public class Launcher {
 		game = new Game();
 	}
 
-	public static int okcancel(String theMessage) {
-		int result = JOptionPane.showConfirmDialog(null, theMessage,
-				"alert", JOptionPane.OK_CANCEL_OPTION);
-		return result;
-	}
-
 	public static void main(String[] args) {
 		Launcher main = new Launcher();
-		int i = okcancel("Start the game ?");
-		if(i == 0)
-			main.start();
-		else
-			main.exit();
+        main.start();
 	}
 
 	public static void stop() {

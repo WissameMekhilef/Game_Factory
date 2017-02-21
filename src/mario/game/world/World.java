@@ -2,6 +2,7 @@ package mario.game.world;
 
 import mario.engine.Graphics;
 import mario.engine.Physics;
+import mario.engine.Sound;
 import mario.game.world.camera.Camera;
 import mario.game.world.entities.*;
 
@@ -122,5 +123,9 @@ public class World {
 
     public void setInProgress(boolean inProgress) {
         this.inProgress = inProgress;
+    }
+
+    public void playBackgroundSound(){
+        Sound.play(WorldParameters.getBackgroundMusic());
     }
 }

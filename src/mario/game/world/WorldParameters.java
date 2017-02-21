@@ -1,5 +1,7 @@
 package mario.game.world;
 
+import org.newdawn.slick.openal.Audio;
+
 /**
  * Created by wissamemekhilef on 09/02/2017.
  */
@@ -11,7 +13,7 @@ public class WorldParameters {
     //END PHYSICS
 
     //BEGIN SOUNDS
-    private static String pathToBackgroundMusic;
+    private static Audio backgroundMusic;
     //END SOUNDS
 
     //BEGIN PLAYER
@@ -57,12 +59,12 @@ public class WorldParameters {
         WorldParameters.deltaT = deltaT;
     }
 
-    public static String getPathToBackgroundMusic() {
-        return pathToBackgroundMusic;
+    public static Audio getBackgroundMusic() {
+        return backgroundMusic;
     }
 
-    public static void setPathToBackgroundMusic(String pathToBackgroundMusic) {
-        WorldParameters.pathToBackgroundMusic = pathToBackgroundMusic;
+    public static void setBackgroundMusic(Audio backgroundMusic) {
+        WorldParameters.backgroundMusic = backgroundMusic;
     }
 
     public static int getMAXSPEED() {

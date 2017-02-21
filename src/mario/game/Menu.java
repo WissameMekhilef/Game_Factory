@@ -1,9 +1,12 @@
 package mario.game;
 
+import com.sun.xml.internal.ws.encoding.soap.streaming.SOAPNamespaceConstants;
 import mario.engine.Launcher;
+import mario.engine.Sound;
 import mario.game.graphicItems.MenuButton;
 import mario.game.graphicItems.Text;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.openal.Audio;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,15 +28,20 @@ public class Menu {
 
     private TreeSet<MenuButton> worldList;
 
-    public Menu(){
-        //startMario = new MenuButton(300, 100, GameTextureMap.textureMap.get("brique"), new Text("Mario",FontMap.map.get("Mario"), Color.green, 200, 500), "start_mario");
-        //startFlappy = new MenuButton(300, 100, GameTextureMap.textureMap.get("brique"), new Text("Flappy",FontMap.map.get("Flappy"), Color.yellow, 600, 500), "start_flappy");
+    private Audio menuSound;
 
+    public Menu(){
         worldList = new TreeSet<>();
         init();
     }
 
+    public void playBackgroundSound(){
+        Sound.play(menuSound);
+    }
+
     private void init() {
+        menuSound = SoundMap.soundMap.get("DryOut");
+
         try {
             Stream<Path> paths = Files.walk(Paths.get("worlds"));
             paths.forEach(filePath -> {

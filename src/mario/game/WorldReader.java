@@ -23,14 +23,12 @@ import mario.game.world.entities.Player;
 /**
  *
  *Crée un monde à partir d'un fichier .json.
- * @param path					le chemin du fichier
  * @return						le monde créé
  * @throws CameraTypeException	si le type de caméra spécifié dans le fichier n'existe pas
  * @throws IOException			si le fichier est invtrouvable ou illisible
- * @throws JSONException		si le fichier est mal structuré, incomplet ou si les données qu'il comtient ne sont pas du type attendu
+ * @throws JSONException		si le fichier est mal structuré, incomplet ou si les données qu'il contient ne sont pas du type attendu
  *
  */
-
 public class WorldReader {
 
 	public static World worldFromJSON(String path) throws CameraTypeException, IOException, JSONException {
@@ -97,7 +95,7 @@ public class WorldReader {
 		WorldParameters.setGamma(obj.getDouble("gamma"));
 		WorldParameters.setG(obj.getDouble("g"));
 		WorldParameters.setDeltaT(1.0 / obj.getDouble("deltaT"));
-		WorldParameters.setPathToBackgroundMusic(obj.getString("music"));
+		WorldParameters.setBackgroundMusic(SoundMap.soundMap.get(obj.getString("music")));
 		WorldParameters.setMAXSPEED(obj.getInt("maxspeed"));
 		WorldParameters.setJumpTime(obj.getDouble("jumpTime"));
 		WorldParameters.setGainVitesseX(obj.getInt("gainVitesseX"));
