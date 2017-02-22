@@ -30,6 +30,7 @@ public class Menu {
     private int sizeYbutton = 100;
     private int spacebetween = 10;
 
+    private MenuButton exit;
     private TreeSet<MenuButton> worldList;
 
     private Audio menuSound;
@@ -68,6 +69,9 @@ public class Menu {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        exit = new MenuButton(50, 50, TextureMap.iconMap.get("red_cross"), null, exitGame());
+
     }
 
     private Runnable createAction(String x){
@@ -76,17 +80,22 @@ public class Menu {
         return r;
     }
 
-    public void receiveClick(int x0, int y0){
-        //System.out.println("x0 = "+x0+", y0 = "+y0);
-        Iterator<MenuButton> it = worldList.iterator();
-        while (it.hasNext()){
-            MenuButton current = it.next();
-            if(current.isClicked(x0, y0)){
-                //System.out.println("debug");
-                lastButtonClicked = current;
-            }
+    private Runnable exitGame() {
+    	return () -> Launcher.running = false;
+    }
 
-        }
+    public void receiveClick(int x0, int y0) {
+        if(exit.isClicked(x0, y0)) {
+    		lastButtonClicked = exit;
+    	} else {
+	        Iterator<MenuButton> it = worldList.iterator();
+	        while(it.hasNext()) {
+	            MenuButton current = it.next();
+	            if(current.isClicked(x0, y0)) {
+	                lastButtonClicked = current;
+	            }
+	        }
+    	}
     }
 
     public void update(){
@@ -107,8 +116,11 @@ public class Menu {
                 current.setX(x0);
                 current.setY(y0);
             }
-
         }
+
+        exit.setX(Launcher.width - (exit.getSizeX() + 10));
+        exit.setY(Launcher.height - 10);
+
     }
 
     public void render(){
@@ -116,6 +128,7 @@ public class Menu {
         while (it.hasNext()){
             it.next().render();
         }
+        exit.render();
     }
 
     public MenuButton getLastButtonClicked() {
