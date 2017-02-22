@@ -3,6 +3,7 @@ package game;
 import dataMapping.FontMap;
 import dataMapping.SoundMap;
 import dataMapping.TextureMap;
+import engine.Graphics;
 import engine.Launcher;
 import engine.Sound;
 import game.graphicItems.MenuButton;
@@ -35,8 +36,11 @@ public class Menu {
 
     private Audio menuSound;
 
+    private Text gameTitle;
+
     public Menu(){
         worldList = new TreeSet<>();
+        gameTitle = new Text(Launcher.TITLE, FontMap.map.get("Tron"), Color.green);
         init();
     }
 
@@ -124,6 +128,7 @@ public class Menu {
     }
 
     public void render(){
+    	Graphics.renderText(gameTitle, 200, Launcher.height - 50);
         Iterator<MenuButton> it = worldList.iterator();
         while (it.hasNext()){
             it.next().render();
