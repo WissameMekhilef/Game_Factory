@@ -11,10 +11,7 @@ import game.world.WorldParameters;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
-import org.json.JSONException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -22,7 +19,6 @@ public class Game {
 
 	private static Context context;
     private static Menu menu;
-    private Sound soundContext;
 	private static World world;
 
 	private enum Context {INGAME, INMENU, INPAUSE}
@@ -34,7 +30,6 @@ public class Game {
 	    world = null;
 
         menu = new Menu();
-        soundContext = new Sound();
 
         switchTo(Context.INMENU);
     }

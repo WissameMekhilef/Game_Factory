@@ -7,7 +7,6 @@ import engine.Launcher;
 import engine.Sound;
 import game.graphicItems.MenuButton;
 import game.graphicItems.Text;
-import game.world.World;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.openal.Audio;
 
@@ -17,8 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.TreeSet;
-import java.util.concurrent.Callable;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static game.Game.worldCreation;

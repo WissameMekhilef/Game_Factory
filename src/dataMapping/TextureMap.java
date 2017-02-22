@@ -18,16 +18,16 @@ public class TextureMap {
 
     static {
     	try {
-			textureMap.put("brique", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/brique.png")));
-			textureMap.put("herbe", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/herbe.png")));
+			textureMap.put("brique", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/brique.png")));
+			textureMap.put("herbe", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/herbe.png")));
 	        //A changer
-	        textureMap.put("pause", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/pause.png")));
+	        textureMap.put("pause", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/pause.png")));
 	        //Doors
-	        textureMap.put("door_1", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/door.png")));
+	        textureMap.put("door_1", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/door.png")));
 	        //Coins
-	        textureMap.put("coin_1", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/pause.png")));
-	        skinMap.put("player1", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/player_b.png"))});
-	        skinMap.put("flappy", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/flappy.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("textures/flappy_b.png"))});
+	        textureMap.put("coin_1", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/pause.png")));
+	        skinMap.put("player1", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/player.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/player_b.png"))});
+	        skinMap.put("flappy", new Texture[]{TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/flappy.png")) , TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/flappy_b.png"))});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
