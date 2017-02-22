@@ -9,6 +9,10 @@ import game.world.World;
 import game.world.WorldParameters;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 import org.json.JSONException;
 import org.lwjgl.input.Keyboard;
@@ -19,12 +23,13 @@ public class Game {
 	private Context context;
     private Menu menu;
     private Sound soundContext;
-	private World world;
+	private static World world;
 
 	private enum Context {INGAME, INMENU, INPAUSE}
 
 	public Game() {
 	    context = null;
+	    world = null;
 
         menu = new Menu();
         soundContext = new Sound();
@@ -69,6 +74,7 @@ public class Game {
             menu.playBackgroundSound();
         }else if(context == Context.INGAME && newContext == Context.INMENU){
             context = Context.INMENU;
+            world = null;
             menu.playBackgroundSound();
         }else if(context == Context.INGAME && newContext == Context.INPAUSE){
             Sound.pause();
@@ -101,18 +107,11 @@ public class Game {
             case INMENU:
                 menu.update();
                 if(menu.getLastButtonClicked() != null) {
-                    String actionWanted = menu.getLastButtonClicked().getAction();
-                    try {
-                        world = WorldReader.worldFromJSON("worlds/"+actionWanted+".json");
-                        menu.setLastButtonClicked(null);
+                    ExecutorService service =  Executors.newFixedThreadPool(2);
+                    service.execute(menu.getLastButtonClicked().getAction());
+                    menu.setLastButtonClicked(null);
+                    if(world != null)
                         switchTo(Context.INGAME);
-                    } catch (CameraTypeException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                 }
                 break;
 
@@ -122,6 +121,17 @@ public class Game {
 		}
 
 	}
+
+	public static void worldCreation(String worldToCreate) {
+        try {
+            world = WorldReader.worldFromJSON("worlds/"+worldToCreate+".json");
+        } catch (CameraTypeException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 	public void render() {
 

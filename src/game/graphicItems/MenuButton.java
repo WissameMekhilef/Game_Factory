@@ -15,9 +15,9 @@ public class MenuButton implements Comparable{
 
     private Text content;
 
-    private String action;
+    private Runnable action;
 
-    public MenuButton(int sizeX, int sizeY, Texture texture, Text text, String action){
+    public MenuButton(int sizeX, int sizeY, Texture texture, Text text, Runnable action){
         this.coordonnee = new int[2];
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -36,11 +36,11 @@ public class MenuButton implements Comparable{
         coordonnee[1] = y;
     }
 
-    public String getAction() {
+    public Runnable getAction() {
         return action;
     }
 
-    public void setAction(String action) {
+    public void setAction(Runnable action) {
         this.action = action;
     }
 
@@ -55,7 +55,7 @@ public class MenuButton implements Comparable{
 
     public int compareTo(Object toCompare){
         if(toCompare instanceof MenuButton){
-            return this.action.compareTo(((MenuButton) toCompare).action);
+            return this.content.getTextToDisplay().compareTo( ( (MenuButton) toCompare ).content.getTextToDisplay() );
         }
         return 0;
     }

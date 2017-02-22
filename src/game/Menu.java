@@ -7,6 +7,7 @@ import engine.Launcher;
 import engine.Sound;
 import game.graphicItems.MenuButton;
 import game.graphicItems.Text;
+import game.world.World;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.openal.Audio;
 
@@ -16,7 +17,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
+
+import static game.Game.worldCreation;
 
 /**
  * Created by wissamemekhilef on 14/02/2017.
@@ -58,15 +63,20 @@ public class Menu {
                 		array = worldName.split("\\\\");
                 		worldName = array[array.length - 1];
                 	}
-                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, TextureMap.textureMap.get("brique"), new Text(worldName, FontMap.map.get("Mario_1"), Color.green), worldName));
+                    Runnable action = createAction(worldName);
+                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, TextureMap.textureMap.get("brique"), new Text(worldName, FontMap.map.get("Mario_1"), Color.green), action));
                 }
             });
             paths.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-
+    private Runnable createAction(String x){
+        final String worldToCreate = x;
+        Runnable r = () -> worldCreation(worldToCreate);
+        return r;
     }
 
     public void receiveClick(int x0, int y0){
