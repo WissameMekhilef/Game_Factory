@@ -20,12 +20,14 @@ import org.lwjgl.input.Mouse;
 
 public class Game {
 
-	private Context context;
-    private Menu menu;
+	private static Context context;
+    private static Menu menu;
     private Sound soundContext;
 	private static World world;
 
 	private enum Context {INGAME, INMENU, INPAUSE}
+
+	private ExecutorService service =  Executors.newFixedThreadPool(1);
 
 	public Game() {
 	    context = null;
@@ -68,26 +70,28 @@ public class Game {
 
     }
 
-    public void switchTo(Context newContext){
-	    if(context == null && newContext == Context.INMENU){
-            context = Context.INMENU;
+    public static void switchTo(Context toContext){
+	    if(context == null && toContext == Context.INMENU){
             menu.playBackgroundSound();
-        }else if(context == Context.INGAME && newContext == Context.INMENU){
             context = Context.INMENU;
-            world = null;
+
+        }else if(context == Context.INGAME && toContext == Context.INMENU){
             menu.playBackgroundSound();
-        }else if(context == Context.INGAME && newContext == Context.INPAUSE){
+            context = Context.INMENU;
+
+        }else if(context == Context.INGAME && toContext == Context.INPAUSE){
             Sound.pause();
             context = Context.INPAUSE;
-        }else if(context == Context.INPAUSE && newContext == Context.INMENU){
-            context = Context.INMENU;
+        }else if(context == Context.INPAUSE && toContext == Context.INMENU){
             menu.playBackgroundSound();
-        }else if(context == Context.INPAUSE && newContext == Context.INGAME){
-            context = Context.INGAME;
+            context = Context.INMENU;
+        }else if(context == Context.INPAUSE && toContext == Context.INGAME){
             Sound.play();
-        }else if(context == Context.INMENU && newContext == Context.INGAME){
             context = Context.INGAME;
+        }else if(context == Context.INMENU && toContext == Context.INGAME){
             world.playBackgroundSound();
+            context = Context.INGAME;
+
         }
     }
 
@@ -100,6 +104,7 @@ public class Game {
                 if(world.isInProgress()) {
                     world.update();
                 } else {
+                    world = null;
                     switchTo(Context.INMENU);
                 }
                 break;
@@ -107,11 +112,8 @@ public class Game {
             case INMENU:
                 menu.update();
                 if(menu.getLastButtonClicked() != null) {
-                    ExecutorService service =  Executors.newFixedThreadPool(2);
                     service.execute(menu.getLastButtonClicked().getAction());
                     menu.setLastButtonClicked(null);
-                    if(world != null)
-                        switchTo(Context.INGAME);
                 }
                 break;
 
@@ -130,7 +132,7 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        switchTo(Context.INGAME);
     }
 
 	public void render() {
