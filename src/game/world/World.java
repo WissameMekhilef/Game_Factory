@@ -1,10 +1,14 @@
 package game.world;
 
+import dataMapping.FontMap;
 import engine.Graphics;
 import engine.Physics;
 import engine.Sound;
+import game.Game;
+import game.graphicItems.Text;
 import game.world.camera.Camera;
 import game.world.entities.*;
+import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +24,12 @@ public class World {
 
 	private Camera scroller;
 
-	private boolean inProgress;
+	private static boolean inProgress;
+
+    private Pause pauseDisplay;
 
 	public World(int width, int height, Player player, Camera camera, Door door, List<Obstacle> plateau) {
+	    pauseDisplay = new Pause(new Text("Pause", FontMap.map.get("Tron"), Color.red));
 
 		WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
@@ -47,11 +54,7 @@ public class World {
 		inProgress = true;
 	}
 
-    public Player getPlayer(){
-	    return player;
-    }
-
-	public void generate() {
+	private void generate() {
 
 		for (Obstacle obstacle : plateau) {
 			listPC.add(new PotentialCollision(player, obstacle));
@@ -75,10 +78,8 @@ public class World {
                 collisionSide = Physics.isStuck(pc);
 			    if(pc.getSolid() instanceof Obstacle){
                     Physics.replaceAfterCollision(pc, collisionSide);
-                }else if(pc.getSolid() instanceof Door && collisionSide != ""){
+                }else if(pc.getSolid() instanceof Door && !collisionSide.equals("")){
                     levelEnd("outByDoor");
-                }else if(pc.getSolid() instanceof Coin){
-
                 }
             }
 			player.update();
@@ -121,11 +122,23 @@ public class World {
         return inProgress;
     }
 
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
+    private static void setInProgress(boolean pinProgress) {
+        inProgress = pinProgress;
     }
 
     public void playBackgroundSound(){
         Sound.play(WorldParameters.getBackgroundMusic());
+    }
+
+    public Pause getPauseDisplay() {
+        return pauseDisplay;
+    }
+
+    public void setPauseDisplay(Pause pauseDisplay) {
+        this.pauseDisplay = pauseDisplay;
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 }

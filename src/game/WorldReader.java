@@ -5,11 +5,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import dataMapping.FontMap;
 import dataMapping.SoundMap;
 import dataMapping.TextureMap;
+import engine.Launcher;
+import game.graphicItems.Text;
+import game.world.Pause;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import exceptions.CameraTypeException;
@@ -31,9 +36,9 @@ import game.world.entities.Player;
  * @throws JSONException		si le fichier est mal structuré, incomplet ou si les données qu'il contient ne sont pas du type attendu
  *
  */
-public class WorldReader {
+class WorldReader {
 
-	public static World worldFromJSON(String path) throws CameraTypeException, IOException, JSONException {
+	static World worldFromJSON(String path) throws CameraTypeException, IOException, JSONException {
 
 		JSONObject obj = new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
 

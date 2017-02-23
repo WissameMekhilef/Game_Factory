@@ -23,7 +23,7 @@ public class Game {
 
 	private enum Context {INGAME, INMENU, INPAUSE}
 
-	private ExecutorService service =  Executors.newFixedThreadPool(1);
+	private ExecutorService service =  Executors.newFixedThreadPool(3);
 
 	public Game() {
 	    context = null;
@@ -34,7 +34,7 @@ public class Game {
         switchTo(Context.INMENU);
     }
 
-    public void pollInput() {
+    private void pollInput() {
 
     	switch (context) {
 
@@ -56,24 +56,21 @@ public class Game {
     		break;
 
     	case INPAUSE:
-    		while (Keyboard.next())
-    			if ((!Keyboard.getEventKeyState()) && (Keyboard.getEventKey() == Keyboard.KEY_P))
-                    switchTo(Context.INGAME);
+            if(Mouse.isButtonDown(0))
+                world.getPauseDisplay().receiveClick(Mouse.getX(), Mouse.getY());
     		break;
 
     	}
 
     }
 
-    public static void switchTo(Context toContext){
+    private static void switchTo(Context toContext){
 	    if(context == null && toContext == Context.INMENU){
             menu.playBackgroundSound();
             context = Context.INMENU;
-
         }else if(context == Context.INGAME && toContext == Context.INMENU){
             menu.playBackgroundSound();
             context = Context.INMENU;
-
         }else if(context == Context.INGAME && toContext == Context.INPAUSE){
             Sound.pause();
             context = Context.INPAUSE;
@@ -86,19 +83,21 @@ public class Game {
         }else if(context == Context.INMENU && toContext == Context.INGAME){
             world.playBackgroundSound();
             context = Context.INGAME;
-
+        }else if(context == Context.INPAUSE && toContext == Context.INMENU){
+            menu.playBackgroundSound();
+            context = Context.INMENU;
         }
     }
 
 	public void update() {
         pollInput();
-
 		switch (context) {
 
             case INGAME:
                 if(world.isInProgress()) {
                     world.update();
                 } else {
+
                     world = null;
                     switchTo(Context.INMENU);
                 }
@@ -108,30 +107,39 @@ public class Game {
                 menu.update();
                 if(menu.getLastButtonClicked() != null) {
                     service.execute(menu.getLastButtonClicked().getAction());
-                    menu.setLastButtonClicked(null);
                 }
                 break;
 
             case INPAUSE:
+                world.getPauseDisplay().update();
+                if(world.getPauseDisplay().getLastButtonClicked() != null) {
+                    service.execute(world.getPauseDisplay().getLastButtonClicked().getAction());
+                }
                 break;
 
 		}
 
 	}
 
-	public static void worldCreation(String worldToCreate) {
+	static void worldCreation(String worldToCreate) {
         try {
             world = WorldReader.worldFromJSON("worlds/"+worldToCreate+".json");
-        } catch (CameraTypeException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (CameraTypeException | IOException e) {
             e.printStackTrace();
         }
         switchTo(Context.INGAME);
     }
 
-	public void render() {
+    public static void hardBackToMenu(){
+        switchTo(Context.INMENU);
+        world = null;
+    }
 
+    public static void backToPlay(){
+        switchTo(Context.INGAME);
+    }
+
+	public void render() {
 		switch (context) {
 
             case INGAME:
@@ -143,14 +151,10 @@ public class Game {
                 break;
 
             case INPAUSE:
-                //Il faut créer un objet pause.
-                int size = 200;
-                int x = (Launcher.width - size) / 2 - WorldParameters.getxScroll();
-                int y = (Launcher.height + size) / 2 + WorldParameters.getyScroll();
-                Graphics.renderQuad(x, y, size, size, TextureMap.textureMap.get("pause"));
+                world.getPauseDisplay().render();
+                break;
 
             }
-
 	}
 
 }

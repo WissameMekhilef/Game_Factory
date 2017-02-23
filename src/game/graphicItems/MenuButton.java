@@ -9,7 +9,7 @@ import org.newdawn.slick.opengl.Texture;
 public class MenuButton implements Comparable{
 
     protected Texture texture;
-    protected int[] coordonnee;
+    private int[] coordonnee;
     protected int sizeX;
     protected int sizeY;
 
@@ -53,7 +53,7 @@ public class MenuButton implements Comparable{
     }
 
     public boolean isClicked(int x, int y){
-        return (x >= coordonnee[0] && x <= coordonnee[0] + sizeX && y <= coordonnee[1] + sizeY);
+        return (x >= coordonnee[0] && x <= coordonnee[0] + sizeX && y <= coordonnee[1] && y >= coordonnee[1] - sizeY);
     }
 
     public void render(){
@@ -69,5 +69,13 @@ public class MenuButton implements Comparable{
             return this.content.getTextToDisplay().compareTo( ( (MenuButton) toCompare ).content.getTextToDisplay() );
         }
         return 0;
+    }
+
+    public Text getContent() {
+        return content;
+    }
+
+    public void setContent(Text content) {
+        this.content = content;
     }
 }

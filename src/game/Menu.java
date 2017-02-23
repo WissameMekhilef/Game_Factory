@@ -38,13 +38,13 @@ public class Menu {
 
     private Text gameTitle;
 
-    public Menu(){
+    Menu(){
         worldList = new TreeSet<>();
         gameTitle = new Text(Launcher.TITLE, FontMap.map.get("Tron"), Color.green);
         init();
     }
 
-    public void playBackgroundSound(){
+    void playBackgroundSound(){
         Sound.play(menuSound);
     }
 
@@ -80,29 +80,32 @@ public class Menu {
 
     private Runnable createAction(String x){
         final String worldToCreate = x;
-        Runnable r = () -> worldCreation(worldToCreate);
-        return r;
+        return () -> {
+            lastButtonClicked = null;
+            worldCreation(worldToCreate);
+        };
     }
 
     private Runnable exitGame() {
-    	return () -> Launcher.running = false;
+    	return () -> {
+    	    Launcher.running = false;
+            boutonTraite();
+    	};
     }
 
-    public void receiveClick(int x0, int y0) {
+    void receiveClick(int x0, int y0) {
         if(exit.isClicked(x0, y0)) {
     		lastButtonClicked = exit;
     	} else {
-	        Iterator<MenuButton> it = worldList.iterator();
-	        while(it.hasNext()) {
-	            MenuButton current = it.next();
-	            if(current.isClicked(x0, y0)) {
-	                lastButtonClicked = current;
-	            }
-	        }
+            for (MenuButton current : worldList) {
+                if (current.isClicked(x0, y0)) {
+                    lastButtonClicked = current;
+                }
+            }
     	}
     }
 
-    public void update(){
+    void update(){
 
         Iterator<MenuButton> it = worldList.iterator();
 
@@ -127,20 +130,19 @@ public class Menu {
 
     }
 
-    public void render(){
+    void render(){
     	Graphics.renderText(gameTitle, Launcher.width / 2 - FontMap.map.get("Tron").getWidth(gameTitle.getTextToDisplay())/2, 3 * Launcher.height / 4 - FontMap.map.get("Tron").getHeight(gameTitle.getTextToDisplay())/2);
-        Iterator<MenuButton> it = worldList.iterator();
-        while (it.hasNext()){
-            it.next().render();
+        for (MenuButton aWorldList : worldList) {
+            aWorldList.render();
         }
         exit.render();
     }
 
-    public MenuButton getLastButtonClicked() {
+    MenuButton getLastButtonClicked() {
         return lastButtonClicked;
     }
 
-    public void setLastButtonClicked(MenuButton lastButtonClicked) {
-        this.lastButtonClicked = lastButtonClicked;
+    public void boutonTraite() {
+        this.lastButtonClicked = null;
     }
 }
