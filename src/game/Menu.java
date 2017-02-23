@@ -106,7 +106,7 @@ public class Menu {
 
         Iterator<MenuButton> it = worldList.iterator();
 
-        int x0 = spacebetween;
+        int x0 = Launcher.width / 2 - ((spacebetween + sizeXbutton) / 2) * worldList.size();
         int y0 = Launcher.height / 2 - spacebetween - sizeYbutton;
         while (it.hasNext()){
             MenuButton current = it.next();
