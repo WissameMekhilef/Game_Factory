@@ -110,3 +110,5 @@ textures/fichiers_vectoriels
 /rapport/my_library.log
 /rapport/rapport.toc
 /rapport/rapport.synctex.gz(busy)
+!/out/artifacts/
+/out/artifacts/

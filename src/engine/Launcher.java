@@ -8,6 +8,8 @@ import org.lwjgl.util.glu.GLU;
 
 import game.Game;
 
+import java.io.File;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class Launcher {
@@ -29,6 +31,14 @@ public class Launcher {
 	}
 
 	public static void main(String[] args) {
+	    System.out.println("Credential");
+	    switch (System.getProperty("os.name")){
+            case "Mac OS X":
+                System.setProperty("org.lwjgl.librarypath", new File("natives/macosx").getAbsolutePath());
+                break;
+        }
+
+
 		Launcher main = new Launcher();
         main.start();
 	}
