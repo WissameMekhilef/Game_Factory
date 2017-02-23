@@ -29,9 +29,10 @@ public class AttachedScroller implements Camera {
             if(bordDroitAfficher) {
                 return;
             }
-        }else if(aGauche){
+        }
+        if(aGauche){
             if(bordGaucheAfficher){
-                WorldParameters.setxScroll(0);
+                WorldParameters.setxScroll(WorldParameters.getBordGauche());
                 return;
             }
         }
@@ -43,18 +44,16 @@ public class AttachedScroller implements Camera {
         boolean moitieHaute = player.getCoordonnee()[1] - WorldParameters.getyScroll() > Launcher.height / 2;
         boolean moitieBasse = !moitieHaute;
 
-        boolean bordHautAfficher = WorldParameters.getyScroll() >= WorldParameters.getBordHaut() - Launcher.height ;
-        boolean bordBasAfficher = WorldParameters.getyScroll() <= WorldParameters.getBordBas();
+        boolean bordHautAfficher = 0 >= WorldParameters.getBordHaut() - Launcher.height - WorldParameters.getyScroll();
+        boolean bordBasAfficher = 0 <= WorldParameters.getBordBas() - WorldParameters.getyScroll();
 
-        if(moitieBasse){
-            if(bordBasAfficher) {
-                WorldParameters.setyScroll(0);
-                return;
-            }
-        }else if(moitieHaute){
-            if(bordHautAfficher){
-                return;
-            }
+        if(moitieBasse && bordBasAfficher){
+            WorldParameters.setyScroll(WorldParameters.getBordBas());
+            return;
+        }
+        if(moitieHaute && bordHautAfficher){
+            WorldParameters.setyScroll(WorldParameters.getBordHaut() - Launcher.height);
+            return;
         }
 
         WorldParameters.setyScroll(WorldParameters.getyScroll() + player.getCoordonnee()[1] - player.prevY);

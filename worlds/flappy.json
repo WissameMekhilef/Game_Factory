@@ -1,10 +1,10 @@
 {
-	"width": 1500,
-	"height": 1000,
+	"width": 5500,
+	"height": 1200,
 	"player":
     	{"sizeX": 50, "sizeY": 50, "v0": 3, "v1": 3, "x": 10, "y": 500, "skin": "flappy"},
 	"camera":
-    	{"type": "attached", "xAttached": true, "yAttached": true},
+        {"type": "attached", "xAttached": true, "yAttached": true},
 	"door":
 		{"sizeX": 200, "sizeY": 200, "x": 600, "y": 400, "texture": "door_1"},
 	"plateau": [

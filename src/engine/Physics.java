@@ -42,6 +42,11 @@ public class Physics {
 		toMove.getVitesse()[1] = (isBelowTheSurface)? 0 : toMove.getVitesse()[1];
         toMove.setBelowTheSurface(isBelowTheSurface);
 
+        //La fonction detecte si l'objet est passé sous la surface affiché ou pas
+        boolean isUpTheSurface = toMove.getCoordonnee()[1] > WorldParameters.getBordHaut();
+        toMove.getCoordonnee()[1] = (isUpTheSurface)? WorldParameters.getBordHaut() : toMove.getCoordonnee()[1];
+        toMove.getVitesse()[1] = (isUpTheSurface)? 0 : toMove.getVitesse()[1];
+
 		toMove.getVitessePrev()[1] = toMove.getVitesse()[1];
     }
 
