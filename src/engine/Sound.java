@@ -17,6 +17,7 @@ public class Sound {
     public static void play(){
     	backgroundSound.playAsMusic(1.0f, 1.0f, false);
     	backgroundSound.setPosition(backgroundPosition);
+
     }
 
     public static void play(Audio pBackgroundSound) {
