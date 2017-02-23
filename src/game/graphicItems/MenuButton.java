@@ -1,8 +1,6 @@
 package game.graphicItems;
 
-import dataMapping.FontMap;
 import engine.Graphics;
-import engine.Launcher;
 import org.newdawn.slick.opengl.Texture;
 
 /**
