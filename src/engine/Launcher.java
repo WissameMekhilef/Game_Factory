@@ -36,6 +36,9 @@ public class Launcher {
             case "Mac OS X":
                 System.setProperty("org.lwjgl.librarypath", new File("natives/macosx").getAbsolutePath());
                 break;
+            case "Windows 10":
+                System.setProperty("org.lwjgl.librarypath", new File("natives/windows").getAbsolutePath());
+                break;
         }
 
 
