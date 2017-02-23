@@ -21,6 +21,8 @@ public class TextureMap {
     	try {
     		iconMap.put("red_cross", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/icons/red_cross.png")));
     		iconMap.put("white_cross", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/icons/white_cross.png")));
+
+
 			textureMap.put("brique", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/brique.png")));
 			textureMap.put("herbe", TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("images/textures/herbe.png")));
 	        //A changer
