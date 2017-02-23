@@ -128,7 +128,7 @@ public class Menu {
     }
 
     public void render(){
-    	Graphics.renderText(gameTitle, 200, Launcher.height - 50);
+    	Graphics.renderText(gameTitle, Launcher.width / 2 - FontMap.map.get("Tron").getWidth(gameTitle.getTextToDisplay())/2, 3 * Launcher.height / 4 - FontMap.map.get("Tron").getHeight(gameTitle.getTextToDisplay())/2);
         Iterator<MenuButton> it = worldList.iterator();
         while (it.hasNext()){
             it.next().render();
