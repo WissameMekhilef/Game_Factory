@@ -1,7 +1,6 @@
 package game.world;
 
-import dataMapping.FontMap;
-import dataMapping.TextureMap;
+import dataMapping.Data;
 import engine.Graphics;
 import engine.Launcher;
 import game.Game;
@@ -33,13 +32,13 @@ public class Pause {
             lastButtonClicked = null;
             Game.hardBackToMenu();
         };
-        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, TextureMap.textureMap.get("brique"), new Text("Menu", FontMap.map.get("Mario_1"), Color.green), backToMenu));
+        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green), backToMenu));
 
         Runnable backToPlay = () -> {
             lastButtonClicked = null;
             Game.backToPlay();
         };
-        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, TextureMap.textureMap.get("brique"), new Text("Back", FontMap.map.get("Mario_1"), Color.green), backToPlay));
+        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green), backToPlay));
 
     }
 
@@ -72,7 +71,7 @@ public class Pause {
     }
 
     public void render(){
-        Graphics.renderText(textPause, Launcher.width / 2 - FontMap.map.get("Tron").getWidth(textPause.getTextToDisplay())/2, 3 * Launcher.height / 4 - FontMap.map.get("Tron").getHeight(textPause.getTextToDisplay())/2);
+        Graphics.renderText(textPause, Launcher.width / 2 - Data.fontsMap.get("tron").getWidth(textPause.getTextToDisplay())/2, 3 * Launcher.height / 4 - Data.fontsMap.get("tron").getHeight(textPause.getTextToDisplay())/2);
         for (MenuButton aWorldList : listButton) {
             aWorldList.render();
         }

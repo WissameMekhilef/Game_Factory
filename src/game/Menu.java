@@ -1,8 +1,6 @@
 package game;
 
-import dataMapping.FontMap;
-import dataMapping.SoundMap;
-import dataMapping.TextureMap;
+import dataMapping.Data;
 import engine.Graphics;
 import engine.Launcher;
 import engine.Sound;
@@ -40,7 +38,7 @@ public class Menu {
 
     Menu(){
         worldList = new TreeSet<>();
-        gameTitle = new Text(Launcher.TITLE, FontMap.map.get("Tron"), Color.green);
+        gameTitle = new Text(Launcher.TITLE, Data.fontsMap.get("tron"), Color.green);
         init();
     }
 
@@ -49,24 +47,15 @@ public class Menu {
     }
 
     private void init() {
-        menuSound = SoundMap.soundMap.get("DryOut");
+        menuSound = Data.soundsMap.get("DryOut");
 
         try {
             Stream<Path> paths = Files.walk(Paths.get("worlds"));
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                	String worldName = filePath.toString().split("\\.")[0];
-                	String[] array = worldName.split("/");
-                	if(array.length > 1) {
-                		//Cas où le chemin est de la forme : "dossier1/dossier2/.../fichier.extension" (Unix)
-                		worldName = array[array.length - 1];
-                	} else {
-                		//Cas où le chemin est de la forme : "dossier1\\dossier2\\...\\fichier.extension" (Windows)
-                		array = worldName.split("\\\\");
-                		worldName = array[array.length - 1];
-                	}
+                	String worldName = Data.getFileName(filePath);
                     Runnable action = createAction(worldName);
-                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, TextureMap.textureMap.get("brique"), new Text(worldName, FontMap.map.get("Mario_1"), Color.green), action));
+                    worldList.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text(worldName, Data.fontsMap.get("new_super_mario_1"), Color.green), action));
                 }
             });
             paths.close();
@@ -74,7 +63,7 @@ public class Menu {
             e.printStackTrace();
         }
 
-        exit = new MenuButton(50, 50, TextureMap.iconMap.get("red_cross"), null, exitGame());
+        exit = new MenuButton(50, 50, Data.texturesMap.get("red_cross"), null, exitGame());
 
     }
 
@@ -131,7 +120,7 @@ public class Menu {
     }
 
     void render(){
-    	Graphics.renderText(gameTitle, Launcher.width / 2 - FontMap.map.get("Tron").getWidth(gameTitle.getTextToDisplay())/2, 3 * Launcher.height / 4 - FontMap.map.get("Tron").getHeight(gameTitle.getTextToDisplay())/2);
+    	Graphics.renderText(gameTitle, Launcher.width / 2 - Data.fontsMap.get("tron").getWidth(gameTitle.getTextToDisplay())/2, 3 * Launcher.height / 4 - Data.fontsMap.get("tron").getHeight(gameTitle.getTextToDisplay())/2);
         for (MenuButton aWorldList : worldList) {
             aWorldList.render();
         }

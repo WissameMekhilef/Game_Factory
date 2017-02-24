@@ -5,16 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import dataMapping.FontMap;
-import dataMapping.SoundMap;
-import dataMapping.TextureMap;
-import engine.Launcher;
-import game.graphicItems.Text;
-import game.world.Pause;
+import dataMapping.Data;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import exceptions.CameraTypeException;
@@ -53,7 +47,7 @@ class WorldReader {
 		int v1 = obj2.getInt("v1");
 		int x = obj2.getInt("x");
 		int y = obj2.getInt("y");
-		Texture[] skin = TextureMap.skinMap.get(obj2.getString("skin"));
+		Texture[] skin = Data.skinsMap.get(obj2.getString("skin"));
 
 		Player player = new Player(sizeX, sizeY, v0, v1, x, y, skin);
 
@@ -79,7 +73,7 @@ class WorldReader {
 		sizeY = obj4.getInt("sizeY");
 		x = obj4.getInt("x");
 		y = obj4.getInt("y");
-		Texture texture = TextureMap.textureMap.get(obj4.getString("texture"));
+		Texture texture = Data.texturesMap.get(obj4.getString("texture"));
 
 		Door door = new Door(sizeX, sizeY, x, y, texture);
 
@@ -93,7 +87,7 @@ class WorldReader {
 			sizeY = arr.getJSONObject(i).getInt("sizeY");
 			x = arr.getJSONObject(i).getInt("x");
 			y = arr.getJSONObject(i).getInt("y");
-			texture = TextureMap.textureMap.get(arr.getJSONObject(i).getString("texture"));
+			texture = Data.texturesMap.get(arr.getJSONObject(i).getString("texture"));
 
 			plateau.add(new Obstacle(sizeX, sizeY, x, y, texture));
 
@@ -102,7 +96,7 @@ class WorldReader {
 		WorldParameters.setGamma(obj.getDouble("gamma"));
 		WorldParameters.setG(obj.getDouble("g"));
 		WorldParameters.setDeltaT(1.0 / obj.getDouble("deltaT"));
-		WorldParameters.setBackgroundMusic(SoundMap.soundMap.get(obj.getString("music")));
+		WorldParameters.setBackgroundMusic(Data.soundsMap.get(obj.getString("music")));
 		WorldParameters.setMAXSPEED(obj.getInt("maxspeed"));
 		WorldParameters.setJumpTime(obj.getDouble("jumpTime"));
 		WorldParameters.setGainVitesseX(obj.getInt("gainVitesseX"));
