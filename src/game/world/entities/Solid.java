@@ -32,7 +32,7 @@ public abstract class Solid {
     }
 
     public void render(){
-        Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture);
+        Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture, true);
     }
 
 }

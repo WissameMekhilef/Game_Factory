@@ -57,7 +57,7 @@ public class MenuButton implements Comparable{
     }
 
     public void render(){
-        Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture);
+        Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture, true);
         if(content != null)
         	Graphics.renderText(content, coordonnee[0] + (sizeX / 2 - content.getFont().getWidth(content.getTextToDisplay())/2), coordonnee[1] - (sizeY / 2 - content.getFont().getHeight(content.getTextToDisplay())/2));
     }

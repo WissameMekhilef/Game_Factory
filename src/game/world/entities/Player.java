@@ -1,5 +1,6 @@
 package game.world.entities;
 
+import engine.Graphics;
 import engine.Launcher;
 import engine.Physics;
 import game.world.WorldParameters;
@@ -124,6 +125,11 @@ public class Player extends Movable {
 
     public void setBelowTheSurface(boolean situation){
         isBelowTheSurface = situation;
+    }
+
+
+    public void render(){
+        Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture, false);
     }
 
 }

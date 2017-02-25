@@ -16,18 +16,13 @@ public class Graphics {
      * @param h
      * @param texture
      */
-    public static void renderTexture(int x, int y, int w, int h, Texture texture){
-        boolean textureMoinsLarge = texture.getImageWidth() < w;
-        boolean textureMoinsHaute = texture.getImageHeight() < h;
+    public static void renderTexture(int x, int y, int w, int h, Texture texture, boolean mosaique){
         float m = 1;
         float n = 1;
-        if(textureMoinsLarge){
-            m = ((float) w % (float) texture.getImageWidth());
-            //m = m / 10;
-        }
-        if(textureMoinsHaute){
-            n = ((float) h % (float) texture.getImageHeight());
-            //n = n / 10;
+        if(mosaique){
+            m = ((float) w / (float) texture.getImageWidth());
+
+            n = ((float) h / (float) texture.getImageHeight());
         }
 
         //Point en bas a gauche
@@ -35,15 +30,15 @@ public class Graphics {
         glVertex2f(x, y);
 
         //Point en bas a droite
-        glTexCoord2f(1,0);
+        glTexCoord2f(m,0);
         glVertex2f(x + w, y);
 
         //Point en haut a droite
-        glTexCoord2f(1,1);
+        glTexCoord2f(m,n);
         glVertex2f(x + w, y + h);
 
         //Point en haut a gauche
-        glTexCoord2f(0,1);
+        glTexCoord2f(0,n);
         glVertex2f(x, y + h);
     }
 
@@ -60,14 +55,14 @@ public class Graphics {
      * @param h
      * @param texture
      */
-    public static void renderQuad(int x, int y, int w, int h, Texture texture) {
+    public static void renderQuad(int x, int y, int w, int h, Texture texture, boolean mosaique) {
 	    y = Launcher.height - y;
 
         Color.white.bind();
         texture.bind();
 
         glBegin(GL_QUADS);
-            renderTexture( x, y, w, h, texture);
+            renderTexture( x, y, w, h, texture, mosaique);
         glEnd();
     }
 
