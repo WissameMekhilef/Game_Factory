@@ -9,7 +9,6 @@ import org.newdawn.slick.opengl.Texture;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 import static engine.Launcher.poolThread;
 
@@ -100,11 +99,7 @@ public class Player extends Movable {
 	    prevY = coordonneePrev[1];
 
         try {
-            poolThread.invokeAll(updatePar).forEach((Future future) -> {
-                do{
-                    //Wait
-                }while (!future.isDone());
-            });
+            poolThread.invokeAll(updatePar);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

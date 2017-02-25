@@ -79,8 +79,8 @@ public class Menu {
 
     private Callable<Integer> exitGame() {
     	return () -> {
-    	    Launcher.running = false;
             lastButtonClicked = null;
+    	    Launcher.running = false;
             return 0;
     	};
     }

@@ -103,10 +103,6 @@ public class Game {
                     Future future = poolThread.submit(menu.getLastButtonClicked().getAction());
                     do{
                     }while (!future.isDone());
-                    System.out.println(future.isDone());
-                    System.out.println(context);
-                    switchTo(Context.INGAME);
-                    System.out.println(context);
                 }
                 break;
 
@@ -116,7 +112,6 @@ public class Game {
                     Future future = poolThread.submit(world.getPauseDisplay().getLastButtonClicked().getAction());
                     do{
                     }while (!future.isDone());
-                    switchTo(Context.INGAME);
                 }
                 break;
 
@@ -130,6 +125,7 @@ public class Game {
         } catch (CameraTypeException | IOException e) {
             e.printStackTrace();
         }
+        switchTo(Context.INGAME);
     }
 
     public static void hardBackToMenu(){
