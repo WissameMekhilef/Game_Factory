@@ -4,8 +4,14 @@ import engine.Graphics;
 import engine.Launcher;
 import engine.Physics;
 import game.world.WorldParameters;
-
 import org.newdawn.slick.opengl.Texture;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+
+import static engine.Launcher.poolThread;
 
 public class Player extends Movable {
     //BEGIN Scroll
@@ -26,6 +32,9 @@ public class Player extends Movable {
     private long before;
     private long timer = System.currentTimeMillis();
 
+
+    private Collection<Callable<Integer>> updatePar;
+
 	public Player(int sizeX, int sizeY, int v0, int v1, int x, int y, Texture[] skin) {
 		super(sizeX, sizeY, v0, v1, x, y, skin[0]);
 
@@ -34,6 +43,10 @@ public class Player extends Movable {
 
         prevX = x;
         prevY = y;
+
+        updatePar = new ArrayList<>();
+        updatePar.add(Physics.gravite(this));
+        updatePar.add(Physics.freinage(this));
 	}
 
 	private void scrollReplace(){
@@ -85,10 +98,19 @@ public class Player extends Movable {
 
         prevX = coordonneePrev[0];
 	    prevY = coordonneePrev[1];
-		Physics.gravite(this);
-		Physics.freinage(this);
 
-		scrollReplace();
+
+        try {
+            poolThread.invokeAll(updatePar).forEach((Future future) -> {
+                do{
+                    //Wait
+                }while (!future.isDone());
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        scrollReplace();
 
 		isAlive = checkAlive();
 

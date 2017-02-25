@@ -3,13 +3,12 @@ package game;
 import engine.Sound;
 import exceptions.CameraTypeException;
 import game.world.World;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import java.io.IOException;
+
+import static engine.Launcher.poolThread;
 
 public class Game {
 
@@ -18,8 +17,6 @@ public class Game {
 	private static World world;
 
 	private enum Context {INGAME, INMENU, INPAUSE}
-
-	private ExecutorService service =  Executors.newFixedThreadPool(3);
 
 	public Game() {
 	    context = null;
@@ -102,14 +99,14 @@ public class Game {
             case INMENU:
                 menu.update();
                 if(menu.getLastButtonClicked() != null) {
-                    service.execute(menu.getLastButtonClicked().getAction());
+                    poolThread.execute(menu.getLastButtonClicked().getAction());
                 }
                 break;
 
             case INPAUSE:
                 world.getPauseDisplay().update();
                 if(world.getPauseDisplay().getLastButtonClicked() != null) {
-                    service.execute(world.getPauseDisplay().getLastButtonClicked().getAction());
+                    poolThread.execute(world.getPauseDisplay().getLastButtonClicked().getAction());
                 }
                 break;
 

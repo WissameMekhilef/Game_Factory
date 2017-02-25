@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.stream.Stream;
 
 import static java.awt.Font.TRUETYPE_FONT;
@@ -100,7 +101,7 @@ public class Data {
         };
     }
 
-    public static Runnable generateSounds(){
+    public static Callable<Integer> generateSounds(){
         return () -> {
             try {
                 //System.out.println("Thread : "+Thread.currentThread().getName());
@@ -121,6 +122,7 @@ public class Data {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return 1;
         };
     }
 

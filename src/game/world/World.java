@@ -1,5 +1,6 @@
 package game.world;
 
+import dataMapping.Data;
 import engine.Graphics;
 import engine.Physics;
 import engine.Sound;
@@ -7,8 +8,6 @@ import game.graphicItems.Text;
 import game.world.camera.Camera;
 import game.world.entities.*;
 import org.newdawn.slick.Color;
-
-import dataMapping.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,7 @@ public class World {
 	private static boolean inProgress;
 
     private Pause pauseDisplay;
+
 
 	public World(int width, int height, Player player, Camera camera, Door door, List<Obstacle> plateau) {
 	    pauseDisplay = new Pause(new Text("Pause", Data.fontsMap.get("tron"), Color.red));
@@ -52,6 +52,8 @@ public class World {
 		generate();
 
 		inProgress = true;
+
+
 	}
 
 	private void generate() {

@@ -8,9 +8,9 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 
 import java.io.File;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static dataMapping.Data.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -28,19 +28,18 @@ public class Launcher {
 
 	public Game game;
 
-    public static ThreadPoolExecutor service = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), Runtime.getRuntime().availableProcessors(), 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));
+    public static ExecutorService poolThread =  Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+    static Future stateOfSoundsReading;
 
     public Launcher() {
         display();
         generateFonts().run();
         generateSkins().run();
         generateTextures().run();
-        service.shutdown();
-        try {
-            service.awaitTermination(1000000, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        do{
+            //Wait
+        }while (!stateOfSoundsReading.isDone());
         System.out.println("LOADED : ");
         game = new Game();
 	}
@@ -48,7 +47,7 @@ public class Launcher {
 	public static void main(String[] args) {
 	    System.out.println("Credential : ");
 
-	    service.execute(generateSounds());
+        stateOfSoundsReading = poolThread.submit(generateSounds());
 
         switch (System.getProperty("os.name")){
             case "Mac OS X":
