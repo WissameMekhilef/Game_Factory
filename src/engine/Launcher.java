@@ -1,15 +1,15 @@
 package engine;
 
-import dataMapping.Data;
+import game.Game;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 
-import game.Game;
-
 import java.io.File;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import static dataMapping.Data.*;
@@ -28,21 +28,27 @@ public class Launcher {
 
 	public Game game;
 
-	public Launcher() {
+    public static ThreadPoolExecutor service = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), Runtime.getRuntime().availableProcessors(), 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));
+
+    public Launcher() {
         display();
-        new Data();
-
-        /*while (!service.isTerminated()){
-
-        }*/
-        while (!doneFonts || !doneSkins || !doneTextures || !doneSounds){
-
+        generateFonts().run();
+        generateSkins().run();
+        generateTextures().run();
+        service.shutdown();
+        try {
+            service.awaitTermination(1000000, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-		game = new Game();
+        System.out.println("LOADED : ");
+        game = new Game();
 	}
 
 	public static void main(String[] args) {
-	    System.out.println("Credential");
+	    System.out.println("Credential : ");
+
+	    service.execute(generateSounds());
 
         switch (System.getProperty("os.name")){
             case "Mac OS X":
@@ -129,7 +135,7 @@ public class Launcher {
 			Display.setResizable(true);
 			Display.setFullscreen(false);
 			Display.setTitle(TITLE);
-			Display.create();
+			Display.create(); //Initialisation du context opengl
             //Display.setVSyncEnabled(true);
 			view2D(width, height);
 		} catch (LWJGLException e) {
