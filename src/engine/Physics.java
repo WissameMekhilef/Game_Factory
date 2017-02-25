@@ -138,7 +138,7 @@ public class Physics {
      * @param pc
      *      Le couple Player <-> Solid
      */
-	public static String isStuck(PotentialCollision pc) {
+	public static boolean isStuck(PotentialCollision pc) {
 	    //On determine la position du player par rapport à l'obstacle
         //On dispose de 1 boolean par direction
 		boolean newAbove = isAbove(pc.getPlayer(), pc.getSolid()) <= 0;
@@ -164,36 +164,37 @@ public class Physics {
 		pc.setLeft(newLeft);
 
         if(collisionSide == "above" && pc.isRight() && pc.isLeft())
-		    return "above";
+		    pc.setCollisionSide("above");
         else if(collisionSide == "below" && pc.isRight() && pc.isLeft())
-            return "below";
+            pc.setCollisionSide("below");
         else if(collisionSide == "right" && pc.isAbove() && pc.isBelow())
-            return "right";
+            pc.setCollisionSide("right");
         else if(collisionSide == "left" && pc.isAbove() && pc.isBelow())
-            return "left";
+            pc.setCollisionSide("left");
 
-        return "";
-
+        return !pc.getCollisionSide().equals("");
     }
 
-	public static void replaceAfterCollision(PotentialCollision pc, String collisionSide){
-        if(collisionSide == "above"){
+	public static void replaceAfterCollision(PotentialCollision pc){
+        if(pc.getCollisionSide() == "above"){
             pc.getPlayer().setBlockedByBottom(true);
             pc.getPlayer().getCoordonnee()[1] = pc.getPlayer().getSizeY() + pc.getSolid().getCoordonnee()[1];
             pc.setAbove(false);
-        }else if(collisionSide == "below"){
+        }else if(pc.getCollisionSide() == "below"){
             pc.getPlayer().setBlockedByTop(true);
             pc.getPlayer().getCoordonnee()[1] = pc.getSolid().getCoordonnee()[1] - pc.getSolid().getSizeY();
             pc.setBelow(false);
-        }else if(collisionSide == "right"){
+        }else if(pc.getCollisionSide() == "right"){
             pc.getPlayer().setBlockedByLeft(true);
             pc.getPlayer().getCoordonneePrev()[0] = pc.getSolid().getCoordonnee()[0] + pc.getSolid().getSizeX();
             pc.setRight(false);
-        }else if(collisionSide == "left"){
+        }else if(pc.getCollisionSide() == "left"){
             pc.getPlayer().setBlockedByRight(true);
             pc.getPlayer().getCoordonneePrev()[0] = pc.getSolid().getCoordonnee()[0] - pc.getPlayer().getSizeX();
             pc.setLeft(false);
         }
+
+        pc.setCollisionSide("");
     }
 
 }

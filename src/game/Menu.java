@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
 import java.util.stream.Stream;
 
 import static game.Game.worldCreation;
@@ -54,7 +55,7 @@ public class Menu {
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                 	String worldName = Data.getFileName(filePath);
-                    Runnable action = createAction(worldName);
+                    Callable<Integer> action = createAction(worldName);
                     worldList.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text(worldName, Data.fontsMap.get("new_super_mario_1"), Color.green), action));
                 }
             });
@@ -67,18 +68,20 @@ public class Menu {
 
     }
 
-    private Runnable createAction(String x){
+    private Callable<Integer> createAction(String x){
         final String worldToCreate = x;
         return () -> {
             lastButtonClicked = null;
             worldCreation(worldToCreate);
+            return 0;
         };
     }
 
-    private Runnable exitGame() {
+    private Callable<Integer> exitGame() {
     	return () -> {
     	    Launcher.running = false;
-            boutonTraite();
+            lastButtonClicked = null;
+            return 0;
     	};
     }
 
@@ -131,7 +134,4 @@ public class Menu {
         return lastButtonClicked;
     }
 
-    public void boutonTraite() {
-        this.lastButtonClicked = null;
-    }
 }

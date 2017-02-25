@@ -1,16 +1,6 @@
 package game;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
 import dataMapping.Data;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.newdawn.slick.opengl.Texture;
-
 import exceptions.CameraTypeException;
 import game.world.World;
 import game.world.WorldParameters;
@@ -20,6 +10,15 @@ import game.world.camera.ForceScroller;
 import game.world.entities.Door;
 import game.world.entities.Obstacle;
 import game.world.entities.Player;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.newdawn.slick.opengl.Texture;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,7 +32,7 @@ import game.world.entities.Player;
 class WorldReader {
 
 	static World worldFromJSON(String path) throws CameraTypeException, IOException, JSONException {
-
+        System.out.println("Call to worldFromJSON from : "+ Thread.currentThread().getName());
 		JSONObject obj = new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
 
 		int width = obj.getInt("width");

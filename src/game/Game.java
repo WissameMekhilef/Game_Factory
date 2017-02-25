@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.util.concurrent.Future;
 
 import static engine.Launcher.poolThread;
 
@@ -87,10 +88,10 @@ public class Game {
 		switch (context) {
 
             case INGAME:
+
                 if(world.isInProgress()) {
                     world.update();
                 } else {
-
                     world = null;
                     switchTo(Context.INMENU);
                 }
@@ -99,14 +100,23 @@ public class Game {
             case INMENU:
                 menu.update();
                 if(menu.getLastButtonClicked() != null) {
-                    poolThread.execute(menu.getLastButtonClicked().getAction());
+                    Future future = poolThread.submit(menu.getLastButtonClicked().getAction());
+                    do{
+                    }while (!future.isDone());
+                    System.out.println(future.isDone());
+                    System.out.println(context);
+                    switchTo(Context.INGAME);
+                    System.out.println(context);
                 }
                 break;
 
             case INPAUSE:
                 world.getPauseDisplay().update();
                 if(world.getPauseDisplay().getLastButtonClicked() != null) {
-                    poolThread.execute(world.getPauseDisplay().getLastButtonClicked().getAction());
+                    Future future = poolThread.submit(world.getPauseDisplay().getLastButtonClicked().getAction());
+                    do{
+                    }while (!future.isDone());
+                    switchTo(Context.INGAME);
                 }
                 break;
 
@@ -120,7 +130,6 @@ public class Game {
         } catch (CameraTypeException | IOException e) {
             e.printStackTrace();
         }
-        switchTo(Context.INGAME);
     }
 
     public static void hardBackToMenu(){

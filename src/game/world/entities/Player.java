@@ -99,7 +99,6 @@ public class Player extends Movable {
         prevX = coordonneePrev[0];
 	    prevY = coordonneePrev[1];
 
-
         try {
             poolThread.invokeAll(updatePar).forEach((Future future) -> {
                 do{

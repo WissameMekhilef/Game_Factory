@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
 
 /**
  * Created by wissamemekhilef on 23/02/2017.
@@ -28,15 +29,17 @@ public class Pause {
         this.textPause = textPause;
         this.listButton = new TreeSet<>();
 
-        Runnable backToMenu = () -> {
+        Callable<Integer> backToMenu = () -> {
             lastButtonClicked = null;
             Game.hardBackToMenu();
+            return 0;
         };
         listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green), backToMenu));
 
-        Runnable backToPlay = () -> {
+        Callable<Integer> backToPlay = () -> {
             lastButtonClicked = null;
             Game.backToPlay();
+            return 0;
         };
         listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green), backToPlay));
 

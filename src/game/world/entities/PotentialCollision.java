@@ -12,6 +12,10 @@ public class PotentialCollision {
     private Player player;
     private Solid obstacle;
 
+    private Runnable actionIfCollision;
+
+    private String collisionSide;
+
     public PotentialCollision(Player p, Solid o){
         player = p;
         obstacle = o;
@@ -20,6 +24,8 @@ public class PotentialCollision {
         below = true;
         left = true;
         right = true;
+
+        collisionSide = "";
     }
 
     public Player getPlayer() {
@@ -60,5 +66,21 @@ public class PotentialCollision {
 
     public void setAbove(boolean above) {
         this.above = above;
+    }
+
+    public Runnable getActionIfCollision() {
+        return actionIfCollision;
+    }
+
+    public void setActionIfCollision(Runnable actionIfCollision) {
+        this.actionIfCollision = actionIfCollision;
+    }
+
+    public String getCollisionSide() {
+        return collisionSide;
+    }
+
+    public void setCollisionSide(String collisionSide) {
+        this.collisionSide = collisionSide;
     }
 }

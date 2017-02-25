@@ -6,7 +6,7 @@
 	"camera":
         {"type": "force", "v0": 1, "v1": 0},
 	"door":
-		{"sizeX": 200, "sizeY": 200, "x": 2800, "y": 600, "texture": "door_1"},
+		{"sizeX": 200, "sizeY": 200, "x": 2200, "y": 600, "texture": "door_1"},
 	"plateau": [
       {"sizeX": 100, "sizeY": 400, "x": 200, "y": 400, "texture": "brique"},
       {"sizeX": 100, "sizeY": 400, "x": 200, "y": 1000, "texture": "brique"},

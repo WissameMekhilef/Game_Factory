@@ -10,7 +10,11 @@ import game.world.entities.*;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Callable;
+
+import static engine.Launcher.poolThread;
 
 public class World {
 
@@ -19,7 +23,8 @@ public class World {
     private List<Coin> coinsList;
     private Door doorOut;
 
-	private List<PotentialCollision> listPC;
+	private static List<PotentialCollision> listPC;
+	private static Collection<Callable<Integer>> isStuckRoutines;
 
 	private Camera scroller;
 
@@ -27,9 +32,10 @@ public class World {
 
     private Pause pauseDisplay;
 
-
-	public World(int width, int height, Player player, Camera camera, Door door, List<Obstacle> plateau) {
+	public World(int width, int height, Player player, Camera camera, Door door, ArrayList<Obstacle> plateau) {
 	    pauseDisplay = new Pause(new Text("Pause", Data.fontsMap.get("tron"), Color.red));
+
+        isStuckRoutines = new ArrayList<>();
 
 		WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
@@ -57,34 +63,47 @@ public class World {
 	}
 
 	private void generate() {
+        Collection<PotentialCollision> pcCollection = new ArrayList<>();
+        Collection<PotentialCollision> pcCollectionDoor = new ArrayList<>();
 
-		for (Obstacle obstacle : plateau) {
-			listPC.add(new PotentialCollision(player, obstacle));
-		}
+        plateau.forEach(obstacle -> {
+            pcCollection.add(new PotentialCollision(player, obstacle));
+        });
 
-		for (Coin coin : coinsList)
-		    listPC.add(new PotentialCollision(player, coin));
+        pcCollection.forEach(pc -> {
+            pc.setActionIfCollision(() -> Physics.replaceAfterCollision(pc));
+        });
 
-		listPC.add(new PotentialCollision(player, doorOut));
+
+        pcCollectionDoor.add(new PotentialCollision(player, doorOut));
+        pcCollectionDoor.forEach(pc -> pc.setActionIfCollision(() -> levelEnd("outByDoor")));
+
+        listPC.addAll(pcCollection);
+        listPC.addAll(pcCollectionDoor);
+
+        listPC.forEach(pc -> {
+            isStuckRoutines.add(collisionRoutine(pc));
+        });
+
 	}
 
-	public void init() {
-
-	}
+    public static Callable<Integer> collisionRoutine(PotentialCollision pcX){
+        return () -> {
+            if(Physics.isStuck(pcX))
+                pcX.getActionIfCollision().run();
+            return 0;
+        };
+    }
 
 	public void update() {
-        String collisionSide;
         scroller.translateView();
 		if(player.isAlive()){
-			for(PotentialCollision pc : listPC){
-                collisionSide = Physics.isStuck(pc);
-			    if(pc.getSolid() instanceof Obstacle){
-                    Physics.replaceAfterCollision(pc, collisionSide);
-                }else if(pc.getSolid() instanceof Door && !collisionSide.equals("")){
-                    levelEnd("outByDoor");
-                }
+            try {
+                poolThread.invokeAll(isStuckRoutines);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-			player.update();
+            player.update();
 		}else{
             levelEnd("dead");
 		}

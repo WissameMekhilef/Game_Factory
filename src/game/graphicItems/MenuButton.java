@@ -3,6 +3,8 @@ package game.graphicItems;
 import engine.Graphics;
 import org.newdawn.slick.opengl.Texture;
 
+import java.util.concurrent.Callable;
+
 /**
  * Created by wissamemekhilef on 14/02/2017.
  */
@@ -15,9 +17,9 @@ public class MenuButton implements Comparable{
 
     private Text content;
 
-    private Runnable action;
+    private Callable<Integer> action;
 
-    public MenuButton(int sizeX, int sizeY, Texture texture, Text text, Runnable action){
+    public MenuButton(int sizeX, int sizeY, Texture texture, Text text, Callable<Integer> action){
         this.coordonnee = new int[2];
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -44,11 +46,11 @@ public class MenuButton implements Comparable{
         coordonnee[1] = y;
     }
 
-    public Runnable getAction() {
+    public Callable<Integer> getAction() {
         return action;
     }
 
-    public void setAction(Runnable action) {
+    public void setAction(Callable<Integer> action) {
         this.action = action;
     }
 
