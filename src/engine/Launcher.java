@@ -1,5 +1,6 @@
 package engine;
 
+import dataMapping.Data;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
@@ -9,7 +10,9 @@ import org.lwjgl.util.glu.GLU;
 import game.Game;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
+import static dataMapping.Data.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Launcher {
@@ -26,13 +29,22 @@ public class Launcher {
 	public Game game;
 
 	public Launcher() {
-		display();
+        display();
+        new Data();
+
+        /*while (!service.isTerminated()){
+
+        }*/
+        while (!doneFonts || !doneSkins || !doneTextures || !doneSounds){
+
+        }
 		game = new Game();
 	}
 
 	public static void main(String[] args) {
 	    System.out.println("Credential");
-	    switch (System.getProperty("os.name")){
+
+        switch (System.getProperty("os.name")){
             case "Mac OS X":
                 System.setProperty("org.lwjgl.librarypath", new File("natives/macosx").getAbsolutePath());
                 break;
@@ -41,8 +53,8 @@ public class Launcher {
                 break;
         }
 
-
 		Launcher main = new Launcher();
+
         main.start();
 	}
 

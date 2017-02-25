@@ -9,8 +9,11 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 import java.util.stream.Stream;
 
 import org.newdawn.slick.Font;
@@ -30,62 +33,139 @@ public class Data {
     public static Map<String , Texture> texturesMap = new HashMap<>();
     public static Map<String , Texture[]> skinsMap = new HashMap<>();
 
-    static {
-    	for(String folder: folders) {
-			try {
-				Stream<Path> paths;
-				paths = Files.walk(Paths.get(folder));
-				paths.forEach(filePath -> {
-		            if (Files.isRegularFile(filePath)) {
-		            	String fileName = getFileName(filePath);
+    public static ExecutorService service =  Executors.newFixedThreadPool(4);
 
-		            	switch(folder) {
+    public static boolean doneFonts = false;
+    public static boolean doneSkins = false;
+    public static boolean doneTextures = false;
+    public static boolean doneSounds = false;
 
-		                case "fonts":
-		                	try {
-			                	fontsMap.put(fileName, createTTF(folder, fileName));
-							} catch (FontFormatException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-		                	break;
+    public Data() {
+        System.out.println("DEBUG");
 
-		                case "images/textures":
-		                	try {
-			                	texturesMap.put(fileName, createTexture(folder, fileName));
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-		                	break;
-
-		                case "images/skins":
-		                	try {
-		                		if(!fileName.contains("_b"))
-		                			skinsMap.put(fileName, createSkin(folder, fileName));
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-		                	break;
-
-		                case "sounds":
-		                	try {
-		                		soundsMap.put(fileName, createAudio(folder, fileName));
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-		                	break;
-
-		                }
-
-		            }
-		        });
-				paths.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+        try {
+            generateFonts().call();
+            generateSkins().call();
+            generateSounds().call();
+            generateTextures().call();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        /*service.submit(generateFonts());
+        service.submit(generateTextures());
+        service.submit(generateSkins());
+        service.submit(generateSounds());*/
+
+        /*List<Callable<Void>> callables = new ArrayList<>();
+        callables.add(generateFonts());
+        //callables.add(generateTextures());
+        //callables.add(generateSkins());
+        //callables.add(generateSounds());
+        try {
+            service.invokeAll(callables, 60, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    public static Callable<Void> generateFonts(){
+        return () -> {
+            try {
+                Stream<Path> paths = Files.walk(Paths.get(folders[0]));
+                paths.forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        String fileName = getFileName(filePath);
+                        System.out.println("generateFonts : "+fileName);
+                        try {
+                            fontsMap.put(fileName, createTTF(folders[0], fileName));
+                        } catch (FontFormatException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                paths.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Data.doneFonts = true;
+            return null;
+        };
+    }
+
+    public static Callable<Void> generateTextures(){
+        return () -> {
+            try {
+                Stream<Path> paths = Files.walk(Paths.get(folders[2]));
+                paths.forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        String fileName = getFileName(filePath);
+                        System.out.println("generateTextures : "+fileName);
+                        try {
+                            texturesMap.put(fileName, createTexture(folders[2], fileName));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                paths.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Data.doneTextures = true;
+            return null;
+        };
+    }
+
+    public static Callable<Void> generateSkins(){
+        return () -> {
+            try {
+                Stream<Path> paths = Files.walk(Paths.get(folders[1]));
+                paths.forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        String fileName = getFileName(filePath);
+                        System.out.println("generateSkins : "+fileName);
+                        try {
+                            if(!fileName.contains("_b"))
+                                skinsMap.put(fileName, createSkin(folders[1], fileName));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                paths.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Data.doneSkins = true;
+            return null;
+        };
+    }
+
+    public static Callable<Void> generateSounds(){
+        return () -> {
+            try {
+                Stream<Path> paths = Files.walk(Paths.get(folders[3]));
+                paths.forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        String fileName = getFileName(filePath);
+                        System.out.println("generateSounds : "+fileName);
+                        try {
+                            soundsMap.put(fileName, createAudio(folders[3], fileName));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                paths.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Data.doneSounds = true;
+            return null;
+        };
     }
 
     public static Audio createAudio(String folder, String fileName) throws IOException {
@@ -121,5 +201,4 @@ public class Data {
     		return array[array.length - 1];
     	}
     }
-
 }
