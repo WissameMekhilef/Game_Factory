@@ -1,12 +1,8 @@
 package game;
 
-import dataMapping.TextureMap;
-import engine.Graphics;
-import engine.Launcher;
 import engine.Sound;
 import exceptions.CameraTypeException;
 import game.world.World;
-import game.world.WorldParameters;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
