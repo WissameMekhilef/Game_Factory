@@ -4,13 +4,16 @@ import dataMapping.Data;
 import engine.Graphics;
 import engine.Physics;
 import engine.Sound;
+import game.Game;
 import game.graphicItems.Text;
 import game.world.camera.Camera;
 import game.world.entities.*;
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -32,10 +35,31 @@ public class World {
 
     private Pause pauseDisplay;
 
+    private HashMap<Integer, Callable<Integer>>  keyCommandsToAction;
+    private Collection<Callable<Integer>> actionToExecute = new ArrayList<>();
+
 	public World(int width, int height, Player player, Camera camera, Door door, ArrayList<Obstacle> plateau) {
 	    pauseDisplay = new Pause(new Text("Pause", Data.fontsMap.get("tron"), Color.red));
 
         isStuckRoutines = new ArrayList<>();
+        keyCommandsToAction = new HashMap<>();
+
+        keyCommandsToAction.put(Keyboard.KEY_LEFT, () -> {
+            player.leftWanted();
+            return 0;
+        });
+        keyCommandsToAction.put(Keyboard.KEY_RIGHT, () -> {
+            player.rightWanted();
+            return 0;
+        });
+        keyCommandsToAction.put(Keyboard.KEY_SPACE, () -> {
+            player.jumpWanted();
+            return 0;
+        });
+        keyCommandsToAction.put(Keyboard.KEY_P, () -> {
+            Game.switchTo(Game.Context.INPAUSE);
+            return 0;
+        });
 
 		WorldParameters.setBordBas(0);
         WorldParameters.setBordHaut(height);
@@ -66,13 +90,9 @@ public class World {
         Collection<PotentialCollision> pcCollection = new ArrayList<>();
         Collection<PotentialCollision> pcCollectionDoor = new ArrayList<>();
 
-        plateau.forEach(obstacle -> {
-            pcCollection.add(new PotentialCollision(player, obstacle));
-        });
+        plateau.forEach(obstacle -> pcCollection.add(new PotentialCollision(player, obstacle)));
 
-        pcCollection.forEach(pc -> {
-            pc.setActionIfCollision(() -> Physics.replaceAfterCollision(pc));
-        });
+        pcCollection.forEach(pc -> pc.setActionIfCollision(() -> Physics.replaceAfterCollision(pc)));
 
 
         pcCollectionDoor.add(new PotentialCollision(player, doorOut));
@@ -137,6 +157,20 @@ public class World {
                 break;
         }
 
+    }
+
+    public void pollInput(){
+
+        keyCommandsToAction.forEach((keyToCheck, actionToRunIfPressed) -> {
+            if(Keyboard.isKeyDown(keyToCheck))
+                actionToExecute.add(actionToRunIfPressed);
+        });
+        try {
+            poolThread.invokeAll(actionToExecute);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        actionToExecute.clear();
     }
 
     public boolean isInProgress() {

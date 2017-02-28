@@ -3,7 +3,6 @@ package game;
 import engine.Sound;
 import exceptions.CameraTypeException;
 import game.world.World;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class Game {
     private static Menu menu;
 	private static World world;
 
-	private enum Context {INGAME, INMENU, INPAUSE}
+	public enum Context {INGAME, INMENU, INPAUSE}
 
 	public Game() {
 	    context = null;
@@ -32,33 +31,25 @@ public class Game {
 
     	switch (context) {
 
-    	case INGAME:
-    		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-            	world.getPlayer().jumpWanted();
-            if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))
-            	world.getPlayer().leftWanted();
-            if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-            	world.getPlayer().rightWanted();
-    		while (Keyboard.next())
-    			if ((!Keyboard.getEventKeyState()) && (Keyboard.getEventKey() == Keyboard.KEY_P))
-    				switchTo(Context.INPAUSE);
-    		break;
+            case INGAME:
+                world.pollInput();
+                break;
 
-    	case INMENU:
-    		if(Mouse.isButtonDown(0))
-                menu.receiveClick(Mouse.getX(), Mouse.getY());
-    		break;
+            case INMENU:
+                if(Mouse.isButtonDown(0))
+                    menu.receiveClick(Mouse.getX(), Mouse.getY());
+                break;
 
-    	case INPAUSE:
-            if(Mouse.isButtonDown(0))
-                world.getPauseDisplay().receiveClick(Mouse.getX(), Mouse.getY());
-    		break;
+            case INPAUSE:
+                if(Mouse.isButtonDown(0))
+                    world.getPauseDisplay().receiveClick(Mouse.getX(), Mouse.getY());
+                break;
 
     	}
 
     }
 
-    private static void switchTo(Context toContext){
+    public static void switchTo(Context toContext){
 	    if(context == null && toContext == Context.INMENU){
             menu.playBackgroundSound();
             context = Context.INMENU;

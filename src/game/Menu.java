@@ -11,12 +11,10 @@ import org.newdawn.slick.openal.Audio;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
-import java.util.stream.Stream;
 
 import static game.Game.worldCreation;
 
@@ -51,15 +49,13 @@ public class Menu {
         menuSound = Data.soundsMap.get("DryOut");
 
         try {
-            Stream<Path> paths = Files.walk(Paths.get("worlds"));
-            paths.forEach(filePath -> {
+            Files.walk(Paths.get("worlds")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                 	String worldName = Data.getFileName(filePath);
                     Callable<Integer> action = createAction(worldName);
                     worldList.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text(worldName, Data.fontsMap.get("new_super_mario_1"), Color.green), action));
                 }
             });
-            paths.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,9 +120,7 @@ public class Menu {
 
     void render(){
     	Graphics.renderText(gameTitle, Launcher.width / 2 - Data.fontsMap.get("tron").getWidth(gameTitle.getTextToDisplay())/2, 3 * Launcher.height / 4 - Data.fontsMap.get("tron").getHeight(gameTitle.getTextToDisplay())/2);
-        for (MenuButton aWorldList : worldList) {
-            aWorldList.render();
-        }
+        worldList.forEach(world -> world.render());
         exit.render();
     }
 
