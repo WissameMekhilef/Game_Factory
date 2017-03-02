@@ -88,7 +88,7 @@ public class World {
 
         keyCommandsToActionInEndingScreen = new HashMap<>();
         keyCommandsToActionInEndingScreen.put(Keyboard.KEY_SPACE, () -> {
-            worldOver = false;
+            worldOver = true;
             return 0;
         });
 
