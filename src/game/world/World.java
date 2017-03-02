@@ -36,7 +36,6 @@ public class World {
     private static EndingScreen endingScreen;
     private HashMap<Integer, Callable<Integer>>  keyCommandsToActionInWorld;
     private HashMap<Integer, Callable<Integer>>  keyCommandsToActionInEndingScreen;
-    private HashMap<Integer, Callable<Integer>>  keyCommandsToActionInPause;
     private Collection<Callable<Integer>> actionToExecute = new ArrayList<>();
 
     private enum Context {ISPLAYING , INPAUSE, ISOVER};
@@ -216,10 +215,6 @@ public class World {
     public void pollInput(){
         switch (context){
             case INPAUSE:
-                keyCommandsToActionInPause.forEach((keyToCheck, actionToRunIfPressed) -> {
-                    if(Keyboard.isKeyDown(keyToCheck))
-                        actionToExecute.add(actionToRunIfPressed);
-                });
                 if(Mouse.isButtonDown(0))
                     pauseDisplay.receiveClick(Mouse.getX(), Mouse.getY());
                 break;
