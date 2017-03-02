@@ -2,7 +2,7 @@
 	"width": 1500,
 	"height": 1000,
 	"player":
-    	{"sizeX": 50, "sizeY": 50, "v0": 3, "v1": 3, "x": 10, "y": 500, "skin": "player1"},
+    	{"sizeX": 50, "sizeY": 50, "v0": 3, "v1": 3, "x": 10, "y": 500, "skin": "mario"},
 	"camera":
     	{"type": "attached", "xAttached": true, "yAttached": true},
 	"door":
