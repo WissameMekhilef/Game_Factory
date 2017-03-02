@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import static engine.Launcher.poolThread;
 
@@ -91,13 +92,6 @@ public class World {
             worldOver = true;
             return 0;
         });
-
-        keyCommandsToActionInPause = new HashMap<>();
-        keyCommandsToActionInPause.put(Keyboard.KEY_P, () -> {
-            switchTo(Context.ISPLAYING);
-            return 0;
-        });
-
     }
 
 	private void generate() {
@@ -164,17 +158,33 @@ public class World {
     }
 
 	public void update() {
-        scroller.translateView();
-		if(player.isAlive()){
-            try {
-                poolThread.invokeAll(isStuckRoutines);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            player.update();
-		}else{
-            playerDeath().run();
-		}
+        switch (context){
+            case INPAUSE:
+                pauseDisplay.update();
+                if(pauseDisplay.getLastButtonClicked() != null) {
+                    Future future = poolThread.submit(pauseDisplay.getLastButtonClicked().getAction());
+                    do{
+                    }while (!future.isDone());
+                }
+                break;
+
+            case ISPLAYING:
+                scroller.translateView();
+                if(player.isAlive()){
+                    try {
+                        poolThread.invokeAll(isStuckRoutines);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    player.update();
+                }else{
+                    playerDeath().run();
+                }
+
+            case ISOVER:
+                break;
+        }
+
 	}
 
 	public void render() {
