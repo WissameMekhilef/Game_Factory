@@ -67,7 +67,7 @@ public class World {
 		worldOver = false;
 		context = Context.ISPLAYING;
 
-        long timestart = System.currentTimeMillis();
+        timestart = System.currentTimeMillis();
 	}
 
 	private void genereCommande(){
