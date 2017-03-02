@@ -15,7 +15,7 @@ local.properties
 
 # Eclipse Core
 .project
-
+w
 # External tool builders
 .externalToolBuilders/
 
@@ -80,7 +80,6 @@ local.properties
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -94,7 +93,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-
+out/
 
 
 /lib/
@@ -123,4 +122,8 @@ textures/fichiers_vectoriels
 /rapport/my_library.log
 /rapport/rapport.toc
 /rapport/rapport.synctex.gz(busy)
+<<<<<<< HEAD
+>>>>>>> refs/heads/master
+=======
+/out/production/
 >>>>>>> refs/heads/master

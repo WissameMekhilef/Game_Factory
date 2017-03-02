@@ -18,7 +18,7 @@
     "gamma": 20.81,
     "g": 4.0,
     "deltaT": 60.0,
-	"music": "sounds/CantLetGo.ogg",
+	"music": "CantLetGo",
 	"maxspeed": 7,
 	"jumpTime": 1000.0,
     "gainVitesseX": 2,
