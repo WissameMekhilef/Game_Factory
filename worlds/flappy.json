@@ -18,14 +18,8 @@
     "g": 10.0,
     "deltaT": 60.0,
 	"music": "BaseAfterBase",
-<<<<<<< HEAD
-	"maxspeed": 7,
-	"jumpTime": 1000.0,
-    "gainVitesseX": 2,
-=======
 	"maxspeed": 15,
 	"jumpTime": 500.0,
     "gainVitesseX": 7,
->>>>>>> refs/heads/master
     "gainVitesseY": -20
 }
