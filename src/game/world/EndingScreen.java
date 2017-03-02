@@ -14,7 +14,7 @@ public class EndingScreen {
     private Text textWorldStatus;
     private Text textTimeElapsed;
 
-    public EndingScreen(boolean win, int timeElapsed){
+    public EndingScreen(boolean win, long timeElapsed){
         this.textWorldStatus = new Text((win)? "Game Won":"Game Lost", Data.fontsMap.get("chlorinap"), Color.blue);
 
         this.textTimeElapsed = new Text(timeElapsed+"", Data.fontsMap.get("chlorinap"), Color.blue);

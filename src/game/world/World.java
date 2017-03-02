@@ -43,6 +43,8 @@ public class World {
 
     private static boolean worldOver;
 
+    private static long timestart;
+
 	public World(Player player, Camera camera, Door door, ArrayList<Obstacle> plateau) {
 	    pauseDisplay = new Pause(new Text("Pause", Data.fontsMap.get("tron"), Color.red));
         endingScreen = null;
@@ -64,6 +66,8 @@ public class World {
 
 		worldOver = false;
 		context = Context.ISPLAYING;
+
+        long timestart = System.currentTimeMillis();
 	}
 
 	private void genereCommande(){
@@ -123,14 +127,16 @@ public class World {
 
     public static Runnable playerWin(){
         return () -> {
-            endingScreen = new EndingScreen(true, 2000);
+            long timeElapsed = (System.currentTimeMillis() - timestart) / 1000;
+            endingScreen = new EndingScreen(true, timeElapsed);
             switchTo(Context.ISOVER);
         };
     }
 
     public static Runnable playerDeath(){
         return () -> {
-            endingScreen = new EndingScreen(false, 2000);
+            long timeElapsed = (System.currentTimeMillis() - timestart) / 1000;
+            endingScreen = new EndingScreen(false, timeElapsed);
             switchTo(Context.ISOVER);
         };
     }
