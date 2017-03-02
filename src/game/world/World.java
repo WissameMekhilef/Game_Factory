@@ -131,12 +131,14 @@ public class World {
     public static Runnable playerWin(){
         return () -> {
             endingScreen = new EndingScreen(true, 2000);
+            switchTo(Context.ISOVER);
         };
     }
 
     public static Runnable playerDeath(){
         return () -> {
             endingScreen = new EndingScreen(false, 2000);
+            switchTo(Context.ISOVER);
         };
     }
 
