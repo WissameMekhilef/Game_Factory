@@ -4,11 +4,11 @@ import dataMapping.Data;
 import engine.Graphics;
 import engine.Physics;
 import engine.Sound;
-import game.Game;
 import game.graphicItems.Text;
 import game.world.camera.Camera;
 import game.world.entities.*;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
@@ -26,45 +26,30 @@ public class World {
     private List<Coin> coinsList;
     private Door doorOut;
 
-	private static List<PotentialCollision> listPC;
-	private static Collection<Callable<Integer>> isStuckRoutines;
+	private List<PotentialCollision> listPC;
+	private Collection<Callable<Integer>> isStuckRoutines;
 
 	private Camera scroller;
 
-	private static boolean inProgress;
-
     private Pause pauseDisplay;
-
-    private HashMap<Integer, Callable<Integer>>  keyCommandsToAction;
+    private static EndingScreen endingScreen;
+    private HashMap<Integer, Callable<Integer>>  keyCommandsToActionInWorld;
+    private HashMap<Integer, Callable<Integer>>  keyCommandsToActionInEndingScreen;
+    private HashMap<Integer, Callable<Integer>>  keyCommandsToActionInPause;
     private Collection<Callable<Integer>> actionToExecute = new ArrayList<>();
 
-	public World(int width, int height, Player player, Camera camera, Door door, ArrayList<Obstacle> plateau) {
+    private enum Context {ISPLAYING , INPAUSE, ISOVER};
+    private static Context context;
+
+    private static boolean worldOver;
+
+	public World(Player player, Camera camera, Door door, ArrayList<Obstacle> plateau) {
 	    pauseDisplay = new Pause(new Text("Pause", Data.fontsMap.get("tron"), Color.red));
+        endingScreen = null;
+
+        genereCommande();
 
         isStuckRoutines = new ArrayList<>();
-        keyCommandsToAction = new HashMap<>();
-
-        keyCommandsToAction.put(Keyboard.KEY_LEFT, () -> {
-            player.leftWanted();
-            return 0;
-        });
-        keyCommandsToAction.put(Keyboard.KEY_RIGHT, () -> {
-            player.rightWanted();
-            return 0;
-        });
-        keyCommandsToAction.put(Keyboard.KEY_SPACE, () -> {
-            player.jumpWanted();
-            return 0;
-        });
-        keyCommandsToAction.put(Keyboard.KEY_P, () -> {
-            Game.switchTo(Game.Context.INPAUSE);
-            return 0;
-        });
-
-		WorldParameters.setBordBas(0);
-        WorldParameters.setBordHaut(height);
-        WorldParameters.setBordGauche(0);
-        WorldParameters.setBordDroit(width);
 
 		this.player = player;
 		this.doorOut = door;
@@ -73,18 +58,47 @@ public class World {
         coinsList = new ArrayList<>();
 		listPC = new ArrayList<>();
 
-        WorldParameters.setxScroll(0);
-        WorldParameters.setyScroll(0);
-
-        //scroller = new ForceScroller(2, 2);
         scroller = camera;
 
 		generate();
 
-		inProgress = true;
-
-
+		worldOver = false;
+		context = Context.ISPLAYING;
 	}
+
+	private void genereCommande(){
+        keyCommandsToActionInWorld = new HashMap<>();
+        keyCommandsToActionInWorld.put(Keyboard.KEY_LEFT, () -> {
+            player.leftWanted();
+            return 0;
+        });
+        keyCommandsToActionInWorld.put(Keyboard.KEY_RIGHT, () -> {
+            player.rightWanted();
+            return 0;
+        });
+        keyCommandsToActionInWorld.put(Keyboard.KEY_SPACE, () -> {
+            player.jumpWanted();
+            return 0;
+        });
+        keyCommandsToActionInWorld.put(Keyboard.KEY_P, () -> {
+            switchTo(Context.INPAUSE);
+            return 0;
+        });
+
+
+        keyCommandsToActionInEndingScreen = new HashMap<>();
+        keyCommandsToActionInEndingScreen.put(Keyboard.KEY_SPACE, () -> {
+            worldOver = false;
+            return 0;
+        });
+
+        keyCommandsToActionInPause = new HashMap<>();
+        keyCommandsToActionInPause.put(Keyboard.KEY_P, () -> {
+            switchTo(Context.ISPLAYING);
+            return 0;
+        });
+
+    }
 
 	private void generate() {
         Collection<PotentialCollision> pcCollection = new ArrayList<>();
@@ -94,9 +108,8 @@ public class World {
 
         pcCollection.forEach(pc -> pc.setActionIfCollision(() -> Physics.replaceAfterCollision(pc)));
 
-
         pcCollectionDoor.add(new PotentialCollision(player, doorOut));
-        pcCollectionDoor.forEach(pc -> pc.setActionIfCollision(() -> levelEnd("outByDoor")));
+        pcCollectionDoor.forEach(pc -> pc.setActionIfCollision(() -> playerWin().run()));
 
         listPC.addAll(pcCollection);
         listPC.addAll(pcCollectionDoor);
@@ -115,6 +128,39 @@ public class World {
         };
     }
 
+    public static Runnable playerWin(){
+        return () -> {
+            endingScreen = new EndingScreen(true, 2000);
+        };
+    }
+
+    public static Runnable playerDeath(){
+        return () -> {
+            endingScreen = new EndingScreen(false, 2000);
+        };
+    }
+
+    public static void hardBackToMenu(){
+        worldOver = true;
+    }
+
+    public static void backToPlay(){
+        switchTo(Context.ISPLAYING);
+    }
+
+
+    private static void switchTo(Context toContext){
+        if(toContext == Context.INPAUSE){
+            Sound.pause();
+            context = Context.INPAUSE;
+        }else if(toContext == Context.ISPLAYING){
+            Sound.play();
+            context = Context.ISPLAYING;
+        }else if(toContext == Context.ISOVER){
+            context = Context.ISOVER;
+        }
+    }
+
 	public void update() {
         scroller.translateView();
 		if(player.isAlive()){
@@ -125,46 +171,59 @@ public class World {
             }
             player.update();
 		}else{
-            levelEnd("dead");
+            playerDeath().run();
 		}
 	}
 
 	public void render() {
-        Graphics.scroll(WorldParameters.getxScroll(), WorldParameters.getyScroll());
-		for(Obstacle obstacle : plateau) {
-			obstacle.render();
-		}
-		for(Coin coin : coinsList)
-		    coin.render();
-		doorOut.render();
-
-		player.render();
-	}
-
-
-    /**
-     * Cette fonction est appelé a la fin du monde
-     */
-	private void levelEnd(String status){
-	    switch (status){
-            case "outByDoor":
-                System.out.println("outByDoor");
-                setInProgress(false);
+        switch (context){
+            case INPAUSE:
+                pauseDisplay.render();
                 break;
-            case "dead":
-                System.out.println("dead");
-                setInProgress(false);
+
+            case ISPLAYING:
+                Graphics.scroll(WorldParameters.getxScroll(), WorldParameters.getyScroll());
+                for(Obstacle obstacle : plateau) {
+                    obstacle.render();
+                }
+                for(Coin coin : coinsList)
+                    coin.render();
+                doorOut.render();
+
+                player.render();
+                break;
+
+            case ISOVER:
+                endingScreen.render();
                 break;
         }
 
-    }
+	}
+
 
     public void pollInput(){
-
-        keyCommandsToAction.forEach((keyToCheck, actionToRunIfPressed) -> {
-            if(Keyboard.isKeyDown(keyToCheck))
-                actionToExecute.add(actionToRunIfPressed);
-        });
+        switch (context){
+            case INPAUSE:
+                keyCommandsToActionInPause.forEach((keyToCheck, actionToRunIfPressed) -> {
+                    if(Keyboard.isKeyDown(keyToCheck))
+                        actionToExecute.add(actionToRunIfPressed);
+                });
+                if(Mouse.isButtonDown(0))
+                    pauseDisplay.receiveClick(Mouse.getX(), Mouse.getY());
+                break;
+            case ISPLAYING:
+                keyCommandsToActionInWorld.forEach((keyToCheck, actionToRunIfPressed) -> {
+                    if(Keyboard.isKeyDown(keyToCheck))
+                        actionToExecute.add(actionToRunIfPressed);
+                });
+                break;
+            case ISOVER:
+                keyCommandsToActionInEndingScreen.forEach((keyToCheck, actionToRunIfPressed) -> {
+                    if(Keyboard.isKeyDown(keyToCheck))
+                        actionToExecute.add(actionToRunIfPressed);
+                });
+                break;
+        }
         try {
             poolThread.invokeAll(actionToExecute);
         } catch (InterruptedException e) {
@@ -173,27 +232,12 @@ public class World {
         actionToExecute.clear();
     }
 
-    public boolean isInProgress() {
-        return inProgress;
-    }
-
-    private static void setInProgress(boolean pinProgress) {
-        inProgress = pinProgress;
-    }
-
     public void playBackgroundSound(){
         Sound.play(WorldParameters.getBackgroundMusic());
     }
 
-    public Pause getPauseDisplay() {
-        return pauseDisplay;
-    }
 
-    public void setPauseDisplay(Pause pauseDisplay) {
-        this.pauseDisplay = pauseDisplay;
-    }
-
-    public Player getPlayer(){
-        return player;
+    public boolean isInProgress(){
+        return !worldOver;
     }
 }

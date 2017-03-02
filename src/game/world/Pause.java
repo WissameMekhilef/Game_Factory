@@ -3,7 +3,6 @@ package game.world;
 import dataMapping.Data;
 import engine.Graphics;
 import engine.Launcher;
-import game.Game;
 import game.graphicItems.MenuButton;
 import game.graphicItems.Text;
 import org.newdawn.slick.Color;
@@ -31,14 +30,14 @@ public class Pause {
 
         Callable<Integer> backToMenu = () -> {
             lastButtonClicked = null;
-            Game.hardBackToMenu();
+            World.hardBackToMenu();
             return 0;
         };
         listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green), backToMenu));
 
         Callable<Integer> backToPlay = () -> {
             lastButtonClicked = null;
-            Game.backToPlay();
+            World.backToPlay();
             return 0;
         };
         listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green), backToPlay));

@@ -1,6 +1,5 @@
 package game;
 
-import engine.Sound;
 import exceptions.CameraTypeException;
 import game.world.World;
 import org.lwjgl.input.Mouse;
@@ -16,7 +15,7 @@ public class Game {
     private static Menu menu;
 	private static World world;
 
-	public enum Context {INGAME, INMENU, INPAUSE}
+	private enum Context {INWORLD, INMENU}
 
 	public Game() {
 	    context = null;
@@ -31,7 +30,7 @@ public class Game {
 
     	switch (context) {
 
-            case INGAME:
+            case INWORLD:
                 world.pollInput();
                 break;
 
@@ -39,38 +38,20 @@ public class Game {
                 if(Mouse.isButtonDown(0))
                     menu.receiveClick(Mouse.getX(), Mouse.getY());
                 break;
-
-            case INPAUSE:
-                if(Mouse.isButtonDown(0))
-                    world.getPauseDisplay().receiveClick(Mouse.getX(), Mouse.getY());
-                break;
-
     	}
-
     }
 
-    public static void switchTo(Context toContext){
-	    if(context == null && toContext == Context.INMENU){
+    /**
+     *
+     * @param toContext
+     */
+    private static void switchTo(Context toContext){
+	    if(toContext == Context.INMENU){
             menu.playBackgroundSound();
             context = Context.INMENU;
-        }else if(context == Context.INGAME && toContext == Context.INMENU){
-            menu.playBackgroundSound();
-            context = Context.INMENU;
-        }else if(context == Context.INGAME && toContext == Context.INPAUSE){
-            Sound.pause();
-            context = Context.INPAUSE;
-        }else if(context == Context.INPAUSE && toContext == Context.INMENU){
-            menu.playBackgroundSound();
-            context = Context.INMENU;
-        }else if(context == Context.INPAUSE && toContext == Context.INGAME){
-            Sound.play();
-            context = Context.INGAME;
-        }else if(context == Context.INMENU && toContext == Context.INGAME){
+        }else if(toContext == Context.INWORLD){
             world.playBackgroundSound();
-            context = Context.INGAME;
-        }else if(context == Context.INPAUSE && toContext == Context.INMENU){
-            menu.playBackgroundSound();
-            context = Context.INMENU;
+            context = Context.INWORLD;
         }
     }
 
@@ -78,7 +59,7 @@ public class Game {
         pollInput();
 		switch (context) {
 
-            case INGAME:
+            case INWORLD:
 
                 if(world.isInProgress()) {
                     world.update();
@@ -96,51 +77,31 @@ public class Game {
                     }while (!future.isDone());
                 }
                 break;
-
-            case INPAUSE:
-                world.getPauseDisplay().update();
-                if(world.getPauseDisplay().getLastButtonClicked() != null) {
-                    Future future = poolThread.submit(world.getPauseDisplay().getLastButtonClicked().getAction());
-                    do{
-                    }while (!future.isDone());
-                }
-                break;
-
 		}
-
 	}
 
-	static void worldCreation(String worldToCreate) {
+    /**
+     *
+     * @param worldToCreate
+     */
+    static void worldCreation(String worldToCreate) {
         try {
             world = WorldReader.worldFromJSON("worlds/"+worldToCreate+".json");
         } catch (CameraTypeException | IOException e) {
             e.printStackTrace();
         }
-        switchTo(Context.INGAME);
-    }
-
-    public static void hardBackToMenu(){
-        switchTo(Context.INMENU);
-        world = null;
-    }
-
-    public static void backToPlay(){
-        switchTo(Context.INGAME);
+        switchTo(Context.INWORLD);
     }
 
 	public void render() {
 		switch (context) {
 
-            case INGAME:
+            case INWORLD:
                 world.render();
                 break;
 
             case INMENU:
                 menu.render();
-                break;
-
-            case INPAUSE:
-                world.getPauseDisplay().render();
                 break;
 
             }

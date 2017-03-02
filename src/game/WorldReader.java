@@ -20,17 +20,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-/**
- *
- *Crée un monde à partir d'un fichier .json.
- * @return						le monde créé
- * @throws CameraTypeException	si le type de caméra spécifié dans le fichier n'existe pas
- * @throws IOException			si le fichier est invtrouvable ou illisible
- * @throws JSONException		si le fichier est mal structuré, incomplet ou si les données qu'il contient ne sont pas du type attendu
- *
- */
+
 class WorldReader {
 
+    /**
+     *
+     *Crée un monde à partir d'un fichier .json.
+     * @return						le monde créé
+     * @throws CameraTypeException	si le type de caméra spécifié dans le fichier n'existe pas
+     * @throws IOException			si le fichier est invtrouvable ou illisible
+     * @throws JSONException		si le fichier est mal structuré, incomplet ou si les données qu'il contient ne sont pas du type attendu
+     *
+     */
 	static World worldFromJSON(String path) throws CameraTypeException, IOException, JSONException {
         System.out.println("Call to worldFromJSON from : "+ Thread.currentThread().getName());
 		JSONObject obj = new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
@@ -101,7 +102,15 @@ class WorldReader {
 		WorldParameters.setGainVitesseX(obj.getInt("gainVitesseX"));
 		WorldParameters.setGainVitesseY(obj.getInt("gainVitesseY"));
 
-		return new World(width, height, player, camera, door, plateau);
+        WorldParameters.setBordBas(0);
+        WorldParameters.setBordHaut(height);
+        WorldParameters.setBordGauche(0);
+        WorldParameters.setBordDroit(width);
+
+        WorldParameters.setxScroll(0);
+        WorldParameters.setyScroll(0);
+
+		return new World(player, camera, door, plateau);
 
 	}
 
