@@ -4,13 +4,10 @@ import engine.Launcher;
 import game.world.WorldParameters;
 import game.world.entities.Player;
 
-/**
- * Created by wissamemekhilef on 10/02/2017.
- */
 public class AttachedScroller implements Camera {
+
     private boolean xAttached;
     private boolean yAttached;
-
     private Player player;
 
     public AttachedScroller(boolean xAttached, boolean yAttached, Player player){
@@ -18,6 +15,11 @@ public class AttachedScroller implements Camera {
         this.yAttached = yAttached;
         this.player = player;
     }
+
+    /**
+     * Permet au scrolling de suivre le Player lorsqu'il se déplace sur l'axe des abscisses,
+     * afin que ce dernier soit au centre de la fenêtre tant qu'il n'a pas atteint un bord du World.
+     */
     public void translateViewX() {
 	    boolean aDroite = player.getCoordonnee()[0] + WorldParameters.getxScroll() > Launcher.width / 2;
         boolean aGauche = ! aDroite;
@@ -40,6 +42,10 @@ public class AttachedScroller implements Camera {
         WorldParameters.setxScroll(WorldParameters.getxScroll() - player.getCoordonnee()[0] + player.prevX);
 	}
 
+    /**
+     * Permet au scrolling de suivre le Player lorsqu'il se déplace sur l'axe des ordonnées,
+     * afin que ce dernier soit au centre de la fenêtre tant qu'il n'a pas atteint un bord du World.
+     */
 	public void translateViewY(){
         boolean moitieHaute = player.getCoordonnee()[1] - WorldParameters.getyScroll() > Launcher.height / 2;
         boolean moitieBasse = !moitieHaute;
@@ -58,6 +64,10 @@ public class AttachedScroller implements Camera {
 
         WorldParameters.setyScroll(WorldParameters.getyScroll() + player.getCoordonnee()[1] - player.prevY);
     }
+
+	/**
+	 * Suit les déplacements du Player.
+	 */
     public void translateView(){
 	    if(xAttached)
 	        translateViewX();

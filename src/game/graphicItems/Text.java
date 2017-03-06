@@ -8,19 +8,22 @@ public class Text {
     private String textToDisplay;
     private Font font;
     private Color color;
+    private int sizeX, sizeY;
 
     public Text(String textToDisplay, Font font, Color color) {
         this.textToDisplay = textToDisplay;
         this.font = font;
         this.color = color;
+        this.sizeX = font.getWidth(textToDisplay);
+        this.sizeY = font.getHeight(textToDisplay);
     }
 
     public int getSizeX() {
-    	return font.getWidth(textToDisplay);
+    	return sizeX;
     }
 
     public int getSizeY() {
-    	return font.getHeight(textToDisplay);
+    	return sizeY;
     }
 
     public String getTextToDisplay() {

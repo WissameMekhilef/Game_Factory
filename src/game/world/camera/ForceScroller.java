@@ -12,6 +12,9 @@ public class ForceScroller implements Camera {
         this.v1 = v1;
     }
 
+    /**
+     * Déplace le scrolling.
+     */
     public void translateView(){
         if(-WorldParameters.getxScroll() >= WorldParameters.getBordDroit() - Launcher.width)
             return;
