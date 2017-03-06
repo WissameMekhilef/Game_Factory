@@ -3,19 +3,24 @@ package game.graphicItems;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 
-/**
- * Created by wissamemekhilef on 20/02/2017.
- */
 public class Text {
+
     private String textToDisplay;
     private Font font;
     private Color color;
 
-    public Text(String textToDisplay, Font font, Color color){
+    public Text(String textToDisplay, Font font, Color color) {
         this.textToDisplay = textToDisplay;
         this.font = font;
         this.color = color;
+    }
 
+    public int getSizeX() {
+    	return font.getWidth(textToDisplay);
+    }
+
+    public int getSizeY() {
+    	return font.getHeight(textToDisplay);
     }
 
     public String getTextToDisplay() {
@@ -29,4 +34,5 @@ public class Text {
     public Color getColor() {
         return color;
     }
+
 }

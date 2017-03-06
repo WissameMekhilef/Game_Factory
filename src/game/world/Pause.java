@@ -33,14 +33,16 @@ public class Pause {
             World.hardBackToMenu();
             return 0;
         };
-        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green), backToMenu));
+        Text t = new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green);
+        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), t, backToMenu));
 
         Callable<Integer> backToPlay = () -> {
             lastButtonClicked = null;
             World.backToPlay();
             return 0;
         };
-        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green), backToPlay));
+        Text t2 = new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green);
+        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), t2, backToPlay));
 
     }
 
@@ -73,7 +75,7 @@ public class Pause {
     }
 
     public void render(){
-        Graphics.renderText(textPause, Launcher.width / 2 - Data.fontsMap.get("tron").getWidth(textPause.getTextToDisplay())/2, 3 * Launcher.height / 4 - Data.fontsMap.get("tron").getHeight(textPause.getTextToDisplay())/2);
+        Graphics.renderText(textPause, (Launcher.width - textPause.getSizeX()) / 2, 3 * (Launcher.height - textPause.getSizeY()) / 4);
         for (MenuButton aWorldList : listButton) {
             aWorldList.render();
         }

@@ -63,21 +63,35 @@ public class Launcher {
         main.start();
 	}
 
+	/**
+	 * Signale l'arrêt du jeu.
+	 */
 	public static void stop() {
 		running = false;
 	}
 
+	/**
+	 * Signale le début du jeu.
+	 */
 	public void start() {
 		running = true;
 		loop();
 	}
 
+	/**
+	 * Arrête la musique, ferme la fenêtre et quitte le programme.
+	 */
 	public void exit() {
 		Display.destroy();
         AL.destroy();
 		System.exit(0);
 	}
 
+	/**
+	 * Régule la vitesse du jeu en comptant les ticks.
+	 * Deux ticks consécutifs sont séparées par une durée fixée.
+	 * Les données du jeu, ainsi que l'affichage, sont actualisés à chaque tick.
+	 */
 	public void loop() {
 
 		double elapsed;
@@ -118,16 +132,25 @@ public class Launcher {
 
 	}
 
+	/**
+	 * Actualise toutes les données du jeu.
+	 */
 	public void update() {
 		game.update();
 	}
 
+	/**
+	 * Affiche tous les compsosants du jeu.
+	 */
 	public void render() {
 		view2D(width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		game.render();
 	}
 
+	/**
+	 * Ouvre la fenêtre du programme.
+	 */
 	public void display() {
 		try {
 			Display.setDisplayMode(new DisplayMode(width, height));
@@ -142,6 +165,11 @@ public class Launcher {
 		}
 	}
 
+	/**
+	 * Définit les propriétés d'affichage de la fenêtre.
+	 * @param width		la largeur de la fenêtre
+	 * @param height	la hauteur de la fenêtre
+	 */
 	private void view2D(int width, int height) {
         glEnable(GL_TEXTURE_2D);
 

@@ -24,14 +24,13 @@ import java.util.ArrayList;
 class WorldReader {
 
     /**
-     *
-     *Crée un monde à partir d'un fichier .json.
-     * @return						le monde créé
-     * @throws CameraTypeException	si le type de caméra spécifié dans le fichier n'existe pas
-     * @throws IOException			si le fichier est invtrouvable ou illisible
-     * @throws JSONException		si le fichier est mal structuré, incomplet ou si les données qu'il contient ne sont pas du type attendu
-     *
-     */
+	 * Lit un fichier .json et crée le World correspondant.
+	 * @param path					le fichier à lire
+	 * @return						le World créé
+	 * @throws CameraTypeException	si le type de caméra spécifié dans le fichier n'existe pas
+	 * @throws IOException			si le fichier est introuvable
+	 * @throws JSONException		si le fichier est mal structuré, ou incomplet
+	 */
 	static World worldFromJSON(String path) throws CameraTypeException, IOException, JSONException {
         System.out.println("Call to worldFromJSON from : "+ Thread.currentThread().getName());
 		JSONObject obj = new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
