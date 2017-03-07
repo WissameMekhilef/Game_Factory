@@ -5,9 +5,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import java.util.concurrent.Callable;
 
-/**
- * Created by wissamemekhilef on 14/02/2017.
- */
 public class MenuButton implements Comparable{
 
     protected Texture texture;
@@ -54,16 +51,31 @@ public class MenuButton implements Comparable{
         this.action = action;
     }
 
+    /**
+     * Vérifie si le MenuButton a été cliqué.
+     * @param x	la localisation du clic sur l'axe des abscisses
+     * @param y	la localisation du clic sur l'axe des ordonnées
+     * @return	vrai si le MenuButton a été cliqué, faux sinon
+     */
     public boolean isClicked(int x, int y){
         return (x >= coordonnee[0] && x <= coordonnee[0] + sizeX && y <= coordonnee[1] && y >= coordonnee[1] - sizeY);
     }
 
+    /**
+     * Affiche le MenuButton à l'écran.
+     */
     public void render(){
         Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture, true);
-        if(content != null)
-        	Graphics.renderText(content, coordonnee[0] + (sizeX / 2 - content.getFont().getWidth(content.getTextToDisplay())/2), coordonnee[1] - (sizeY / 2 - content.getFont().getHeight(content.getTextToDisplay())/2));
+        if(content != null) {
+        	int x = coordonnee[0] + (sizeX - content.getSizeX()) / 2;
+        	int y = coordonnee[1] - (sizeY - content.getSizeY()) / 2;
+        	Graphics.renderText(content, x, y);
+        }
     }
 
+    /**
+     * Compare deux MenuButtons selon l'ordre alphabétique de leur nom.
+     */
     public int compareTo(Object toCompare){
     	if(content == null)
     		return 0;

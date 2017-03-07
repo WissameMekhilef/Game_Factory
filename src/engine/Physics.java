@@ -7,9 +7,6 @@ import game.world.entities.Solid;
 
 import java.util.concurrent.Callable;
 
-/**
- * Created by wissamemekhilef on 27/01/2017.
- */
 public class Physics {
 
 	/**

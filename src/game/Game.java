@@ -26,6 +26,9 @@ public class Game {
         switchTo(Context.INMENU);
     }
 
+	/**
+	 * Récupère les entrées clavier et souris.
+	 */
     private void pollInput() {
 
     	switch (context) {
@@ -42,19 +45,20 @@ public class Game {
     }
 
     /**
-     *
-     * @param toContext
+     * Change de Context si le joueur sélectionne un World dans le Menu, ou s'il quitte un World et revient au Menu.
+     * @param newContext	le nouveau Context
      */
-    private static void switchTo(Context toContext){
-	    if(toContext == Context.INMENU){
+    private static void switchTo(Context newContext){
+	    if(newContext == Context.INMENU)
             menu.playBackgroundSound();
-            context = Context.INMENU;
-        }else if(toContext == Context.INWORLD){
+	    else if(newContext == Context.INWORLD)
             world.playBackgroundSound();
-            context = Context.INWORLD;
-        }
+	    context = newContext;
     }
 
+    /**
+     * Actualise les données du jeu.
+     */
 	public void update() {
         pollInput();
 		switch (context) {
@@ -81,8 +85,8 @@ public class Game {
 	}
 
     /**
-     *
-     * @param worldToCreate
+     * Crée un World à partir d'un fichier .json.
+     * @param worldToCreate	le nom du fichier
      */
     static void worldCreation(String worldToCreate) {
         try {
@@ -93,6 +97,9 @@ public class Game {
         switchTo(Context.INWORLD);
     }
 
+    /**
+     * Selon le Context, affiche le World ou le Menu du jeu.
+     */
 	public void render() {
 		switch (context) {
 
