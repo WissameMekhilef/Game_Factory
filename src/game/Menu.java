@@ -113,7 +113,7 @@ public class Menu {
     }
 
     /**
-     * Acutalise la position des MenuButtons afin que l'affichage du Menu
+     * Actualise la position des MenuButtons et du titre du jeu afin que l'affichage du Menu
      * reste cohérent lorque la fenêtre est redimensionnée.
      */
     void update(){
@@ -142,7 +142,7 @@ public class Menu {
     }
 
     /**
-     * Affiche le Menu.
+     * Affiche le Menu à l'écran.
      */
     void render(){
     	Graphics.renderText(gameTitle, (Launcher.width - gameTitle.getSizeX()) / 2, 3 * (Launcher.height - gameTitle.getSizeY()) / 4);

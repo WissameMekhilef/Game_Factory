@@ -70,6 +70,10 @@ public class World {
         timestart = System.currentTimeMillis();
 	}
 
+	/**
+	 * Associe à certaines touches du clavier une commande
+	 * permettant de déplacer le Player ou de mettre le jeu en Pause.
+	 */
 	private void genereCommande(){
         keyCommandsToActionInWorld = new HashMap<>();
         keyCommandsToActionInWorld.put(Keyboard.KEY_LEFT, () -> {
@@ -97,6 +101,9 @@ public class World {
         });
     }
 
+	/**
+	 * Génère les données du World.
+	 */
 	private void generate() {
         Collection<PotentialCollision> pcCollection = new ArrayList<>();
         Collection<PotentialCollision> pcCollectionDoor = new ArrayList<>();
@@ -117,6 +124,11 @@ public class World {
 
 	}
 
+	/**
+	 * Crée un Callable correspondant à la gestion des collisions entre le Player et un Obstacle donné.
+	 * @param pcX	la PotentialCollision liant le Player à l'Obstacle
+	 * @return		le Callable créé
+	 */
     public static Callable<Integer> collisionRoutine(PotentialCollision pcX){
         return () -> {
             if(Physics.isStuck(pcX))
@@ -125,6 +137,10 @@ public class World {
         };
     }
 
+    /**
+     * Crée un Runnable correspondant au gain de la partie.
+     * @return	le Runnable créé
+     */
     public static Runnable playerWin(){
         return () -> {
             long timeElapsed = (System.currentTimeMillis() - timestart) / 1000;
@@ -133,6 +149,10 @@ public class World {
         };
     }
 
+    /**
+     * Crée un Runnable correspondant à la mort du Player
+     * @return	le Runnable créé
+     */
     public static Runnable playerDeath(){
         return () -> {
             long timeElapsed = (System.currentTimeMillis() - timestart) / 1000;
@@ -141,15 +161,24 @@ public class World {
         };
     }
 
+    /**
+     * Permet de retourner directement au Menu.
+     */
     public static void hardBackToMenu(){
         worldOver = true;
     }
 
+    /**
+     * Permet de reprendre la partie.
+     */
     public static void backToPlay(){
         switchTo(Context.ISPLAYING);
     }
 
-
+    /**
+     * Change le Context selon que la partie est en cours, en Pause ou finie.
+     * @param toContext	le nouveauContext
+     */
     private static void switchTo(Context toContext){
         if(toContext == Context.INPAUSE){
             Sound.pause();
@@ -162,6 +191,9 @@ public class World {
         }
     }
 
+    /**
+     * Actualise les données du World.
+     */
 	public void update() {
         switch (context){
             case INPAUSE:
@@ -192,6 +224,9 @@ public class World {
 
 	}
 
+	/**
+	 * Affiche tous les composants du World à l'écran.
+	 */
 	public void render() {
         switch (context){
             case INPAUSE:
@@ -217,7 +252,9 @@ public class World {
 
 	}
 
-
+	/**
+	 * Récupère et interprète les entrées clavier et souris.
+	 */
     public void pollInput(){
         switch (context){
             case INPAUSE:
@@ -245,6 +282,9 @@ public class World {
         actionToExecute.clear();
     }
 
+    /**
+     * Lance la musique du World.
+     */
     public void playBackgroundSound(){
         Sound.play(WorldParameters.getBackgroundMusic());
     }

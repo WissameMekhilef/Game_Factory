@@ -6,9 +6,6 @@ import engine.Launcher;
 import game.graphicItems.Text;
 import org.newdawn.slick.Color;
 
-/**
- * Created by wissamemekhilef on 02/03/2017.
- */
 public class EndingScreen {
 
     private Text textWorldStatus;
@@ -20,6 +17,10 @@ public class EndingScreen {
         this.textTimeElapsed = new Text(timeElapsed+"", Data.fontsMap.get("chlorinap"), Color.blue);
     }
 
+    /**
+     * Affiche l'écran de fin du World. Ce dernier indique au joueur
+     * s'il a gagné ou perdu la partie, et affiche le temps passé en jeu.
+     */
     public void render() {
 
     	int xStatus = (Launcher.width - textWorldStatus.getSizeX()) / 2;

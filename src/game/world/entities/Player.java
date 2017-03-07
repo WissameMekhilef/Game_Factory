@@ -48,6 +48,10 @@ public class Player extends Movable {
         updatePar.add(Physics.freinage(this));
 	}
 
+	/**
+	 * Replace le Player lorsque ce dernier est collé au bord de l'écran,
+	 * afin qu'il soit poussé par le scrolling au lieu de sortir de la fenêtre.
+	 */
 	private void scrollReplace(){
 		//Left replace
 		if((coordonnee[0] + WorldParameters.getxScroll()) < 0) {
@@ -68,6 +72,10 @@ public class Player extends Movable {
 		}
 	}
 
+	/**
+	 * Vérifie si le Player n'est pas mort en tombant dans un trou
+	 * ou en étant pris en étau entre un Obstacle et le scrolling.
+	 */
 	private boolean checkAlive(){
 		if(isBlockedByLeftScreen && isBlockedByRight)
 			return false;
@@ -80,6 +88,9 @@ public class Player extends Movable {
 		return isAlive;
 	}
 
+	/**
+	 * Actualise les données du Player.
+	 */
 	public void update() {
 	    //Texture thing normal or reverse
         if(vitessePrev[0] < 0){
@@ -115,6 +126,9 @@ public class Player extends Movable {
 		setBlockedByTop(false);
 	}
 
+	/**
+	 * Fait sauter le Player.
+	 */
 	public void jumpWanted(){
 	    if(!jumped && coordonnee[1] < Launcher.height){
             vitessePrev[1] += WorldParameters.getGainVitesseY();
@@ -123,6 +137,9 @@ public class Player extends Movable {
         }
     }
 
+	/**
+	 * Fait avancer le Player vers la gauche s'il n'est pas collé au bord gauche de la fenêtre.
+	 */
     public void leftWanted(){
 	    if(coordonnee[0] + WorldParameters.getxScroll() > 0  && vitessePrev[0] + WorldParameters.getMAXSPEED() > 0)
 	        if(vitessePrev[0] > 0)
@@ -131,6 +148,9 @@ public class Player extends Movable {
 	            vitessePrev[0] -= WorldParameters.getGainVitesseX();
     }
 
+    /**
+	 * Fait avancer le Player vers la droite s'il n'est pas collé au bord droit de la fenêtre.
+	 */
     public void rightWanted(){
         if((coordonnee[0] + sizeX + WorldParameters.getxScroll() - Launcher.width <= 0) && vitessePrev[0] < WorldParameters.getMAXSPEED())
             if(vitessePrev[0] < 0)
@@ -143,7 +163,9 @@ public class Player extends Movable {
         isBelowTheSurface = situation;
     }
 
-
+    /**
+     * Affiche le Player à l'écran.
+     */
     public void render(){
         Graphics.renderQuad(coordonnee[0], coordonnee[1], sizeX, sizeY, texture, false);
     }

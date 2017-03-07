@@ -11,9 +11,6 @@ import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
-/**
- * Created by wissamemekhilef on 23/02/2017.
- */
 public class Pause {
     private MenuButton lastButtonClicked;
 
@@ -46,6 +43,11 @@ public class Pause {
 
     }
 
+    /**
+     * Sauvegarde le dernier MenuButton cliqué.
+     * @param x0	la position du clic sur l'axe des abscisses
+     * @param y0	la position du clic sur l'axe des ordonnées
+     */
     public void receiveClick(int x0, int y0) {
         for (MenuButton current : listButton) {
             if (current.isClicked(x0, y0)) {
@@ -54,6 +56,10 @@ public class Pause {
         }
     }
 
+    /**
+     * Actualise la position des MenuButtons et du titre afin que l'affichage de la Pause
+     * reste cohérent lorque la fenêtre est redimensionnée.
+     */
     public void update(){
         Iterator<MenuButton> it = listButton.iterator();
 
@@ -74,6 +80,9 @@ public class Pause {
         }
     }
 
+    /**
+     * Affiche la Pause à l'écran.
+     */
     public void render(){
         Graphics.renderText(textPause, (Launcher.width - textPause.getSizeX()) / 2, 3 * (Launcher.height - textPause.getSizeY()) / 4);
         for (MenuButton aWorldList : listButton) {
