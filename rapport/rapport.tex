@@ -5,6 +5,9 @@
 %\usepackage{lmodern}
 \usepackage[a4paper]{geometry}
 \usepackage{babel}
+\usepackage{hyperref}
+
+\newcommand{\ml}[0]{\par\noindent}
 
 \input{my_library.tex}
 
@@ -23,12 +26,14 @@
 {\Huge Rapport Final}
 \par\vspace{0.4cm}
 {\Large du}
-\par\vspace{0.4cm}
+\par\vspace{0.cm}
 {\Huge\bf Projet de L3}
-\par\vspace{1.6cm}
+\par\vspace{3cm}
+{\Huge       GAME FACTORY}
+\par\vspace{3cm}
 {\Huge       Realise par:}
 \par\vspace{0.3cm}
-{\Huge\bf \textcolor{blue}{Wissame MEKHILEF, Simon ARNOULT, Vincent RENARD}}
+{\Huge\bf \textcolor{blue}{Simon ARNOULT \ml Wissame MEKHILEF \ml\ml Vincent RENARD}}
 \end{center}
 \newpage
 \tableofcontents
@@ -36,13 +41,49 @@
 
 
 \section{Introduction}
-\subsection{}
+
+Ce court rapport va vous raconter le déroulement du projet  et l'enchainement d'idée qui nous ont guidées et ainsi vous permettre de mieux comprendre les choix techniques que nous avons fais.
+
+Nous avons choisi de vous présenter les évènements en gardant au mieux la chronologie, ce qui rendra mieux compte du choix de nos solutions.
 
 \section{Game Factory Origin}
-\subsection{}
+
+Nous sommes le 5 Janvier lors de la présentation du projet, notre groupe déjà formé, on a pu directement discuter de notre compréhension du sujet. Et ainsi partager nos premieres idées. 
+
+Rapidement nous nous sommes rendu compte de nos lacunes en programmation graphique. Comme le choix du langage JAVA nous a parût évident, nous nous sommes mis en quête d'une librairie permettant d'utiliser OpenGL. Rapidement Wissame a trouvé la librairie LWJGL (Lightweight Java Game Library) dans sa version 2.9.3, avec une suite de tutoriel \href{https://www.youtube.com/watch?v=o56B1O1WwBk&list=PLq0CkcZATy27MgFJcy0HmMPVRwtDWeMlD}{sur Youtube}  .
+
+
+\subsection{À la découverte de LWJGL}
+
+Après avoir valider le choix de la librairie, nous avons pendant 1 semaines chacun de notre coté appris à utiliser cette librairie tout en se basant sur le tutoriel. Ce choix de partir chacun de travailler séparément au début à été motivé par la volonté que chacun d'avoir les compétences de base.
+
+\subsubsection{Du point de vue du Joueur}
+
+Wissame c'est dis dès le début qu'il fallait que le joueur puisse se déplacer en suivant les lois de la physique pour qu'il puisse avoir un mouvement le plus naturel possible.
+
+Pour cela, il a ressorti ces cours de physique puis à quitté le cadre du projet et sa librairie pour un temps, il lui a fallut pour vérifier ces fonctions un langage neutre, il c'est donc tourné vers Matlab qui propose un affichage natif. Les fonctions étant finies il est retourné dans le cadre du projet. D'autres problèmes sont donc apparut du au changement de langage mais aussi à la différence inhérentes à la boucle du jeu.
+
+\subsubsection{Du point de vue de la fenêtre}
+
+Alors que Wissame se focalisait sur les mouvements du joueur, Simon avait décidé d'envisager ce dernier en tant qu'élément interagissant avec la fenêtre du programme. Après avoir implémenté un système de scrolling en s'inspirant du tutoriel cité précédemment, il a décidé d'empêcher le carré – censé représenter le joueur – de sortir de la fenêtre.
+
+Plus tard, lors de l'ajout de nouvelles fonctionnalités au programme, cette contrainte a servi de piste de réflexion pour la détection des collisions entre le joueur et les obstacles du monde, ainsi que pour la gestion de la mort, puisque le joueur pouvait se retrouver pris en étau entre le scrolling et un obstacle.
+
+\subsubsection{Experimentation sur les textures}
+
+Vincent avait quant à lui décidé de travailler sur le rendu des textures afin que le jeu puisse afficher d'autres éléments que des carrés monochrome. Cependant il a rencontré des difficultés qui ne seront résolues que bien plus tard.
 
 \section{Un projet de groupe}
+
+Nous nous retrouvons rapidement à la deuxième semaine du projet, Simon et Wissame ayant bien avancé ils ont commencé à vouloir mettre en commun leur travail.
+
 \subsection{Une organisation}
+
+Les tâches ont était hiérarchisé, pour permettre à chacun de connaître l'état d'avancement et surtout d'avoir des fonctionnalités qui s'imbrique les unes avec les autres. 
+
+\subsubsection{Versionnage de fichier}
+
+La gestion d'un groupe de travail demandant une organisation rigoureuse le choix d'un repository git à était évidente. Malheureusement, nous n'avons pas fais de branche et nous avons commencer le travail dans le master. ce qui n'a pas était sans poser de problèmes.
 
 \subsection{Des divergences et des evidences}
 Les divergences de chacun ont permis la naissance d'un code general
