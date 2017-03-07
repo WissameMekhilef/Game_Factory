@@ -46,55 +46,83 @@ Ce court rapport va vous raconter le déroulement du projet  et l'enchainement d
 
 Nous avons choisi de vous présenter les évènements en gardant au mieux la chronologie, ce qui rendra mieux compte du choix de nos solutions.
 
-\section{Game Factory Origin}
+\section{Game Factory Origin : À la découverte de LWJGL}
 
 Nous sommes le 5 Janvier lors de la présentation du projet, notre groupe déjà formé, on a pu directement discuter de notre compréhension du sujet. Et ainsi partager nos premieres idées. 
 
 Rapidement nous nous sommes rendu compte de nos lacunes en programmation graphique. Comme le choix du langage JAVA nous a parût évident, nous nous sommes mis en quête d'une librairie permettant d'utiliser OpenGL. Rapidement Wissame a trouvé la librairie LWJGL (Lightweight Java Game Library) dans sa version 2.9.3, avec une suite de tutoriel \href{https://www.youtube.com/watch?v=o56B1O1WwBk&list=PLq0CkcZATy27MgFJcy0HmMPVRwtDWeMlD}{sur Youtube}  .
 
-
-\subsection{À la découverte de LWJGL}
-
 Après avoir valider le choix de la librairie, nous avons pendant 1 semaines chacun de notre coté appris à utiliser cette librairie tout en se basant sur le tutoriel. Ce choix de partir chacun de travailler séparément au début à été motivé par la volonté que chacun d'avoir les compétences de base.
 
-\subsubsection{Du point de vue du Joueur}
+\subsection{Du point de vue du Joueur}
 
 Wissame c'est dis dès le début qu'il fallait que le joueur puisse se déplacer en suivant les lois de la physique pour qu'il puisse avoir un mouvement le plus naturel possible.
 
 Pour cela, il a ressorti ces cours de physique puis à quitté le cadre du projet et sa librairie pour un temps, il lui a fallut pour vérifier ces fonctions un langage neutre, il c'est donc tourné vers Matlab qui propose un affichage natif. Les fonctions étant finies il est retourné dans le cadre du projet. D'autres problèmes sont donc apparut du au changement de langage mais aussi à la différence inhérentes à la boucle du jeu.
 
-\subsubsection{Du point de vue de la fenêtre}
+\subsection{Du point de vue de la fenêtre}
 
 Alors que Wissame se focalisait sur les mouvements du joueur, Simon avait décidé d'envisager ce dernier en tant qu'élément interagissant avec la fenêtre du programme. Après avoir implémenté un système de scrolling en s'inspirant du tutoriel cité précédemment, il a décidé d'empêcher le carré – censé représenter le joueur – de sortir de la fenêtre.
 
 Plus tard, lors de l'ajout de nouvelles fonctionnalités au programme, cette contrainte a servi de piste de réflexion pour la détection des collisions entre le joueur et les obstacles du monde, ainsi que pour la gestion de la mort, puisque le joueur pouvait se retrouver pris en étau entre le scrolling et un obstacle.
 
-\subsubsection{Experimentation sur les textures}
+\subsection{Experimentation sur les textures}
 
 Vincent avait quant à lui décidé de travailler sur le rendu des textures afin que le jeu puisse afficher d'autres éléments que des carrés monochrome. Cependant il a rencontré des difficultés qui ne seront résolues que bien plus tard.
 
 \section{Un projet de groupe}
 
-Nous nous retrouvons rapidement à la deuxième semaine du projet, Simon et Wissame ayant bien avancé ils ont commencé à vouloir mettre en commun leur travail.
+Nous nous retrouvons rapidement à la deuxième semaine du projet, Simon et Wissame ayant bien avancé ils ont commencé à vouloir mettre en commun leur travail. À partir de ce moment le projet est devenu un projet de groupe et la repartition des tâches à commencé à être mutualisée. 
+\ml
+Les membres du group se sont rapidement mis en d'accord sur les méthodes de travail à mettre en place.
 
 \subsection{Une organisation}
 
-Les tâches ont était hiérarchisé, pour permettre à chacun de connaître l'état d'avancement et surtout d'avoir des fonctionnalités qui s'imbrique les unes avec les autres. 
+Chacun des membres du groupe ayant des affinitées particulières sur les différents aspect du jeu, la repartition des tâches c'est fais naturellement.
+\ml
+Les tâches ont était hiérarchisé, pour permettre à chacun de connaître l'état d'avancement et gardé un projet cohérent.
 
-\subsubsection{Versionnage de fichier}
+\subsection{Les méthodes de travail}
 
-La gestion d'un groupe de travail demandant une organisation rigoureuse le choix d'un repository git à était évidente. Malheureusement, nous n'avons pas fais de branche et nous avons commencer le travail dans le master. ce qui n'a pas était sans poser de problèmes.
+\subsubsection{Git}
 
-\subsection{Des divergences et des evidences}
-Les divergences de chacun ont permis la naissance d'un code general
+La gestion d'un groupe de travail demandant une organisation rigoureuse le choix de git à était évidente. 
+
+De plus leur choix à était motivé par les différents environnement de travail de chacun, git permettant facilement grace a gitignore de garder hors du repository les fichiers de configuration :
+
+\begin{itemize}
+\item Intellij / MacOS (Wissame)
+\item Eclipse / Windows (Simon)
+\item Eclipse / MacOS (Vincent)
+\end{itemize}
+
+Malheureusement, nous n'avons pas fais de branche et nous avons commencer le travail dans le master. ce qui n'a pas était sans poser de problèmes.
+
+\subsubsection{Skype}
+
+Les membres du groupe n'ayant pas la possiblité de ce voir pour travailler en dehors des heures de cours, il leur a fallut utiliser Skype pour travailler en commun sur les parties qui étaient trop importante pour pouvoir être délégué à un seul des membres. Ces parties concerne principalement l'architecture globale du projet, de l'agencement des classes en passant par les boucles interne du programme.
+
+Ces conférences skype leur ont permis de ce concerté sur la direction à suivre et les futures problèmes auquelles ils allaient être confrontés. 
 
 \subsection{Vers une architecture commune}
 
+Leurs idées divergeaient souvent et le code à était remaniée a plusieurs reprise, souvent de lourdes modification on était apporté pour rendre le code plus propre mais aussi plus réutilisable.
+
+Ces idées divergeante on nécessitez des compromis qui ont fais apparaître des nouveaux problèmes, mais cela a permis d'améliorer le code.
+
 \section{Une enchainement de défis techniques}
+
+Le développement d'un jeu aussi basique soit-il demande des connaissances transversalles. Ils leur à fallut  apprendre de nouvelles chose. Et de temlps en temps il leur a fallut aborder les problèmes sous un  nouvel angle.
+
+Les points ci-après sont présenté suivant l'ordre de résultion.
+
 \subsection{La gestion de collision}
 \input{gestion_collision.tex}
 \subsection{Le rendue de texture}
-
-zrghzerthetjnet666
+\input{rendue_texture.tex}
+\subsection{Lecture d'un JSON}
+\input{lecture_json.tex}
+\subsection{Lambda Calcul et Multithreading}
+\input{lambda_calcul_multithreading.tex}
 
 \end{document}
