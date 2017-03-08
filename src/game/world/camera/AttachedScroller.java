@@ -47,6 +47,9 @@ public class AttachedScroller implements Camera {
      * afin que ce dernier soit au centre de la fenêtre tant qu'il n'a pas atteint un bord du World.
      */
 	public void translateViewY(){
+	    if(Launcher.height >= WorldParameters.getBordHaut())
+	        return;
+
         boolean moitieHaute = player.getCoordonnee()[1] - WorldParameters.getyScroll() > Launcher.height / 2;
         boolean moitieBasse = !moitieHaute;
 
