@@ -93,6 +93,7 @@ public class Game {
             world = WorldReader.worldFromJSON("worlds/"+worldToCreate+".json");
         } catch (CameraTypeException | IOException e) {
             e.printStackTrace();
+            System.out.println("Error catch");
         }
         switchTo(Context.INWORLD);
     }
