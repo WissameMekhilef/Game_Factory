@@ -1,0 +1,26 @@
+{
+  "width": 8800,
+  "height": 7900,
+  "player":
+  {"sizeX": 50, "sizeY": 50, "v0": 3, "v1": 3, "x": 8500, "y": 7600, "skin": "mario"},
+  "camera":
+  {"type": "attached", "xAttached": true, "yAttached": true},
+  "door":
+  {"sizeX": 200, "sizeY": 200, "x": 600, "y": 250, "texture": "door_1"},
+  "plateau": [
+    {"sizeX": 8800, "sizeY": 50, "x": 0, "y": 2900, "texture": "herbe"},
+
+    {"sizeX": 8800, "sizeY": 200, "x": 0, "y": 7900, "texture": "brique"},
+    {"sizeX": 200, "sizeY": 2900, "x": 0, "y": 7700, "texture": "brique"},
+    {"sizeX": 200, "sizeY": 2900, "x": 8600, "y": 7700, "texture": "brique"},
+    {"sizeX": 300, "sizeY": 100, "x": 8300, "y": 7500, "texture": "brique"}
+  ],
+  "gamma": 20.81,
+  "g": 4.0,
+  "deltaT": 60.0,
+  "music": "CantLetGo",
+  "maxspeed": 7,
+  "jumpTime": 250.0,
+  "gainVitesseX": 2,
+  "gainVitesseY": -20
+}

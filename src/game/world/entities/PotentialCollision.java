@@ -1,8 +1,5 @@
 package game.world.entities;
 
-/**
- * Created by wissamemekhilef on 02/02/2017.
- */
 public class PotentialCollision {
     private boolean above;
     private boolean below;

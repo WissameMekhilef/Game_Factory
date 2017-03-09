@@ -11,9 +11,6 @@ import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
-/**
- * Created by wissamemekhilef on 23/02/2017.
- */
 public class Pause {
     private MenuButton lastButtonClicked;
 
@@ -33,17 +30,24 @@ public class Pause {
             World.hardBackToMenu();
             return 0;
         };
-        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green), backToMenu));
+        Text t = new Text("Menu", Data.fontsMap.get("new_super_mario_1"), Color.green);
+        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), t, backToMenu));
 
         Callable<Integer> backToPlay = () -> {
             lastButtonClicked = null;
             World.backToPlay();
             return 0;
         };
-        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green), backToPlay));
+        Text t2 = new Text("Back", Data.fontsMap.get("new_super_mario_1"), Color.green);
+        listButton.add(new MenuButton(sizeXbutton, sizeYbutton, Data.texturesMap.get("brique"), t2, backToPlay));
 
     }
 
+    /**
+     * Sauvegarde le dernier MenuButton cliqué.
+     * @param x0	la position du clic sur l'axe des abscisses
+     * @param y0	la position du clic sur l'axe des ordonnées
+     */
     public void receiveClick(int x0, int y0) {
         for (MenuButton current : listButton) {
             if (current.isClicked(x0, y0)) {
@@ -52,6 +56,10 @@ public class Pause {
         }
     }
 
+    /**
+     * Actualise la position des MenuButtons et du titre afin que l'affichage de la Pause
+     * reste cohérent lorque la fenêtre est redimensionnée.
+     */
     public void update(){
         Iterator<MenuButton> it = listButton.iterator();
 
@@ -72,8 +80,11 @@ public class Pause {
         }
     }
 
+    /**
+     * Affiche la Pause à l'écran.
+     */
     public void render(){
-        Graphics.renderText(textPause, Launcher.width / 2 - Data.fontsMap.get("tron").getWidth(textPause.getTextToDisplay())/2, 3 * Launcher.height / 4 - Data.fontsMap.get("tron").getHeight(textPause.getTextToDisplay())/2);
+        Graphics.renderText(textPause, (Launcher.width - textPause.getSizeX()) / 2, 3 * (Launcher.height - textPause.getSizeY()) / 4);
         for (MenuButton aWorldList : listButton) {
             aWorldList.render();
         }
