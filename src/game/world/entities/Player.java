@@ -52,7 +52,7 @@ public class Player extends Movable {
 	 * Replace le Player lorsque ce dernier est collé au bord de l'écran,
 	 * afin qu'il soit poussé par le scrolling au lieu de sortir de la fenêtre.
 	 */
-	private void scrollReplace(){
+	public void scrollXReplace(){
 		//Left replace
 		if((coordonnee[0] + WorldParameters.getxScroll()) < 0) {
 			coordonnee[0] = -WorldParameters.getxScroll();
@@ -115,7 +115,8 @@ public class Player extends Movable {
             e.printStackTrace();
         }
 
-        scrollReplace();
+
+        scrollXReplace();
 
 		isAlive = checkAlive();
 

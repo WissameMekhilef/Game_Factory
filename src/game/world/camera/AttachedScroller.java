@@ -21,25 +21,22 @@ public class AttachedScroller implements Camera {
      * afin que ce dernier soit au centre de la fenêtre tant qu'il n'a pas atteint un bord du World.
      */
     public void translateViewX() {
-	    boolean aDroite = player.getCoordonnee()[0] + WorldParameters.getxScroll() > Launcher.width / 2;
-        boolean aGauche = ! aDroite;
+        if(Launcher.width >= WorldParameters.getBordDroit())
+            return;
 
-	    boolean bordDroitAfficher = 0 >= WorldParameters.getBordDroit() - Launcher.width + WorldParameters.getxScroll() ;
+        WorldParameters.setxScroll( -(player.getCoordonnee()[0] - Launcher.width/2) );
+
+	    boolean bordDroitAfficher = WorldParameters.getBordDroit() <= Launcher.width - WorldParameters.getxScroll() ;
         boolean bordGaucheAfficher = WorldParameters.getxScroll() >= WorldParameters.getBordGauche();
 
-        if(aDroite){
-            if(bordDroitAfficher) {
-                return;
-            }
+        if(bordGaucheAfficher){
+            WorldParameters.setxScroll(WorldParameters.getBordGauche());
+            return;
         }
-        if(aGauche){
-            if(bordGaucheAfficher){
-                WorldParameters.setxScroll(WorldParameters.getBordGauche());
-                return;
-            }
+        if(bordDroitAfficher) {
+            WorldParameters.setxScroll(-(WorldParameters.getBordDroit() - Launcher.width));
+            return;
         }
-
-        WorldParameters.setxScroll(WorldParameters.getxScroll() - player.getCoordonnee()[0] + player.prevX);
 	}
 
     /**
@@ -50,22 +47,20 @@ public class AttachedScroller implements Camera {
 	    if(Launcher.height >= WorldParameters.getBordHaut())
 	        return;
 
-        boolean moitieHaute = player.getCoordonnee()[1] - WorldParameters.getyScroll() > Launcher.height / 2;
-        boolean moitieBasse = !moitieHaute;
+        WorldParameters.setyScroll(player.getCoordonnee()[1] - Launcher.height/2);
+        //WorldParameters.setyScroll(100);
 
         boolean bordHautAfficher = 0 >= WorldParameters.getBordHaut() - Launcher.height - WorldParameters.getyScroll();
         boolean bordBasAfficher = 0 <= WorldParameters.getBordBas() - WorldParameters.getyScroll();
 
-        if(moitieBasse && bordBasAfficher){
+        if(bordBasAfficher){
             WorldParameters.setyScroll(WorldParameters.getBordBas());
             return;
         }
-        if(moitieHaute && bordHautAfficher){
-            WorldParameters.setyScroll(WorldParameters.getBordHaut() - Launcher.height);
+        if(bordHautAfficher){
+           WorldParameters.setyScroll(WorldParameters.getBordHaut() - Launcher.height);
             return;
         }
-
-        WorldParameters.setyScroll(WorldParameters.getyScroll() + player.getCoordonnee()[1] - player.prevY);
     }
 
 	/**
