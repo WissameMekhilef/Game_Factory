@@ -131,7 +131,7 @@ public class Player extends Movable {
 	 * Fait sauter le Player.
 	 */
 	public void jumpWanted(){
-	    if(!jumped && coordonnee[1] < Launcher.height){
+	    if(!jumped && coordonnee[1] < WorldParameters.getBordHaut()){
             vitessePrev[1] += WorldParameters.getGainVitesseY();
             jumped = true;
             before = System.currentTimeMillis();

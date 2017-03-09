@@ -1,8 +1,7 @@
 {
   "width": 8800,
   "height": 7900,
-  "player":
-  {"sizeX": 50, "sizeY": 50, "v0": 0, "v1": 0, "x": 8500, "y": 7700, "skin": "mario"},
+  "player": {"sizeX": 50, "sizeY": 50, "v0": 0, "v1": 0, "x": 8500, "y": 7700, "skin": "mario"},
   "camera":
   {"type": "attached", "xAttached": true, "yAttached": true},
   "door":
@@ -437,6 +436,7 @@
     {"sizeX": 600,  "sizeY": 100,  "x": 6800,  "y": 100, "texture": "terre"},
 
     {"sizeX": 600,  "sizeY": 100,  "x": 8100,  "y": 100, "texture": "terre"}
+
   ],
   "gamma": 20.81,
   "g": 4.0,

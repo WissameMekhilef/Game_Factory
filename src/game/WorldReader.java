@@ -109,6 +109,7 @@ class WorldReader {
         WorldParameters.setxScroll(0);
         WorldParameters.setyScroll(0);
 
+        System.out.println("HERE");
 		return new World(player, camera, door, plateau);
 
 	}
