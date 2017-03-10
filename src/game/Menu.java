@@ -120,10 +120,10 @@ public class Menu {
 
         int buttonsPerLine = 0;
         int numberOfButtons = worldList.size();
-        int i = 1;
+        int i = 0;
 
         do {
-        	int n = (int) Math.ceil((double) numberOfButtons / i);
+        	int n = numberOfButtons - i;
         	if(n * sizeXbutton <= Launcher.width)
         		buttonsPerLine = n;
         	else
