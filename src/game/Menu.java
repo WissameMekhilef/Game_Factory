@@ -116,24 +116,33 @@ public class Menu {
      * Actualise la position des MenuButtons et du titre du jeu afin que l'affichage du Menu
      * reste cohérent lorque la fenêtre est redimensionnée.
      */
-    void update(){
+    void update() {
 
+        int buttonsPerLine = 0;
+        int numberOfButtons = worldList.size();
+        int i = 0;
+
+        do {
+        	int n = numberOfButtons - i;
+        	if(n * sizeXbutton <= Launcher.width)
+        		buttonsPerLine = n;
+        	else
+        		i++;
+        } while(buttonsPerLine == 0);
+
+        int numberOfLines = (int) Math.ceil((double) numberOfButtons / buttonsPerLine);
+        int space = (Launcher.width - buttonsPerLine * sizeXbutton) / (buttonsPerLine + 1);
         Iterator<MenuButton> it = worldList.iterator();
+        MenuButton mb;
 
-        int x0 = Launcher.width / 2 - ((spacebetween + sizeXbutton) / 2) * worldList.size();
-        int y0 = Launcher.height / 2 - spacebetween - sizeYbutton;
-        while (it.hasNext()){
-            MenuButton current = it.next();
-            if (x0 + sizeXbutton < Launcher.width) {
-                current.setX(x0);
-                current.setY(y0);
-                x0 += spacebetween + sizeXbutton;
-            }else{
-                x0 = spacebetween;
-                y0 -= spacebetween + sizeYbutton;
-                current.setX(x0);
-                current.setY(y0);
-            }
+        for(int j = 0; j < numberOfLines; j++) {
+        	for(int k = 0; k < buttonsPerLine; k++) {
+        		if(it.hasNext()) {
+        			mb = it.next();
+        			mb.setX(k * sizeXbutton + (k + 1) * space);
+        			mb.setY(Launcher.height / 2 - j * (sizeYbutton + space));
+        		}
+        	}
         }
 
         exit.setX(Launcher.width - (exit.getSizeX() + 10));
