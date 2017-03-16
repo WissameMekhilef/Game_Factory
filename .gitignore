@@ -92,10 +92,10 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
-
+*.log
 out/
 
-
+*.lof
 /lib/
 /src/META-INF
 Mario.iml
