@@ -1,0 +1,23 @@
+% !TEX encoding = UTF-8 Unicode
+\subsubsection{Les contextes}
+
+Les contextes sont un concept que l'on a utilisé pour déterminer les états et un ainsi clairement séparé les moments dans le jeu pour ne faire les update et les rendue que des élements nécessaire.
+\ml
+De plus il nous ont permis de définir des règles pour passer d'un contexte a un autre.
+
+\monimage{contexte_1.pdf}{schema 1}{CONT1}{10}
+\monimage{contexte_2.pdf}{schema 2}{CONT2}{11}
+
+\subsubsection{La boucle update}
+
+La vitesse du jeu dépend de la fréquence des « ticks ». Chaque tick est un marqueur temporel séparé de son prédécesseur par une très courte durée fixée – dans notre programme, deux ticks consécutifs sont séparés par un soixantième de seconde.
+\ml\ml
+La mise à jour des données du jeu s'effectue à chaque tick. Cela permet à notre programme de s'exécuter à une vitesse constante, et surtout indépendante de la puissance de la machine de l'utilisateur.
+\ml\ml
+La \ref{DSSUPDATE} figure montre la séquence système.
+
+\monimage{dss_update.eps}{Diagramme Séquence Système de la fonction Update}{DSSUPDATE}{12}
+
+\subsubsection{La boucle render}
+
+Contrairement à la mise à jour des données, l'actualisation de l'affichage n'a pas besoin d'être bridé : en effet, un nombre élevé de FPS (frames per second) permet d'obtenir un rendu à l'écran plus fluide.

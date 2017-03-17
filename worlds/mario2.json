@@ -8,9 +8,9 @@
 	"door":
 		{"sizeX": 100, "sizeY": 100, "x": 2750, "y": 300, "texture": "door_1"},
 	"plateau": [
-		{"sizeX": 150, "sizeY": 50, "x": 600, "y": 250, "texture": "brique"},
-		{"sizeX": 150, "sizeY": 50, "x": 800, "y": 450, "texture": "brique"},
-		{"sizeX": 150, "sizeY": 50, "x": 900, "y": 150, "texture": "brique"},
+		{"sizeX": 150, "sizeY": 50, "x": 600, "y":250, "texture": "brique"},
+		{"sizeX": 150, "sizeY": 50, "x": 800, "y":450, "texture": "brique"},
+		{"sizeX": 150, "sizeY": 50, "x": 900, "y" :150, "texture": "brique"},
 		{"sizeX": 250, "sizeY": 50, "x": 1100, "y": 150, "texture": "brique"},
 		{"sizeX": 150, "sizeY": 50, "x": 1100, "y": 450, "texture": "brique"},
 		{"sizeX": 150, "sizeY": 50, "x": 1300, "y": 350, "texture": "brique"},

@@ -2,14 +2,27 @@
 \documentclass[french,12pt]{article}
 
 \usepackage[utf8]{inputenc}
-%\usepackage{lmodern}
-\usepackage[a4paper]{geometry}
-\usepackage{babel}
-\usepackage{hyperref}
+\usepackage{color}
+\usepackage{fancyvrb} % pour mettre les verbatim dans des boites
+\usepackage[pdftex]{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{listingsutf8}
+\usepackage[french]{babel}
+
+
+\newcommand{\monimage}[4]{
+\par\noindent
+\begin{figure}[p] %on ouvre l'environnement figure
+\begin{center}
+\includegraphics[width=15cm]{#1} %ou image.png, .jpeg etc.
+\caption{#2} %la légende
+\label{#3} %l'étiquette pour faire référence à cette image
+\end{center}
+\end{figure} %on ferme l'environnement figure
+}
 
 \newcommand{\ml}[0]{\par\noindent}
-
-\input{my_library.tex}
 
 \begin{document}
 
@@ -31,9 +44,9 @@
 \par\vspace{3cm}
 {\Huge       GAME FACTORY}
 \par\vspace{3cm}
-{\Huge       Realise par:}
+{\Huge       Réalise par:}
 \par\vspace{0.3cm}
-{\Huge\bf \textcolor{blue}{Simon ARNOULT \ml Wissame MEKHILEF \ml\ml Vincent RENARD}}
+{\Huge\bf \textcolor{blue}{Simon ARNOULT \ml Wissame MEKHILEF \ml Vincent RENARD}}
 \end{center}
 \newpage
 \tableofcontents
@@ -42,87 +55,39 @@
 
 \section{Introduction}
 
-Ce court rapport va vous raconter le déroulement du projet  et l'enchainement d'idée qui nous ont guidées et ainsi vous permettre de mieux comprendre les choix techniques que nous avons fais.
-
-Nous avons choisi de vous présenter les évènements en gardant au mieux la chronologie, ce qui rendra mieux compte du choix de nos solutions.
-
-\section{Game Factory Origin : À la découverte de LWJGL}
-
-Nous sommes le 5 Janvier lors de la présentation du projet, notre groupe déjà formé, on a pu directement discuter de notre compréhension du sujet. Et ainsi partager nos premieres idées. 
-
-Rapidement nous nous sommes rendu compte de nos lacunes en programmation graphique. Comme le choix du langage JAVA nous a parût évident, nous nous sommes mis en quête d'une librairie permettant d'utiliser OpenGL. Rapidement Wissame a trouvé la librairie LWJGL (Lightweight Java Game Library) dans sa version 2.9.3, avec une suite de tutoriel \href{https://www.youtube.com/watch?v=o56B1O1WwBk&list=PLq0CkcZATy27MgFJcy0HmMPVRwtDWeMlD}{sur Youtube}  .
-
-Après avoir valider le choix de la librairie, nous avons pendant 1 semaines chacun de notre coté appris à utiliser cette librairie tout en se basant sur le tutoriel. Ce choix de partir chacun de travailler séparément au début à été motivé par la volonté que chacun d'avoir les compétences de base.
-
-\subsection{Du point de vue du Joueur}
-
-Wissame c'est dis dès le début qu'il fallait que le joueur puisse se déplacer en suivant les lois de la physique pour qu'il puisse avoir un mouvement le plus naturel possible.
-
-Pour cela, il a ressorti ces cours de physique puis à quitté le cadre du projet et sa librairie pour un temps, il lui a fallut pour vérifier ces fonctions un langage neutre, il c'est donc tourné vers Matlab qui propose un affichage natif. Les fonctions étant finies il est retourné dans le cadre du projet. D'autres problèmes sont donc apparut du au changement de langage mais aussi à la différence inhérentes à la boucle du jeu.
-
-\subsection{Du point de vue de la fenêtre}
-
-Alors que Wissame se focalisait sur les mouvements du joueur, Simon avait décidé d'envisager ce dernier en tant qu'élément interagissant avec la fenêtre du programme. Après avoir implémenté un système de scrolling en s'inspirant du tutoriel cité précédemment, il a décidé d'empêcher le carré – censé représenter le joueur – de sortir de la fenêtre.
-
-Plus tard, lors de l'ajout de nouvelles fonctionnalités au programme, cette contrainte a servi de piste de réflexion pour la détection des collisions entre le joueur et les obstacles du monde, ainsi que pour la gestion de la mort, puisque le joueur pouvait se retrouver pris en étau entre le scrolling et un obstacle.
-
-\subsection{Experimentation sur les textures}
-
-Vincent avait quant à lui décidé de travailler sur le rendu des textures afin que le jeu puisse afficher d'autres éléments que des carrés monochrome. Cependant il a rencontré des difficultés qui ne seront résolues que bien plus tard.
-
-\section{Un projet de groupe}
-
-Nous nous retrouvons rapidement à la deuxième semaine du projet, Simon et Wissame ayant bien avancé ils ont commencé à vouloir mettre en commun leur travail. À partir de ce moment le projet est devenu un projet de groupe et la repartition des tâches à commencé à être mutualisée. 
+Sans avoir à rappeler le sujet, nous avons choisit de modéliser un monde 2D avec une vue lateral, les mouvements de caméra au n'était pas clairement définie au début du projet.
 \ml
-Les membres du group se sont rapidement mis en d'accord sur les méthodes de travail à mettre en place.
+Quant au gameplay, on voulais un jeu simple à jouer avec une idée de emprunter au jeu de runner ou seul le saut est possible.
 
-\subsection{Une organisation}
+\input{introduction.tex}
 
-Chacun des membres du groupe ayant des affinitées particulières sur les différents aspect du jeu, la repartition des tâches c'est fais naturellement.
-\ml
-Les tâches ont était hiérarchisé, pour permettre à chacun de connaître l'état d'avancement et gardé un projet cohérent.
+\section{Présentation globale}
+\input{presentation_globale.tex}
 
-\subsection{Les méthodes de travail}
 
-\subsubsection{Git}
+\section{Une organisation sans faille}
 
-La gestion d'un groupe de travail demandant une organisation rigoureuse le choix de git à était évidente. 
+\monimage{gantt.png}{diagram de gantt}{dg}{1}
 
-De plus leur choix à était motivé par les différents environnement de travail de chacun, git permettant facilement grace a gitignore de garder hors du repository les fichiers de configuration :
+On a toujours durant le projet avancer par étapes nécessaire pour ne pas se perdre.
 
-\begin{itemize}
-\item Intellij / MacOS (Wissame)
-\item Eclipse / Windows (Simon)
-\item Eclipse / MacOS (Vincent)
-\end{itemize}
+\input{diagram_gantt_explication.tex}
 
-Malheureusement, nous n'avons pas fais de branche et nous avons commencer le travail dans le master. ce qui n'a pas était sans poser de problèmes.
+\subsection{Description des taches}
 
-\subsubsection{Skype}
+\input{description_des_taches.tex}
 
-Les membres du groupe n'ayant pas la possiblité de ce voir pour travailler en dehors des heures de cours, il leur a fallut utiliser Skype pour travailler en commun sur les parties qui étaient trop importante pour pouvoir être délégué à un seul des membres. Ces parties concerne principalement l'architecture globale du projet, de l'agencement des classes en passant par les boucles interne du programme.
+\section{Quelques défis techniques}
+\input{quelques_defis_techniques.tex}
 
-Ces conférences skype leur ont permis de ce concerté sur la direction à suivre et les futures problèmes auquelles ils allaient être confrontés. 
+\subsection{Gestion des collisions}
+\input{gestion_des_collisions.tex}
 
-\subsection{Vers une architecture commune}
+\subsection{Le lambda calcul, multithreadé}
+\input{lambda_calcul.tex}
 
-Leurs idées divergeaient souvent et le code à était remaniée a plusieurs reprise, souvent de lourdes modification on était apporté pour rendre le code plus propre mais aussi plus réutilisable.
-
-Ces idées divergeante on nécessitez des compromis qui ont fais apparaître des nouveaux problèmes, mais cela a permis d'améliorer le code.
-
-\section{Une enchainement de défis techniques}
-
-Le développement d'un jeu aussi basique soit-il demande des connaissances transversalles. Ils leur à fallut  apprendre de nouvelles chose. Et de temlps en temps il leur a fallut aborder les problèmes sous un  nouvel angle.
-
-Les points ci-après sont présenté suivant l'ordre de résultion.
-
-\subsection{La gestion de collision}
-\input{gestion_collision.tex}
-\subsection{Le rendue de texture}
-\input{rendue_texture.tex}
-\subsection{Lecture d'un JSON}
-\input{lecture_json.tex}
-\subsection{Lambda Calcul et Multithreading}
-\input{lambda_calcul_multithreading.tex}
+\newpage
+\listoffigures
+\newpage
 
 \end{document}

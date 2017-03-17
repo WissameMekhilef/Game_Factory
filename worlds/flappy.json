@@ -11,8 +11,7 @@
       {"sizeX": 100, "sizeY": 20, "x": 0, "y": 30, "texture": "brique"},
       {"sizeX": 100, "sizeY": 20, "x": 200, "y": 60, "texture": "brique"},
       {"sizeX": 100, "sizeY": 20, "x": 400, "y": 90, "texture": "brique"},
-      {"sizeX": 100, "sizeY": 20, "x": 600, "y": 120, "texture": "brique"},
-
+      {"sizeX": 100, "sizeY": 20, "x": 600, "y": 120, "texture": "brique"}
     ],
     "gamma": 20.81,
     "g": 10.0,
