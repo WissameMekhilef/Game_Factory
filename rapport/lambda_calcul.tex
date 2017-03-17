@@ -5,5 +5,32 @@ la réalisation.
 \ml
 La classe Runnable est une classe qui existe depuis des années dans le langage JAVA mais depuis JAVA 1.8 il est possible de définir un Runnable à partir d'une lambda expression. 
 \ml
-Un Runnable peut donc être définie par une lambda expression, cependant cette expression ne peut prendre aucune entrée et ne renvoie rien en sortie. Elle est donc adaptée si c'est une suite de fonction 
-qui peut être exécutés indépendamment des autres. Rapidement il a fallut trouver d'autres types d'objet pour faire définir un objet q
+Un Runnable peut donc être définie par une lambda expression, cependant cette expression ne peut prendre aucune entrée et ne renvoie rien en sortie. 
+
+\subsubsection{Le lambda calcule en JAVA}
+
+Depuis l'API JAVA 1.8, il est possible en JAVA de faire du lambda calcul, pour cela on dois passer des objets spécifique. Dans ce projet nous avons eu besoin des objets Runnable, Callable et Consumer.
+
+\begin{description}
+\item[Runnable] Définie par un lambda calcul qui n'accepte aucun paramètre et qui ne renvoie rien.
+\item[Callable] Définie par un lambda calcul qui prend renvoie quelque chose.
+\item[Consumer] Définie par un lambda calcul qui prend quelque chose entrée mais qui ne renvoie rien
+\end{description}
+
+Il existe bien évidement d'autre type d'objet pour être définie par des lambda expressions plus complexe.
+
+Nous avons par exemple utilisé les Runnable pour définir l'execution de l'action adéquat en cas de collision avec un objet. Mais aussi pour gérer de manière plus correcte la victoire et la mort du joueur.
+\ml
+Les Consumer ont servie pour le parcours de liste, avec la méthode foreach d'un objet Collection il est en effet possible d'effectuer une action sans avoir besoin d'un Iterator, en plus d'un gain de code, on limite le nombre d'erreur en supprimant les effets de bords.
+\ml
+Les Callable quant à eux ont était nécessaire pour la parallélisation des tâches.
+
+\subsubsection{ExecutorService et Future}
+
+Comme vue précédement les callables ont permis la parallélisation des tâches, associer à ExecutorService on peut en effet parallèliser simplement des tâches définie par des lambda expressions.
+\ml
+Il existe plusieurs manière d'utiliser un ExecutorService, dans ce projet je l'ai utiliser de deux manières avec un submit et avec un invokeAll.
+\ml
+La fonction submit d'un ExecutorService permet d'executer une action simple sur un autre thread, cette fonction renvoie un objet de type Future qui renseigne sur l'état d'avancement, on peut donc savoir quand est-ce qu'elle est finie, si on a besoin d'attendre avant de passer à la suite.
+\ml
+De plus, l'ExectureService permet d'executer une collection de Callable grace à la function invokeAll, cette function prend donc une collection de Callable et va l'executer sur le nombre maximale de thread sur lequel il à était définie. On a pas besoin de récupérer de future cette fonction est bloquante, on ne passe à la suite que si toute les Callable sont fini.
