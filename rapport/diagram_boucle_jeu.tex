@@ -10,4 +10,10 @@ De plus il nous ont permis de définir des règles pour passer d'un contexte a u
 
 \subsubsection{La boucle update}
 
+La vitesse du jeu dépend de la fréquence des « ticks ». Chaque tick est un marqueur temporel séparé de son prédécesseur par une très courte durée fixée – dans notre programme, deux ticks consécutifs sont séparés par un soixantième de seconde.
+\ml\ml
+La mise à jour des données du jeu s'effectue à chaque tick. Cela permet à notre programme de s'exécuter à une vitesse constante, et surtout indépendante de la puissance de la machine de l'utilisateur.
+
 \subsubsection{La boucle render}
+
+Contrairement à la mise à jour des données, l'actualisation de l'affichage n'a pas besoin d'être bridé : en effet, un nombre élevé de FPS (frames per second) permet d'obtenir un rendu à l'écran plus fluide.
