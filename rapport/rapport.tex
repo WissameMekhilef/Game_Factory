@@ -61,9 +61,9 @@
 
 \section{Introduction}
 
-Sans avoir à rappeler le sujet, nous avons choisit de modéliser un monde 2D avec une vue lateral, les mouvements de caméra au n'était pas clairement définie au début du projet.
+Sans avoir à rappeler le sujet, nous avons choisit de programmer un monde 2D avec une vue latérale, les mouvements de caméra au début n'étaient pas clairement définis.
 \ml
-Quant au gameplay, on voulais un jeu simple à jouer avec une idée de emprunter au jeu de runner ou seul le saut est possible.
+Quant au gameplay, on voulait un jeu simple à jouer avec une idée empruntée au jeu de runner où seul le saut est possible.
 
 \section{Présentation globale}
 \input{presentation_globale.tex}
@@ -89,6 +89,13 @@ On a toujours durant le projet avancer par étapes nécessaire pour ne pas se pe
 
 \subsection{Le lambda calcul, multithreadé}
 \input{lambda_calcul.tex}
+
+\section{Conclusion}
+Ce projet est maintenant fini et comme pour tout projet il y'a des objectifs qui ont été atteints et d'autres non.
+\ml
+Pour ce qui est des objectifs fixés, nous avons un jeu qui fonctionne. Le code est généralisé ce qui permettrait d'ajouter des nouveaux types d'objets facilement et de décrire l'interaction avec ces derniers. Les différents types de caméra sont eux aussi pleinement fonctionnels ce qui permet de proposer des gameplay différents. Les règles de la physique du monde sont elles aussi modifiables ce qui permet d'améliorer l'expérience de jeu. Pour finir le calcul parallèle permet de profiter des architectures multi-coeur. 
+\ml
+En ce qui concerne l'ajout de nouvelles fonctions, car il y'en aura toujours. On pourrait améliorer la gestion des collisions, car il y'a encore un bug avec deux obstacles contigues. On aurait pu jouer aussi sur le bruitage avec l'ajout de son lors d'une collision. On pourrait ajouter aussi de nouveaux types d'objets dans le monde tel que des monstres ou des pièces, tout le système de gestion étant déjà présent.
 
 \newpage
 \listoffigures

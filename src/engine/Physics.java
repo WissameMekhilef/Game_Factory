@@ -138,10 +138,10 @@ public class Physics {
 	public static boolean isStuck(PotentialCollision pc) {
 	    //On determine la position du player par rapport à l'obstacle
         //On dispose de 1 boolean par direction
-		boolean newAbove = isAbove(pc.getPlayer(), pc.getSolid()) < 0;
-		boolean newBelow = isBelow(pc.getPlayer(), pc.getSolid()) < 0;
-		boolean newRight = isOnTheRight(pc.getPlayer(), pc.getSolid()) < 0;
-		boolean newLeft  = isOnTheLeft(pc.getPlayer(), pc.getSolid()) < 0;
+        boolean newAbove = isAbove(pc.getPlayer(), pc.getSolid()) <= 0;
+        boolean newBelow = isBelow(pc.getPlayer(), pc.getSolid()) <= 0;
+        boolean newRight = isOnTheRight(pc.getPlayer(), pc.getSolid()) <= 0;
+        boolean newLeft = isOnTheLeft(pc.getPlayer(), pc.getSolid()) <= 0;
 
 		//Ce string permettra de determiner d'ou vient la collison
 		String collisionSide = "";

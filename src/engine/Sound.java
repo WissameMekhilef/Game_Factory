@@ -14,8 +14,8 @@ public class Sound {
      * Si la musique avait été mise en pause, elle reprend là où elle s'était coupée.
      */
     public static void play() {
-    	//backgroundSound.playAsMusic(1.0f, 1.0f, false);
-    	//backgroundSound.setPosition(backgroundPosition);
+        backgroundSound.playAsMusic(1.0f, 1.0f, false);
+        backgroundSound.setPosition(backgroundPosition);
     }
 
     /**
