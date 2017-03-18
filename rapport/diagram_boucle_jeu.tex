@@ -1,9 +1,9 @@
 % !TEX encoding = UTF-8 Unicode
 \subsubsection{Les contextes}
 
-Les contextes sont un concept que l'on a utilisé pour déterminer les états et un ainsi clairement séparé les moments dans le jeu pour ne faire les update et les rendue que des élements nécessaire.
+Le contexte est un concept que nous avons utilisé pour déterminer l'état dans lequel se trouve le jeu. Il détermine quelles données doivent être mises à jour et quels éléments du monde doivent être affichés.
 \ml
-De plus il nous ont permis de définir des règles pour passer d'un contexte a un autre.
+Les transitions d'un contexte à un autre sont décrites en figures \ref{CONT1} et \ref{CONT2}.
 
 \monimage{contexte_1.pdf}{schema 1}{CONT1}{10}
 \monimage{contexte_2.pdf}{schema 2}{CONT2}{11}
@@ -14,7 +14,7 @@ La vitesse du jeu dépend de la fréquence des « ticks ». Chaque tick est un m
 \ml\ml
 La mise à jour des données du jeu s'effectue à chaque tick. Cela permet à notre programme de s'exécuter à une vitesse constante, et surtout indépendante de la puissance de la machine de l'utilisateur.
 \ml\ml
-La \ref{DSSUPDATE} figure montre la séquence système.
+La figure \ref{DSSUPDATE} montre comment se déroule la mise à jour des données en cours de partie.
 
 \monimage{dss_update.eps}{Diagramme Séquence Système de la fonction Update}{DSSUPDATE}{12}
 
