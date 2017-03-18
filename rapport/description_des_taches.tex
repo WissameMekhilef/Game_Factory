@@ -1,6 +1,10 @@
+% !TEX encoding = UTF-8 Unicode
 
 \subsubsection{Recherche d'un framework}
-Nous avons choisi d'utiliser la librairie LWJGL \footnote{Lightweight Java Game Library en version 2.9.3} afin de gérer l'affichage graphique de notre jeu. Nous avons ensuite suivi le premier tiers du tutoriel « Jeu 2D avec LWJGL » sur la chaîne YouTube « Tuto Programmation (Marccspro) » afin de nous familiariser avec cette librairie.
+Nous avons choisi d'utiliser la librairie LWJGL \footnote{Lightweight Java Game Library en version 2.9.3} afin de gérer l'affichage graphique de notre jeu. Nous avons ensuite suivi le premier tiers du tutoriel "Jeu 2D avec LWJGL" sur la chaine YouTube "Tuto Programmation (Marccspro)" afin de nous familiariser avec cette librairie.
+
+\subsubsection{Création d'un déplacement respectant les lois de la physique}
+Cette partie a été réalisée par Wissame, dès que le joueur fut affiché à l'écran, il a voulu qu'il puisse se déplacer de manière naturelle. Pour cela, il a utilisé Matlab pour tester les fonctions de gravité avant de les implementer dans le jeu.
 
 \subsubsection{Gestion d'un mouvement de caméra simple et autonome}
 Dans l'optique de pouvoir évoluer dans un monde plus grand que la fenêtre du jeu, Simon a implémenté un scrolling horizontal à vitesse fixée.
@@ -20,6 +24,8 @@ Ce système nous a permis par la suite de créer des mondes variés et de s'affr
 
 \subsubsection{Ajout des textures, du son et des polices d'écriture}
 
-Après que Vincent a essayé pendant plusieurs semaines d'implémenter des textures afin que le jeu puisse rendre à l'écran d'autres éléments que des tuiles monochromes, Wissame a décidé d'utiliser la librairie Slick afin d'enrichir l'affichage du jeu.
+Après que Vincent a essayé pendant plusieurs semaines d'implémenter des textures afin que le jeu puisse rendre à l'écran d'autres éléments que des tuiles monochromes, Wissame a décidé d'utiliser la librairie Slick afin de résoudre ce problème bloquant, la librairie Slick a permis de récupérer des objets texture qui ont pu directement être utilisé dans la fonction de rendue.
 \ml
-En plus de lui permettre de résoudre rapidement le problème, Slick nous a permis par la suite d'ajouter un fond sonore à notre jeu, ainsi que des polices d'affichage nécessaires à la création d'un menu.
+En plus de lui permettre de résoudre rapidement le problème, Slick nous a permis par la suite d'ajouter un fond sonore à notre jeu, ainsi que de rendre du texte avec une police particuliere, de la même manière que pour les textures des objets Font et Sound sont disponible grâce à cette API.
+\ml
+Slick étant concue comme une extension de LWJGL l'ajout toutes ces fonctions n'a pas posé de problèmes.

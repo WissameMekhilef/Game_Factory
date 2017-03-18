@@ -1,6 +1,10 @@
 % !TEX encoding = UTF-8 Unicode
 
 Pour résoudre ce problème, Wissame et Simon ont implémenté des objets de type PotentialCollision.
-Ce sont des couples qui associe au joueur un obstacle du monde. À chaque update du jeu, chaque PotentialCollision est interrogé afin de savoir si le joueur est en contact avec un obstacle, et le cas échéant, sur quel bord de ce dernier la collision a lieu.
+Ce sont des couples qui associe au joueur un obstacle du monde. À chaque update du jeu, chaque PotentialCollision est interrogé afin de savoir si le joueur est en contact avec un obstacle, et le cas échéant, sur quel bord de ce dernier la collision a eu lieu.
 \ml
-Ainsi, dans le cas où le joueur est bloqué par un obstacle qui l'empêche d'avancer vers la  droite, il est inutile de vérifier sur s'il est en contact avec le bord gauche d'un autre obstacle.
+De plus cette séparation des traitements obstacle par obstacle permet des les traiter dans un ordre quelconque, en effet si un PotentialCollision détecte une collision sur un coté de l'obstacle le Player reçoit cette information donc toutes les autres PotentialCollision reçoivent l'information. 
+\ml
+Donc si un PotentialCollision détecte une collision sur le haut de l'obstacle alors le Player reçoit l'information comme quoi il est bloqué par le bas et comme le Player reste un objet unique qui n'est pas dupliqué, toutes les autres PotentialCollision prennent en compte cette information.
+\ml
+C'est grâce à cela que le calcul des collision a put être parallélisé, la variable isStuckRoutine contient l'appel à toute les calculs de collision. Nous expliquons dans la partie qui suit comment cela fonctionne.
