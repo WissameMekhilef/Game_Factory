@@ -1,0 +1,6 @@
+% !TEX encoding = UTF-8 Unicode
+
+Pour résoudre ce problème, Wissame et Simon ont implémenté des objets de type PotentialCollision.
+Ce sont des couples qui associe au joueur un obstacle du monde. À chaque update du jeu, chaque PotentialCollision est interrogé afin de savoir si le joueur est en contact avec un obstacle, et le cas échéant, sur quel bord de ce dernier la collision a lieu.
+\ml
+Ainsi, dans le cas où le joueur est bloqué par un obstacle qui l'empêche d'avancer vers la  droite, il est inutile de vérifier sur s'il est en contact avec le bord gauche d'un autre obstacle.
