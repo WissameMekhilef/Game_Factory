@@ -7,4 +7,4 @@ De plus cette séparation des traitements obstacle par obstacle permet des les t
 \ml
 Donc si un PotentialCollision détecte une collision sur le haut de l'obstacle alors le Player reçoit l'information comme quoi il est bloqué par le bas et comme le Player reste un objet unique qui n'est pas dupliqué, toutes les autres PotentialCollision prennent en compte cette information.
 \ml
-C'est grâce à cela que le calcul des collision a put être parallélisé, la variable isStuckRoutine contient l'appel à toute les calculs de collision. Nous expliquons dans la partie qui suit comment cela fonctionne.
+C'est grâce à cela que le calcul des collisions a pu être parallélisé, la variable isStuckRoutine contenant l'appel à tout les calculs de collision. Nous expliquons dans la partie qui suit grâce à quoi cela fonctionne.
